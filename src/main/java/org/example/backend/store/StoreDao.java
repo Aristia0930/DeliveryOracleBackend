@@ -28,4 +28,16 @@ public class StoreDao {
 
         return rs;
     }
+
+    //승인요청확인
+    public int approveR(int id){
+        String sql="select count(*) from StoreRegistration where owner_id=? and approval_status=1;";
+        try {
+            return jdbcTemplate.queryForObject(sql,Integer.class,id);
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

@@ -65,8 +65,25 @@ public class StoreController {
 
 
 
-        return "gkdl";
+        return "등록";
     }
+
+    //등록 승인 되었는지 확인 요청
+    @GetMapping("/menuRs")
+    public String approvR(@RequestParam("id") int id){
+
+        int rs=storeService.count(id);
+        if(rs>0){
+            return "true";
+        }
+        else {
+            return "false";
+        }
+
+
+
+    }
+
 
 
 
