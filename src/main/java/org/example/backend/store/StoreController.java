@@ -70,14 +70,14 @@ public class StoreController {
 
     //등록 승인 되었는지 확인 요청
     @GetMapping("/menuRs")
-    public String approvR(@RequestParam("id") int id){
+    public int approvR(@RequestParam("id") int id){
 
         int rs=storeService.count(id);
         if(rs>0){
-            return "true";
+            return rs;
         }
         else {
-            return "false";
+            return -1;
         }
 
 
