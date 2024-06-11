@@ -31,7 +31,7 @@ public class StoreDao {
 
     //승인요청확인
     public int approveR(int id){
-        String sql="select count(*) from StoreRegistration where owner_id=? and approval_status=1;";
+        String sql="select store_id from StoreRegistration where owner_id=? and approval_status=1;";
         try {
             return jdbcTemplate.queryForObject(sql,Integer.class,id);
         } catch (Exception e) {
