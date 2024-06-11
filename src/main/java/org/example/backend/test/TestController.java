@@ -12,22 +12,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class TestController {
 
-    @Autowired
-    TestService testService;
-
+//    @Autowired
+//    TestService testService;
 
 
     @GetMapping("/hello")
-    public List<User> test(){
-        testService.findAllUsers();
-        return testService.findAllUsers();
-    }
+    public String test(){
 
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return testService.findUserById(id);
+        return "hello";
     }
+//    @GetMapping("/hello")
+//    public List<User> test(){
+//        testService.findAllUsers();
+//        return testService.findAllUsers();
+//    }
+
+//    @GetMapping("/{id}")
+//    public User getUserById(@PathVariable Long id) {
+//        return testService.findUserById(id);
+//    }
 }
