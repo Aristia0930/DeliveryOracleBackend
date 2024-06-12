@@ -19,5 +19,10 @@ public class StoreService {
         return storeDao.approveR(id);
     }
 
+    //메뉴 등록 서비스
+    public int menuRs(StoreInformationVo storeInformationVo){
+        return storeDao.menuRs(storeInformationVo);
+    }
+
 
 }

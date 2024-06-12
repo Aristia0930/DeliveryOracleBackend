@@ -40,4 +40,21 @@ public class StoreDao {
             return -1;
         }
     }
+
+    //메뉴등록
+    public int menuRs(StoreInformationVo storeInformationVo){
+        String sql ="INSERT INTO StoreInformation (store_id, menu_name, menu_price,menu_image) " +
+                "VALUES (?,?,?,?)";
+        int rs=-1;
+        try {
+            return jdbcTemplate.update(sql,storeInformationVo.getStoreId(),storeInformationVo.getMenuName(),storeInformationVo.getMenuPrice(),storeInformationVo.getMenuImage());
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
 }
