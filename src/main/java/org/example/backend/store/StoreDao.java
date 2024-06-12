@@ -76,4 +76,35 @@ public class StoreDao {
         return menus;
     }
 
+    //메뉴수정
+    public int menuedit(StoreInformationVo storeInformationVo){
+        String sql = "UPDATE StoreInformation SET menu_price = ? , menu_image = ? WHERE store_id = ? AND menu_name = ?";
+
+        int rs=-1;
+        try {
+            return jdbcTemplate.update(sql,storeInformationVo.getMenuPrice(),storeInformationVo.getMenuImage(),storeInformationVo.getStoreId(),storeInformationVo.getMenuName());
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
+    public int menuedit2(StoreInformationVo storeInformationVo){
+        String sql = "UPDATE StoreInformation SET menu_price = ?  WHERE store_id = ? AND menu_name = ?";
+
+        int rs=-1;
+        try {
+            return jdbcTemplate.update(sql,storeInformationVo.getMenuPrice(),storeInformationVo.getStoreId(),storeInformationVo.getMenuName());
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
 }

@@ -18,6 +18,8 @@ public class StoreController {
     private StoreService storeService;
     private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
 
+//    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+
 
     //상점등록
     @PostMapping("/join")
@@ -132,5 +134,46 @@ public class StoreController {
 
 
     }
+
+    //메뉴 수정하기
+    @PostMapping("menuedit")
+    public int menuedit(@RequestParam("name") String name,
+                      @RequestParam("price") int price,
+                        @RequestParam(value = "img", required = false) MultipartFile img,
+                      @RequestParam("shopid") int storeIds) throws IOException {
+
+
+        //이미지 저장하기
+        String saveName=null;
+        if (img != null && !img.isEmpty()) {
+            File uploadDir= new File(URL);
+
+            if(!uploadDir.exists()) {
+                uploadDir.mkdir();
+                System.out.println("디렉토리 파일 생성");
+            }
+
+            //원본파일이름
+            String originalName= img.getOriginalFilename();
+            //파일 이름 UUID를 사용 하여 재정의
+            UUID uuid = UUID.randomUUID();
+            saveName=uuid.toString()+"_"+originalName;
+
+            //파일생성
+            File saveFile=new File(URL+saveName);
+            img.transferTo(saveFile);
+        }
+
+        StoreInformationVo StoreInformationVo = new StoreInformationVo();
+        StoreInformationVo.setStoreId(storeIds);
+        StoreInformationVo.setMenuName(name);
+        StoreInformationVo.setMenuPrice(price);
+        StoreInformationVo.setMenuImage(saveName);
+
+        return storeService.menuedit(StoreInformationVo);
+
+    }
+
+    //메뉴 삭제하기
 
 }
