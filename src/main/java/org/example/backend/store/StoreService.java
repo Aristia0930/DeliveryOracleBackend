@@ -31,5 +31,19 @@ public class StoreService {
         return storeDao.menuList(id);
     }
 
+    //메뉴 수정 서비스
+    public int menuedit(StoreInformationVo storeInformationVo){
+
+        if (storeInformationVo.getMenuImage()==null){
+            // 이미지가 null  일경우에는 원래값 그래도 사용
+            return storeDao.menuedit2(storeInformationVo);
+        }
+        else{
+            return storeDao.menuedit(storeInformationVo);
+        }
+
+    }
+
+
 
 }
