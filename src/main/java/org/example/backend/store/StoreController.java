@@ -84,6 +84,49 @@ public class StoreController {
 
     }
 
+    //메뉴 등록하기
+    @PostMapping("menuRs")
+    public int menuRs(@RequestParam("name") String name,
+                      @RequestParam("price") int price,
+                      @RequestParam("img") MultipartFile img,
+                      @RequestParam("shopid") int storeIds) throws IOException {
+
+
+        //이미지 저장하기
+        String saveName=null;
+        if (img != null && !img.isEmpty()) {
+            File uploadDir= new File(URL);
+
+            if(!uploadDir.exists()) {
+                uploadDir.mkdir();
+                System.out.println("디렉토리 파일 생성");
+            }
+
+            //원본파일이름
+            String originalName= img.getOriginalFilename();
+            //파일 이름 UUID를 사용 하여 재정의
+            UUID uuid = UUID.randomUUID();
+            saveName=uuid.toString()+"_"+originalName;
+
+            //파일생성
+            File saveFile=new File(URL+saveName);
+            img.transferTo(saveFile);
+        }
+
+        StoreInformationVo StoreInformationVo = new StoreInformationVo();
+        StoreInformationVo.setStoreId(storeIds);
+        StoreInformationVo.setMenuName(name);
+        StoreInformationVo.setMenuPrice(price);
+        StoreInformationVo.setMenuImage(saveName);
+
+        int rs=storeService.menuRs(StoreInformationVo);
+
+
+        return rs;
+
+    }
+
+
 
 
 
