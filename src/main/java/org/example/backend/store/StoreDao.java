@@ -1,8 +1,13 @@
 package org.example.backend.store;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class StoreDao {
@@ -55,6 +60,20 @@ public class StoreDao {
         }
 
 
+    }
+
+    //메뉴 목록 불러오기
+    public List<StoreInformationVo> menuList(int id){
+        String sql = "SELECT * FROM StoreInformation WHERE store_id = ?";
+        List<StoreInformationVo> menus=new ArrayList<StoreInformationVo>();
+        RowMapper<StoreInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreInformationVo.class);
+        try {
+            menus=jdbcTemplate.query(sql, rowMapper,id);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return menus;
     }
 
 }

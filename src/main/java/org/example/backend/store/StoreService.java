@@ -3,6 +3,8 @@ package org.example.backend.store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StoreService {
 
@@ -22,6 +24,11 @@ public class StoreService {
     //메뉴 등록 서비스
     public int menuRs(StoreInformationVo storeInformationVo){
         return storeDao.menuRs(storeInformationVo);
+    }
+
+    //메뉴 목록 조회 서비스
+    public List<StoreInformationVo> menuList(int id){
+        return storeDao.menuList(id);
     }
 
 

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.io.File;
@@ -15,7 +16,8 @@ import java.io.IOException;
 public class StoreController {
     @Autowired
     private StoreService storeService;
-    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\src\\imgs\\";
+    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
+
 
     //상점등록
     @PostMapping("/join")
@@ -119,15 +121,16 @@ public class StoreController {
         StoreInformationVo.setMenuPrice(price);
         StoreInformationVo.setMenuImage(saveName);
 
-        int rs=storeService.menuRs(StoreInformationVo);
-
-
-        return rs;
+        return storeService.menuRs(StoreInformationVo);
 
     }
 
+    //메뉴 목록 불러오기
+    @GetMapping("/menulist")
+    public List<StoreInformationVo> menuList(@RequestParam("shopid") int id){
+        return storeService.menuList(id);
 
 
-
+    }
 
 }
