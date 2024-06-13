@@ -2,6 +2,7 @@ package org.example.backend.store;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -42,6 +43,11 @@ public class StoreService {
             return storeDao.menuedit(storeInformationVo);
         }
 
+    }
+
+    //메뉴 삭제
+    public int menudel(int id, String name){
+           return storeDao.menudel(id,name);
     }
 
 

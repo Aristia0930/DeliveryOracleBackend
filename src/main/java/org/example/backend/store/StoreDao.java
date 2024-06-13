@@ -107,4 +107,21 @@ public class StoreDao {
 
     }
 
+    //메뉴삭제
+    public int menudel(int id, String name){
+        int rs=-1;
+        String sql="delete from StoreInformation where store_id=? AND menu_name=?";
+        try{
+            jdbcTemplate.update(sql,id,name);
+            rs=1;
+            return rs;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return rs;
+        }
+
+
+    }
+
 }
