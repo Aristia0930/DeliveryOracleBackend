@@ -175,5 +175,11 @@ public class StoreController {
     }
 
     //메뉴 삭제하기
+    @GetMapping("/menuedel")
+    public int menudel(@RequestParam("id") int id,@RequestParam("name") String name){
+       return storeService.menudel(id,name);
+
+
+    }
 
 }
