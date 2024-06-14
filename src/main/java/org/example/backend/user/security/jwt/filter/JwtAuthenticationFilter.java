@@ -56,6 +56,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+
+        System.out.println("로그인인가요?:");
         //request 객체를 이용해 파라미터를 꺼내올 수 있다.
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -66,11 +68,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //사용자 인증정보 객체 생성
         Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
 
+        System.out.println("로그인2");
+
         //사용자 인증 (로그인)
         authentication = authenticationManager.authenticate(authentication);
         //authenticate 메서드가 실행되면 UserDetailsService, PasswordEncoder, Bcrypt 설정이 각각 타게 된다.
 
         log.info("인증 여부 : " + authentication.isAuthenticated());
+        System.out.println("로그인3");
 
         //인증 실패(email (유저의 실제 id), password 불일치)
         if(!authentication.isAuthenticated()) {
