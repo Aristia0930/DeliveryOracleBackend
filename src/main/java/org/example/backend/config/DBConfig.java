@@ -20,8 +20,11 @@ public class DBConfig {
 //        return dataSource;
 //    }
 
+    /*
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+
+     */
 }
