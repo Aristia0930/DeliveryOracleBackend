@@ -43,16 +43,35 @@ public class SearchDao {
     }
 
 //메뉴 목록 불러오기
-public List<StoreInformationVo> menuList(int id){
-    String sql = "SELECT * FROM StoreInformation WHERE store_id = ?";
-    List<StoreInformationVo> menus=new ArrayList<StoreInformationVo>();
-    RowMapper<StoreInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreInformationVo.class);
-    try {
-        menus=jdbcTemplate.query(sql, rowMapper,id);
-    }catch (Exception e) {
-        // TODO: handle exception
-        e.printStackTrace();
+    public List<StoreInformationVo> menuList(int id){
+        String sql = "SELECT * FROM StoreInformation WHERE store_id = ?";
+        List<StoreInformationVo> menus=new ArrayList<StoreInformationVo>();
+        RowMapper<StoreInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreInformationVo.class);
+        try {
+            menus=jdbcTemplate.query(sql, rowMapper,id);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return menus;
     }
-    return menus;
-}
+
+    //주문하기
+    public int order(OrderVo orderVo){
+        String sql="INSERT INTO OrderInformation (customer_id, store_id, order_details,total_price) " +
+                "VALUES (?,?,?,?)";
+        int rs=-1;
+        try{
+            jdbcTemplate.update(sql,orderVo.getCustomerId(),orderVo.getStoreId(),orderVo.getOrderDetails(),orderVo.getTotalPrice());
+            rs=1;
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+
+        return rs;
+    }
+
 }

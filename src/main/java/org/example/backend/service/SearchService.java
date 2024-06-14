@@ -24,4 +24,9 @@ public class SearchService {
     public List<StoreInformationVo> menuList(int id){
         return searchDao.menuList(id);
     }
+
+    //주문하기
+    public int order(OrderVo orderVo){
+        return searchDao.order(orderVo);
+    }
 }
