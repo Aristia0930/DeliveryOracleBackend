@@ -36,7 +36,7 @@ public class SearchController {
     public int order(@RequestBody OrderVo orderVo) {
 
 
-        return 1;
+        return searchService.order(orderVo);
     }
 
 
