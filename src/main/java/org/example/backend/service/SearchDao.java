@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,19 @@ public class SearchDao {
     private JdbcTemplate jdbcTemplate;
     
     //음식점 조회 카테고리형식
-    public List<StoreRegistrationVo> storeList(String num){
-        String sql="select * from StoreRegistration where store_ca=? AND approval_status=1";
+//    SELECT *
+//    FROM StoreRegistration
+//    WHERE store_ca = ?
+//    AND approval_status = 1
+//    AND store_x BETWEEN ? - 0.05 AND ? + 0.05
+//    AND store_y BETWEEN ? - 0.05 AND ? + 0.05;
+    public List<StoreRegistrationVo> storeList(String num , BigDecimal x , BigDecimal y){
+        String sql="select * from StoreRegistration where store_ca=? AND approval_status=1 AND store_x BETWEEN ? - 0.05 AND ? + 0.05 AND store_y BETWEEN ? - 0.05 AND ? + 0.05";
 
         List<StoreRegistrationVo> stoes = new ArrayList<StoreRegistrationVo>();
         RowMapper<StoreRegistrationVo> rowMapper = BeanPropertyRowMapper.newInstance(StoreRegistrationVo.class);
         try{
-            stoes=jdbcTemplate.query(sql,rowMapper,num);
+            stoes=jdbcTemplate.query(sql,rowMapper,num,x,x,y,y);
 
 
         }catch (Exception e){
