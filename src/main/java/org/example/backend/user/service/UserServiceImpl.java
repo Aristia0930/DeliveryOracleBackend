@@ -44,12 +44,12 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.insert(user);
 
         //권한 등록
-        if(result > 0) {
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUserId(String.valueOf(user.getUser_id())); //String.valueOf를 쓰면 다양한 데이터 값을 문자열로 변환 할 수 있음.
-            userAuth.setAuth("ROLE_USER"); //기본 권한 : 사용자 권한(ROLE_USER)
-            result = userMapper.insertAuth(userAuth);
-        }
+//        if(result > 0) {
+//            UserAuth userAuth = new UserAuth();
+//            userAuth.setUserId(String.valueOf(user.getUser_id())); //String.valueOf를 쓰면 다양한 데이터 값을 문자열로 변환 할 수 있음.
+//            userAuth.setAuth("ROLE_USER"); //기본 권한 : 사용자 권한(ROLE_USER)
+//            result = userMapper.insertAuth(userAuth);
+//        }
         return result;
     }
 
