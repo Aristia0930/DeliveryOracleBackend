@@ -2,7 +2,7 @@ package org.example.backend.test;
 
 import lombok.Getter;
 import lombok.Setter;
-
+/*
 @Getter
 @Setter
 public class User {
@@ -11,3 +11,4 @@ public class User {
     private String email;
 
 }
+ */
