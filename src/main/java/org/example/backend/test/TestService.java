@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+/*
 @Service
 @RequiredArgsConstructor
 public class TestService {
@@ -21,7 +22,5 @@ public class TestService {
     public User findUserById(Long id) {
         return userMapper.findById(id);
     }
-
-
-
 }
+*/
