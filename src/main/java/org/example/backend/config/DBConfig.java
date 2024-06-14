@@ -10,15 +10,15 @@ import javax.sql.DataSource;
 @Configuration
 public class DBConfig {
 
-//    @Bean
-//    public DataSource dataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        dataSource.setUrl("jdbc:mysql://localhost:3306/delivery?useSSL=false&serverTimezone=UTC");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("4013");
-//        return dataSource;
-//    }
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/admin?useSSL=false&serverTimezone=UTC");
+        dataSource.setUsername("root");
+        dataSource.setPassword("1234");
+        return dataSource;
+    }
 
     /*
     @Bean
