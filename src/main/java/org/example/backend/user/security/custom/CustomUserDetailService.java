@@ -24,6 +24,7 @@ public class CustomUserDetailService implements UserDetailsService {
         log.info("login - loadUserByEmail : " + email);
 
         User user = userMapper.login(email); //mybatis로 DB 연결을 하고 있기 때문에 user의 id로 DTO에서 넘겨 받는 Users 객체를 조회한다.
+        System.out.println(user.getUser_id());
 
         if(user == null) {
             log.info("일치하는 ID가 없습니다!");
@@ -39,6 +40,8 @@ public class CustomUserDetailService implements UserDetailsService {
 
         log.info("customUser : ");
         log.info(customUser.toString());
+
+        System.out.println("CustomUserDetailService완료");
 
         return customUser;
     }

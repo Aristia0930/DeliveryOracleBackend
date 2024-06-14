@@ -59,7 +59,8 @@ public class SecurityConfig {
                                     authorizeRequests
                                             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() //정적자원의 경로 toStaticResources()를 가져와서 허용 해놓을 수도 있다.
                                             .requestMatchers("/**").permitAll()
-                                            .requestMatchers("/login").permitAll()
+//                                            .requestMatchers("/login").permitAll()
+
                                             //.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") //hasAnyRole 메서드로 유저와 어드민 권한을 지정, 여러 경로 지정시 hasAnyRole()를 사용
                                             .requestMatchers("/user/**").permitAll() //hasAnyRole 메서드로 유저와 어드민 권한을 지정, 여러 경로 지정시 hasAnyRole()를 사용
                                             .requestMatchers("/admin/**").hasRole("ADMIN") //하나의 경로만 지정할때는 hasRole로 할 수 있다.
@@ -84,6 +85,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        System.out.println("빈");
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
 
         return authenticationManager;

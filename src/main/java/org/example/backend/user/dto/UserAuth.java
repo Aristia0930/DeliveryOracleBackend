@@ -17,4 +17,10 @@ public class UserAuth {
         this.userId = userId;
         this.auth = auth;
     }
+
+    public UserAuth(int authNo,String userId, String auth) {
+        this.authNo=authNo;
+        this.userId = userId;
+        this.auth = auth;
+    }
 }

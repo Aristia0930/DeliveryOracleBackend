@@ -41,11 +41,14 @@
 
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
-        SELECT u.email
+        SELECT u.user_id,
+        u.email
         ,password
         ,name
         ,registration_date
         ,modification_date
+        ,auth_no
+        ,auth
         FROM userinformation u LEFT OUTER JOIN userinfo_auth auth
         ON u.email = auth.user_id
         WHERE u.email = #{email}
@@ -56,7 +59,7 @@
     <!-- 회원 권한 등록 -->
     <insert id="insertAuth">
         INSERT INTO userinfo_auth( user_id, auth )
-        VALUES ( #{user_id}, #{auth} )
+        VALUES ( #{userId}, #{auth} )
     </insert>
 
 <!--    &lt;!&ndash; 회원 수정 &ndash;&gt;-->
