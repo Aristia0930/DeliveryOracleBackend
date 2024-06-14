@@ -97,7 +97,6 @@ public class StoreController {
                       @RequestParam("img") MultipartFile img,
                       @RequestParam("shopid") int storeIds) throws IOException {
 
-
         //이미지 저장하기
         String saveName=null;
         if (img != null && !img.isEmpty()) {
@@ -133,17 +132,14 @@ public class StoreController {
     @GetMapping("/menulist")
     public List<StoreInformationVo> menuList(@RequestParam("shopid") int id){
         return storeService.menuList(id);
-
-
     }
 
     //메뉴 수정하기
     @PostMapping("menuedit")
     public int menuedit(@RequestParam("name") String name,
-                      @RequestParam("price") int price,
+                        @RequestParam("price") int price,
                         @RequestParam(value = "img", required = false) MultipartFile img,
-                      @RequestParam("shopid") int storeIds) throws IOException {
-
+                        @RequestParam("shopid") int storeIds) throws IOException {
 
         //이미지 저장하기
         String saveName=null;
@@ -173,15 +169,11 @@ public class StoreController {
         StoreInformationVo.setMenuImage(saveName);
 
         return storeService.menuedit(StoreInformationVo);
-
     }
 
     //메뉴 삭제하기
     @GetMapping("/menuedel")
     public int menudel(@RequestParam("id") int id,@RequestParam("name") String name){
-       return storeService.menudel(id,name);
-
-
+        return storeService.menudel(id,name);
     }
-
 }

@@ -12,9 +12,9 @@ public interface UserService {
     //로그인
     public void login(User user, HttpServletRequest request) throws Exception;
 
-//    //회원 수정
-//    public int update(User user) throws Exception;
+    //회원 수정
+    public int update(User user) throws Exception;
 
-//    //회원 삭제
-//    public int delete(String userId) throws Exception;
+    //회원 삭제
+    public int delete(String userId) throws Exception;
 }

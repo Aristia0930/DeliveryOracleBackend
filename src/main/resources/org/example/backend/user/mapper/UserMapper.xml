@@ -41,7 +41,8 @@
 
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
-        SELECT u.email
+        SELECT u.user_id
+        ,email
         ,password
         ,name
         ,registration_date
@@ -56,23 +57,23 @@
     <!-- 회원 권한 등록 -->
     <insert id="insertAuth">
         INSERT INTO userinfo_auth( user_id, auth )
-        VALUES ( #{user_id}, #{auth} )
+        VALUES ( #{userId}, #{auth} )
     </insert>
 
-<!--    &lt;!&ndash; 회원 수정 &ndash;&gt;-->
-<!--    <update id="update">-->
-<!--        UPDATE user-->
-<!--        SET user_id = #{userId}-->
-<!--        ,user_pw = #{userPw}-->
-<!--        ,name = #{name}-->
-<!--        ,email = #{email}-->
-<!--        WHERE user_id = #{userId}-->
-<!--    </update>-->
+    <!-- 회원 수정 -->
+    <update id="update">
+        UPDATE user
+        SET user_id = #{userId}
+        ,user_pw = #{userPw}
+        ,name = #{name}
+        ,email = #{email}
+        WHERE user_id = #{userId}
+    </update>
 
-<!--    &lt;!&ndash; 회원 삭제 &ndash;&gt;-->
-<!--    <delete id="delete">-->
-<!--        DELETE FROM user-->
-<!--        WHERE user_id = #{userId}-->
-<!--    </delete>-->
+    <!-- 회원 삭제 -->
+    <delete id="delete">
+        DELETE FROM user
+        WHERE user_id = #{userId}
+    </delete>
 
 </mapper>

@@ -44,12 +44,12 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.insert(user);
 
         //권한 등록
-//        if(result > 0) {
-//            UserAuth userAuth = new UserAuth();
-//            userAuth.setUserId(String.valueOf(user.getUser_id())); //String.valueOf를 쓰면 다양한 데이터 값을 문자열로 변환 할 수 있음.
-//            userAuth.setAuth("ROLE_USER"); //기본 권한 : 사용자 권한(ROLE_USER)
-//            result = userMapper.insertAuth(userAuth);
-//        }
+        if(result > 0) {
+            UserAuth userAuth = new UserAuth();
+            userAuth.setUserId(String.valueOf(user.getUser_id())); //String.valueOf를 쓰면 다양한 데이터 값을 문자열로 변환 할 수 있음.
+            userAuth.setAuth("ROLE_USER"); //기본 권한 : 사용자 권한(ROLE_USER)
+            result = userMapper.insertAuth(userAuth);
+        }
         return result;
     }
 
@@ -87,22 +87,22 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-//    //회원 정보 수정
-//    @Override
-//    public int update(User user) throws Exception {
-//        //비밀번호 암호화
-//        String userPw = user.getPassword();
-//        String encodedPw = passwordEncoder.encode(userPw);
-//        user.setPassword(encodedPw);
-//
-//        int result = userMapper.update(user);
-//
-//        return result;
-//    }
-//
-//    //회원 삭제 (회원 탈퇴)
-//    @Override
-//    public int delete(String userId) throws Exception {
-//        return userMapper.delete(userId);
-//    }
+    //회원 정보 수정
+    @Override
+    public int update(User user) throws Exception {
+        //비밀번호 암호화
+        String userPw = user.getPassword();
+        String encodedPw = passwordEncoder.encode(userPw);
+        user.setPassword(encodedPw);
+
+        int result = userMapper.update(user);
+
+        return result;
+    }
+
+    //회원 삭제 (회원 탈퇴)
+    @Override
+    public int delete(String userId) throws Exception {
+        return userMapper.delete(userId);
+    }
 }

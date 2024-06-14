@@ -76,22 +76,22 @@ public class UserController {
     */
 
     //user 권한을 가졌을때만 처리할 수 있도록 하기
-//    @Secured("ROLE_USER") // USER 권한 설정
-//    @PutMapping("")
-//    public ResponseEntity<?> update(@RequestBody User user) throws Exception {
-//        log.info("[PUT] - /users");
-//        int result = userService.insert(user);
-//
-//        if(result > 0) {
-//            log.info("회원 수정 성공! - SUCCESS");
-//            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-//        }
-//        else {
-//            log.info("회원 수정 실패! - FAIL");
-//            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
+    @Secured("ROLE_USER") // USER 권한 설정
+    @PutMapping("")
+    public ResponseEntity<?> update(@RequestBody User user) throws Exception {
+        log.info("[PUT] - /users");
+        int result = userService.insert(user);
+
+        if(result > 0) {
+            log.info("회원 수정 성공! - SUCCESS");
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+        else {
+            log.info("회원 수정 실패! - FAIL");
+            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 //    /* 회원 탈퇴
 //        @param userId
 //        @return
