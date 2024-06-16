@@ -1,5 +1,6 @@
 package org.example.backend.store;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,8 @@ import java.util.Objects;
 import java.io.File;
 import java.util.UUID;
 import java.io.IOException;
+
+@Slf4j
 @RestController
 @RequestMapping("/store")
 public class StoreController {
@@ -32,6 +35,8 @@ public class StoreController {
                                     @RequestParam("category") String category,
                                     @RequestParam("id") int id
     ) throws IOException {
+
+        log.info(":::: 업체등록 ::::");
 
         //이미지 저장하기
         String saveName=null;
@@ -77,6 +82,7 @@ public class StoreController {
     //등록 승인 되었는지 확인 요청
     @GetMapping("/menuRs")
     public int approvR(@RequestParam("id") int id){
+        log.info(":::: 업체 승인 확인 요청 ::::");
 
         int rs=storeService.count(id);
         if(rs>0){
@@ -96,7 +102,7 @@ public class StoreController {
                       @RequestParam("price") int price,
                       @RequestParam("img") MultipartFile img,
                       @RequestParam("shopid") int storeIds) throws IOException {
-
+        log.info(":::: 메뉴등록 ::::");
 
         //이미지 저장하기
         String saveName=null;
@@ -124,6 +130,7 @@ public class StoreController {
         StoreInformationVo.setMenuName(name);
         StoreInformationVo.setMenuPrice(price);
         StoreInformationVo.setMenuImage(saveName);
+        log.info(":::: 메뉴등록 성공 ::::");
 
         return storeService.menuRs(StoreInformationVo);
 
@@ -132,19 +139,23 @@ public class StoreController {
     //메뉴 목록 불러오기
     @GetMapping("/menulist")
     public List<StoreInformationVo> menuList(@RequestParam("shopid") int id){
+        log.info(":::: 메뉴불러오기 ::::");
         return storeService.menuList(id);
+        
 
 
     }
 
     //메뉴 수정하기
     @PostMapping("menuedit")
+    
     public int menuedit(@RequestParam("name") String name,
                       @RequestParam("price") int price,
                         @RequestParam(value = "img", required = false) MultipartFile img,
                       @RequestParam("shopid") int storeIds) throws IOException {
 
 
+        log.info(":::: 메뉴수정하기 ::::");
         //이미지 저장하기
         String saveName=null;
         if (img != null && !img.isEmpty()) {
@@ -179,6 +190,7 @@ public class StoreController {
     //메뉴 삭제하기
     @GetMapping("/menuedel")
     public int menudel(@RequestParam("id") int id,@RequestParam("name") String name){
+        log.info(":::: 메뉴삭제하기 ::::");
        return storeService.menudel(id,name);
 
 
