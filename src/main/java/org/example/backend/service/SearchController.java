@@ -26,7 +26,7 @@ public class SearchController {
 
     //메뉴정보 불러오기(음식점 상세페이지에서) 상점 아이디 받아올꺼임
     @GetMapping("/menuList")
-    public List<StoreInformationVo> menuList(@RequestParam("") int id){
+    public List<StoreInformationVo> menuList(@RequestParam("id") int id){
         return searchService.menuList(id);
     }
 
