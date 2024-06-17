@@ -39,6 +39,15 @@ public class SearchController {
         return searchService.order(orderVo);
     }
 
+    //이메일탐색 음식점 상세 정보 페이지
+    //웹소켓을 위해 음식점 주인의 이메일 을 탐색한다.
+    @GetMapping("/email_shop")
+    public String email(@RequestParam("id") int id){
+        searchService.email(id);
+
+        return  searchService.email(id);
+    }
+
 
 
 

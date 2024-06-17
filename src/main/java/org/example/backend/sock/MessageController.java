@@ -28,6 +28,7 @@ public class MessageController {
         String na=payload.get("from");
         Set<String> sessionIds=sessionRegistry.getSessionIds(na);
         System.out.println("현재 이름"+principal.getName());
+        System.out.println("상대방 이름"+na);
         ChatController.Messages m = new ChatController.Messages("false","false");
 
         if(sessionIds.isEmpty()){
@@ -37,7 +38,7 @@ public class MessageController {
         else{
             ChatController.Messages my = new ChatController.Messages("true","true");
             //나중에 열어야함
-//            messagingTemplate.convertAndSendToUser(na,"/topic/sendMessage", message);
+            messagingTemplate.convertAndSendToUser(na,"/topic/sendMessage", message);
             //나한테 보내는거
             messagingTemplate.convertAndSendToUser(principal.getName(),"/topic/sendMessage", my);
             System.out.println("보내기 완료");

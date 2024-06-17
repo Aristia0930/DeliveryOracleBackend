@@ -74,4 +74,21 @@ public class SearchDao {
         return rs;
     }
 
+    //이메일 탐색
+    public String email(int id){
+
+        String sql="select Email from userinformation where user_id=?";
+        String email=null;
+
+        try{
+            email= jdbcTemplate.queryForObject(sql,String.class,id);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return email;
+    }
+
 }
