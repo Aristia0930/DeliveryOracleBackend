@@ -58,11 +58,11 @@ public class SearchDao {
 
     //주문하기
     public int order(OrderVo orderVo){
-        String sql="INSERT INTO OrderInformation (customer_id, store_id, order_details,total_price) " +
-                "VALUES (?,?,?,?)";
+        String sql="INSERT INTO OrderInformation (customer_id, store_id, order_details,total_price,user_x,user_y) " +
+                "VALUES (?,?,?,?,?,?)";
         int rs=-1;
         try{
-            jdbcTemplate.update(sql,orderVo.getCustomerId(),orderVo.getStoreId(),orderVo.getOrderDetails(),orderVo.getTotalPrice());
+            jdbcTemplate.update(sql,orderVo.getCustomerId(),orderVo.getStoreId(),orderVo.getOrderDetails(),orderVo.getTotalPrice(),orderVo.getUser_x(),orderVo.getUser_y());
             rs=1;
 
         }catch (Exception e){
