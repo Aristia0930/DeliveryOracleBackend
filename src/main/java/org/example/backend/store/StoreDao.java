@@ -124,16 +124,17 @@ public class StoreDao {
 
 
     }
-
+    //1은 배달기사 배정중
+    //2는 배달중
+    //3은 거절
+    //4 완료
     //주문알람
     public List<OrderVo> order(int id){
 
-        //이때 상태가 2가 아닌걸 하는 이유는 
-        //2일경우는 주문완료
         System.out.println(id);
         String sql = "SELECT * FROM orderinformation " +
                 "WHERE store_id = ? " +
-                "AND order_approval_status NOT IN (2, 3) " +
+                "AND order_approval_status NOT IN (3,4) " +
                 "ORDER BY order_id DESC;";
         List<OrderVo> orders=new ArrayList<OrderVo>();
         RowMapper<OrderVo> rowMapper= BeanPropertyRowMapper.newInstance(OrderVo.class);
