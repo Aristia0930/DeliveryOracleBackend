@@ -21,7 +21,7 @@ public class StoreController {
     private StoreService storeService;
 //    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
 
-    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
 
 
     //상점등록
