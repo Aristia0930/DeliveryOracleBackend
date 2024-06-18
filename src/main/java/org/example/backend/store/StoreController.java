@@ -1,6 +1,7 @@
 package org.example.backend.store;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.backend.service.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,9 +20,9 @@ import java.io.IOException;
 public class StoreController {
     @Autowired
     private StoreService storeService;
-//    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
+    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
 
-    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+//    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
 
     //상점등록
@@ -195,5 +196,29 @@ public class StoreController {
 
 
     }
+
+    //주문 받기
+    //상점아이디를 받아온다
+    @PostMapping("/order")
+    public List<OrderVo> order(@RequestBody OrderVo orderVo){
+        log.info(":::: 주문알람 리스트 반환 ::::");
+        return storeService.order(orderVo.getStoreId());
+
+    }
+
+    //라이더 배정
+    @GetMapping("rider")
+    public int rider(@RequestParam("orderId") int id){
+        log.info(":::: 음식점에서 라이더 배정 ::::");
+        return storeService.rider(id);
+    }
+    //주문 거절
+    @GetMapping("refuse")
+    public int refuse(@RequestParam("orderId") int id){
+        log.info(":::: 음식점에서 라이더 배정 ::::");
+        return storeService.refuse(id);
+    }
+
+
 
 }
