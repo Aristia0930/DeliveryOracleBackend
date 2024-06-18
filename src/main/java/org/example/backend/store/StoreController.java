@@ -18,7 +18,8 @@ public class StoreController {
     private StoreService storeService;
 //    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
 
-    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+    //private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+    private static final String URL="E:\\h\\DeliveryOracle\\frontend\\public\\imgs";
 
 
     //상점등록
@@ -173,7 +174,6 @@ public class StoreController {
         StoreInformationVo.setMenuImage(saveName);
 
         return storeService.menuedit(StoreInformationVo);
-
     }
 
     //메뉴 삭제하기
