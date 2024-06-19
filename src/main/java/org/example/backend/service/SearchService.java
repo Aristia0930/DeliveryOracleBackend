@@ -34,4 +34,8 @@ public class SearchService {
     public  String email(int id){
         return  searchDao.email(id);
     }
+
+    public List<OrderVo> getUserOrders(int userId) {
+        return searchDao.getUserOrders(userId);
+    }
 }
