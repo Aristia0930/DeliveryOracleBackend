@@ -17,6 +17,7 @@ public class RiderVo {
     private double distanceToStore;
     private double distanceToUser;
     private int deliveryPrice;
+    private int deliverystatus;
     private BigDecimal user_x;
     private BigDecimal user_y;
     private BigDecimal store_x;

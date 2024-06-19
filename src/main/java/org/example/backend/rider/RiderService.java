@@ -2,6 +2,7 @@ package org.example.backend.rider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
@@ -22,7 +23,7 @@ public class RiderService {
         double myy = y.doubleValue();
         List<RiderVo> riderVos = new ArrayList<>();
 
-        riderVos = riderDao.orderlist();
+        riderVos = riderDao.orderlist(x,y);
         for (RiderVo i : riderVos) {
             double userx = i.getUser_x().doubleValue();
             double usery = i.getUser_y().doubleValue();
@@ -47,7 +48,63 @@ public class RiderService {
                             Math.sin(dLon2 / 2) * Math.sin(dLon2 / 2);
             double c2 = 2 * Math.atan2(Math.sqrt(a2), Math.sqrt(1 - a2));
             i.setDistanceToStore(Math.round((EARTH_RADIUS_KM * c2)* 1000.0)/1000.0);
+//
+//            //배달가격 계산
+            double dStore=i.getDistanceToStore();
+            double dUser=i.getDistanceToUser();
+            int price=0;
+            if(dStore+dUser<1.5){
+                price=3000;
+            }
+            else if ((dStore+dUser)<2){
+                price=3500;
+            }
+            else if((dStore+dUser)<3){
+                price=4000;
+            }
+            else{
+                price=4500;
+            }
+
+            i.setDeliveryPrice(price);
         }
         return riderVos;
     }
+
+    //배달 콜받기
+    public int call(RiderVo riderVo){
+        //라이더 db에 주문 내역 넣기
+        int callrs=riderDao.call(riderVo);
+        //주문 db 상태 수정 배달 2로 수정하기
+        int order= riderDao.order(riderVo);
+        if (callrs==1  && order==1)
+            return 1;
+        else
+            return -1;
+
+
+
+    }
+
+    //콜수락한거 목록조회
+    public List<RiderVo> orderCall(int id){
+
+        return riderDao.orderCall(id);
+
+
+    }
+
+    //주문완료
+    public int finish( RiderVo riderVo){
+
+        //라이더 db에 상태 1로 수정
+        int callrs=riderDao.finish(riderVo);
+        //주문 db 상태 수정 배달 완료 4로 수정하기
+        int order= riderDao.orderfinish(riderVo);
+        if (callrs==1  && order==1)
+            return 1;
+        else
+            return -1;
+    }
+
 }
