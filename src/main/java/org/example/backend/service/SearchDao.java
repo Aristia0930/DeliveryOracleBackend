@@ -26,7 +26,7 @@ public class SearchDao {
 //    AND store_x BETWEEN ? - 0.05 AND ? + 0.05
 //    AND store_y BETWEEN ? - 0.05 AND ? + 0.05;
     public List<StoreRegistrationVo> storeList(String num , BigDecimal x , BigDecimal y){
-        String sql="select * from StoreRegistration where store_ca=? AND approval_status=1 AND store_x BETWEEN ? - 0.05 AND ? + 0.05 AND store_y BETWEEN ? - 0.05 AND ? + 0.05";
+        String sql="select * from StoreRegistration where store_ca=? AND approval_status=1 AND store_x BETWEEN ? - 0.08 AND ? + 0.08 AND store_y BETWEEN ? - 0.08 AND ? + 0.08";
 
         List<StoreRegistrationVo> stoes = new ArrayList<StoreRegistrationVo>();
         RowMapper<StoreRegistrationVo> rowMapper = BeanPropertyRowMapper.newInstance(StoreRegistrationVo.class);
