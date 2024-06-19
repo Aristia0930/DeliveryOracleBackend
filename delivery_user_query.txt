@@ -139,3 +139,15 @@ CREATE TABLE OrderInformation (
 select * from orderinformation;
 select * from storeregistration;
 select * from storeinformation;
+
+-- < Store 파트 : 결제 내역 조회 기능 > => orderinformation 테이블의 담긴 store_id가 5인 결제 내역과 각종 세부 정보들을 추출하기 위한 쿼리 작성
+SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y,
+       u.Email AS email, u.Name AS name
+FROM OrderInformation o
+JOIN UserInformation u ON o.customer_id = u.user_id
+WHERE o.store_id = 5;
+
+-- < Store 파트 : 현재 매출 내역 기능 조회하기 >
+SELECT store_id, order_details, total_price, order_date, order_approval_status
+FROM OrderInformation
+WHERE store_id = 5 AND order_approval_status = 3;

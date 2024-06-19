@@ -3,7 +3,6 @@ package org.example.backend.store;
 import org.example.backend.service.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -57,7 +56,6 @@ public class StoreService {
     }
 
     //라이더배정
-
     public int rider(int id){
         return storeDao.rider(id);
     }
@@ -67,8 +65,13 @@ public class StoreService {
         return storeDao.refuse(id);
     }
 
+    //결제 내역 조회
+    public List<StoreOrderInformationVo> orderinfo(int store_id){
+        return storeDao.orderinfo(store_id);
+    }
 
-
-
-
+    //현재 매출 내역 조회
+    public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
+        return storeDao.orderSales_info(store_id, order_approval_status);
+    }
 }
