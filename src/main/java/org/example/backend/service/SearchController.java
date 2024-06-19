@@ -4,6 +4,8 @@ import lombok.Getter;
 import org.example.backend.store.StoreInformationVo;
 import org.example.backend.store.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -48,7 +50,13 @@ public class SearchController {
         return  searchService.email(id);
     }
 
-
+    // 사용자 주문 정보 가져오기
+    @GetMapping("/details")
+    public ResponseEntity<List<OrderVo>> getUserOrders(@RequestParam("userId") int userId) {
+        System.out.println(userId);
+        List<OrderVo> orders = searchService.getUserOrders(userId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 
 
 }
