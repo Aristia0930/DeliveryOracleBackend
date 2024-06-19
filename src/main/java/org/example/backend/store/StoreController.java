@@ -19,10 +19,10 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
     //private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
-//    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
-    private static final String URL="E:\\h\\DeliveryOracle\\frontend\\public\\imgs";
+//    private static final String URL="E:\\h\\DeliveryOracle\\frontend\\public\\imgs";
 
     //상점등록
     @PostMapping("/join")

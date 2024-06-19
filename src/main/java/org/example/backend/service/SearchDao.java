@@ -92,7 +92,7 @@ public class SearchDao {
     }
 
     public List<OrderVo> getUserOrders(int userId) {
-        String sql = "SELECT * FROM orderinformation WHERE customer_id = ? ORDER BY orderId DESC";
+        String sql = "SELECT * FROM orderinformation WHERE customer_id = ? ORDER BY order_id DESC";
         RowMapper<OrderVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderVo.class);
         return jdbcTemplate.query(sql, rowMapper, userId);
     }
