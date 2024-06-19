@@ -195,13 +195,13 @@ public class StoreController {
 
     }
     //라이더 배정
-    @GetMapping("rider")
+    @GetMapping("/rider")
     public int rider(@RequestParam("orderId") int id){
         log.info(":::: 음식점에서 라이더 배정 ::::");
         return storeService.rider(id);
     }
     //주문 거절
-    @GetMapping("refuse")
+    @GetMapping("/refuse")
     public int refuse(@RequestParam("orderId") int id){
         log.info(":::: 음식점에서 라이더 배정 ::::");
         return storeService.refuse(id);
