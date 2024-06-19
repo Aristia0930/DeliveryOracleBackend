@@ -159,8 +159,6 @@ public class StoreDao {
             e.printStackTrace();
             return -1;
         }
-
-
     }
 
     //주문거절
@@ -174,7 +172,40 @@ public class StoreDao {
             e.printStackTrace();
             return -1;
         }
-
-
     }
+    //결제 내역 불러오기
+    public List<StoreOrderInformationVo> orderinfo(int store_id){
+        String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y, " +
+                "u.Email AS email, u.Name AS name " +
+                "FROM OrderInformation o " +
+                "JOIN UserInformation u ON o.customer_id = u.user_id " +
+                "WHERE o.store_id = ? AND order_approval_status = 4";
+        List<StoreOrderInformationVo> order_info = new ArrayList<StoreOrderInformationVo>();
+        RowMapper<StoreOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreOrderInformationVo.class);
+        try {
+            order_info = jdbcTemplate.query(sql, rowMapper, store_id);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return order_info;
+    }
+
+    //현재 매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
+    public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
+        String sql = "SELECT store_id, order_details, total_price, order_date " +
+                "FROM OrderInformation " +
+                "WHERE store_id = ? AND order_approval_status = ?";
+
+        List<StoreOrderInformationVo> orderSales = new ArrayList<StoreOrderInformationVo>();
+        RowMapper<StoreOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreOrderInformationVo.class);
+        try {
+            orderSales = jdbcTemplate.query(sql, rowMapper, store_id, order_approval_status);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return orderSales;
+    }
+
 }
