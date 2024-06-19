@@ -91,4 +91,10 @@ public class SearchDao {
         return email;
     }
 
+    public List<OrderVo> getUserOrders(int userId) {
+        String sql = "SELECT * FROM orderinformation WHERE customer_id = ? ORDER BY orderId DESC";
+        RowMapper<OrderVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderVo.class);
+        return jdbcTemplate.query(sql, rowMapper, userId);
+    }
+
 }
