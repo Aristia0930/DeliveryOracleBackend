@@ -91,6 +91,7 @@ public class SearchDao {
         return email;
     }
 
+    //주문내역 정렬
     public List<OrderVo> getUserOrders(int userId) {
         String sql = "SELECT * FROM orderinformation WHERE customer_id = ? ORDER BY order_id DESC";
         RowMapper<OrderVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderVo.class);
