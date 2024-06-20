@@ -90,10 +90,23 @@ public class SearchDao {
         }
         return email;
     }
+    
+    //주문내역 조회
 
-    public List<OrderVo> getUserOrders(int userId) {
-        String sql = "SELECT * FROM orderinformation WHERE customer_id = ? ORDER BY order_id DESC";
-        RowMapper<OrderVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderVo.class);
+    public List<OrderListVo> getUserOrders(int userId) {
+        String sql = "SELECT oi.order_id,\n" +
+                "       oi.customer_id,\n" +
+                "       oi.store_id,\n" +
+                "       oi.order_details,\n" +
+                "       oi.total_price,\n" +
+                "       oi.order_date,\n" +
+                "       sr.store_name,\n" +
+                "       sr.store_image\n" +
+                "FROM OrderInformation oi\n" +
+                "INNER JOIN StoreRegistration sr ON oi.store_id = sr.store_id\n" +
+                "WHERE oi.customer_id = ? AND   oi.order_approval_status=4\n" +
+                "ORDER BY oi.order_id DESC;";
+        RowMapper<OrderListVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderListVo.class);
         return jdbcTemplate.query(sql, rowMapper, userId);
     }
 

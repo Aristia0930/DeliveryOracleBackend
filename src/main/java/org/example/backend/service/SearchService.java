@@ -35,7 +35,8 @@ public class SearchService {
         return  searchDao.email(id);
     }
 
-    public List<OrderVo> getUserOrders(int userId) {
+    //주문내역조회
+    public List<OrderListVo> getUserOrders(int userId) {
         return searchDao.getUserOrders(userId);
     }
 }

@@ -2,6 +2,7 @@ package org.example.backend.store;
 
 import org.example.backend.service.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -36,16 +37,20 @@ public class StoreDao {
     }
 
     //승인요청확인
-    public int approveR(int id){
-        String sql="select store_id from StoreRegistration where owner_id=? and approval_status=1;";
+    public int approveR(int id) {
+        String sql = "SELECT store_id FROM StoreRegistration WHERE owner_id = ? AND approval_status = 1;";
         try {
-            return jdbcTemplate.queryForObject(sql,Integer.class,id);
+            return jdbcTemplate.queryForObject(sql, Integer.class, id);
+        } catch (EmptyResultDataAccessException e) {
+            // 결과가 없을 때 처리
+            return -1;
         } catch (Exception e) {
-            // 예외 처리 로직 (예: 로깅)
+            // 다른 예외 처리 로직 (예: 로깅)
             e.printStackTrace();
             return -1;
         }
     }
+
 
     //메뉴등록
     public int menuRs(StoreInformationVo storeInformationVo){
