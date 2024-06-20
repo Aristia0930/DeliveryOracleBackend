@@ -174,7 +174,7 @@ public class StoreDao {
         }
     }
     //결제 내역 불러오기
-    public List<StoreOrderInformationVo> orderinfo(int store_id){
+    public List<StoreOrderInformationVo> orderReceipt(int store_id){
         String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y, " +
                 "u.Email AS email, u.Name AS name " +
                 "FROM OrderInformation o " +
@@ -191,7 +191,7 @@ public class StoreDao {
         return order_info;
     }
 
-    //현재 매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
+    //매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
     public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
         String sql = "SELECT store_id, order_details, total_price, order_date " +
                 "FROM OrderInformation " +

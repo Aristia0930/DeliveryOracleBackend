@@ -21,12 +21,12 @@ public class AdminService {
         int result = adminDao.adminApprovalupdate(owner_id);
     }
 
-    //결제 내역 조회
+    //주문 내역 조회
     public List<AdminOrderInformationVo> orderinfo(int store_id){
         return adminDao.orderinfo(store_id);
     }
 
-    //현재 매출 내역 조회
+    //매출 내역 조회
     public List<AdminOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
         return adminDao.orderSales_info(store_id, order_approval_status);
     }
