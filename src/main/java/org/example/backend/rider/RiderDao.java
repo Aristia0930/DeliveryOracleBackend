@@ -53,11 +53,11 @@ public class RiderDao {
 
     //콜받은거 라이더 db에 등록하기
     public int call( RiderVo riderVo){
-            String sql ="INSERT INTO RiderDelivery (order_id,store_id,store_name,store_owner_email,rider_id,distance_to_store,distance_to_user,delivery_price) " +
-                    "VALUES (?,?,?,?,?,?,?,?)";
+            String sql ="INSERT INTO RiderDelivery (order_id,store_id,store_name,store_owner_email,rider_id,distance_to_store,distance_to_user,delivery_price,store_x,store_y,user_x,user_y) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             int rs=-1;
             try {
-                 jdbcTemplate.update(sql,riderVo.getOrderId(),riderVo.getStoreId(),riderVo.getStoreName(),riderVo.getStoreOwnerEmail(),riderVo.getRiderId(),riderVo.getDistanceToStore(),riderVo.getDistanceToStore(),riderVo.getDeliveryPrice());
+                 jdbcTemplate.update(sql,riderVo.getOrderId(),riderVo.getStoreId(),riderVo.getStoreName(),riderVo.getStoreOwnerEmail(),riderVo.getRiderId(),riderVo.getDistanceToStore(),riderVo.getDistanceToStore(),riderVo.getDeliveryPrice(),riderVo.getStore_x(),riderVo.getStore_y(),riderVo.getUser_x(),riderVo.getUser_y());
                 rs=1;
 
             } catch (Exception e) {
