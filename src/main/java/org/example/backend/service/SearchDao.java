@@ -110,4 +110,23 @@ public class SearchDao {
         return jdbcTemplate.query(sql, rowMapper, userId);
     }
 
+    //검색창에서 조회하기
+    public List<StoreRegistrationVo> storeList2(BigDecimal x, BigDecimal y, String word) {
+        String sql = "select * from StoreRegistration where approval_status = 1 " +
+                "AND store_name LIKE CONCAT('%', ?, '%') " +
+                "AND store_x BETWEEN ? - 0.08 AND ? + 0.08 " +
+                "AND store_y BETWEEN ? - 0.08 AND ? + 0.08";
+
+        List<StoreRegistrationVo> stores = new ArrayList<>();
+        RowMapper<StoreRegistrationVo> rowMapper = BeanPropertyRowMapper.newInstance(StoreRegistrationVo.class);
+
+        try {
+            stores = jdbcTemplate.query(sql, rowMapper, word, x, x, y, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stores;
+    }
+
+
 }

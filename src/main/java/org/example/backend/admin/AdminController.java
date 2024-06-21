@@ -49,9 +49,9 @@ public class AdminController {
 
     //매출 내역 불러오기
     @GetMapping("/orderSales_info")
-    public List<AdminOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id, @RequestParam("order_approval_status") int order_approval_status){
-        log.info("현재 매출 내역 조회하기! " + store_id + ", order_approval_status (주문 승인 상태 값 조회) : " + order_approval_status);
-        return adminService.orderSales_info(store_id, order_approval_status);
+    public List<AdminOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id){
+        log.info("현재 매출 내역 조회하기! " + store_id );
+        return adminService.orderSales_info(store_id);
     }
 }
 //    실패한코드 이유? (당연하지 RequestMethod.POST 로 요청했으므로 Body로 받아와야 한다.)

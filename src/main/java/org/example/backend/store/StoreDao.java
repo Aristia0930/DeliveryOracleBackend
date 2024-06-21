@@ -197,15 +197,15 @@ public class StoreDao {
     }
 
     //매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
-    public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
+    public List<StoreOrderInformationVo> orderSales_info(int store_id){
         String sql = "SELECT store_id, order_details, total_price, order_date " +
                 "FROM OrderInformation " +
-                "WHERE store_id = ? AND order_approval_status = ?";
+                "WHERE store_id = ? AND order_approval_status = 4";
 
         List<StoreOrderInformationVo> orderSales = new ArrayList<StoreOrderInformationVo>();
         RowMapper<StoreOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreOrderInformationVo.class);
         try {
-            orderSales = jdbcTemplate.query(sql, rowMapper, store_id, order_approval_status);
+            orderSales = jdbcTemplate.query(sql, rowMapper);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

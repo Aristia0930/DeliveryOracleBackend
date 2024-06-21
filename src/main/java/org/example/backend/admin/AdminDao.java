@@ -55,15 +55,15 @@ public class AdminDao {
     }
 
     //현재 매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
-    public List<AdminOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
+    public List<AdminOrderInformationVo> orderSales_info(int store_id){
         String sql = "SELECT store_id, order_details, total_price, order_date " +
                 "FROM OrderInformation " +
-                "WHERE store_id = ? AND order_approval_status = ?";
+                "WHERE store_id = ? AND order_approval_status = 4";
 
         List<AdminOrderInformationVo> orderSales = new ArrayList<AdminOrderInformationVo>();
         RowMapper<AdminOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(AdminOrderInformationVo.class);
         try {
-            orderSales = jdbcTemplate.query(sql, rowMapper, store_id, order_approval_status);
+            orderSales = jdbcTemplate.query(sql, rowMapper, store_id);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

@@ -27,7 +27,7 @@ public class AdminService {
     }
 
     //매출 내역 조회
-    public List<AdminOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
-        return adminDao.orderSales_info(store_id, order_approval_status);
+    public List<AdminOrderInformationVo> orderSales_info(int store_id){
+        return adminDao.orderSales_info(store_id);
     }
 }

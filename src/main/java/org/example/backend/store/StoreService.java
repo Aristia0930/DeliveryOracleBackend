@@ -71,7 +71,7 @@ public class StoreService {
     }
 
     //매출 내역 조회
-    public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
-        return storeDao.orderSales_info(store_id, order_approval_status);
+    public List<StoreOrderInformationVo> orderSales_info(int store_id){
+        return storeDao.orderSales_info(store_id);
     }
 }
