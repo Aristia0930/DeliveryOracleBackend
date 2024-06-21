@@ -39,4 +39,9 @@ public class SearchService {
     public List<OrderListVo> getUserOrders(int userId) {
         return searchDao.getUserOrders(userId);
     }
+
+    //검색창에서 조회하기
+    public List<StoreRegistrationVo> storeList2(BigDecimal x ,BigDecimal y,String word){
+        return searchDao.storeList2(x,y,word);
+    }
 }

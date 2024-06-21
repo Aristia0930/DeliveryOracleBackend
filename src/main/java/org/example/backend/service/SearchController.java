@@ -58,5 +58,13 @@ public class SearchController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
+    //검색창에서 조회하기
+    @GetMapping("/searchList")
+    public List<StoreRegistrationVo> storeList2( @RequestParam("x") BigDecimal x ,@RequestParam("y") BigDecimal y,@RequestParam("searchTerm") String word) {
+        System.out.println("검색조회 실행됨");
+        return searchService.storeList2(x, y,word);
 
-}
+
+    }
+
+    }

@@ -217,8 +217,8 @@ public class StoreController {
 
     //매출 내역 불러오기
     @GetMapping("/orderSales_info")
-    public List<StoreOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id, @RequestParam("order_approval_status") int order_approval_status){
-        log.info("현재 매출 내역 조회하기! " + store_id + ", order_approval_status (주문 승인 상태 값 조회) : " + order_approval_status);
-        return storeService.orderSales_info(store_id, order_approval_status);
+    public List<StoreOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id){
+        log.info("현재 매출 내역 조회하기! " + store_id);
+        return storeService.orderSales_info(store_id);
     }
 }
