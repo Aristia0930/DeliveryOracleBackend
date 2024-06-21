@@ -65,7 +65,7 @@ public class StoreService {
         return storeDao.refuse(id);
     }
 
-    //주문 내역 조회
+    //업체 주문 내역 조회
     public List<StoreOrderInformationVo> orderReceipt(int store_id){
         return storeDao.orderReceipt(store_id);
     }
