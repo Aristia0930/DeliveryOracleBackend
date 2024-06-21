@@ -23,7 +23,8 @@ public class StoreController {
 
     //내꺼
 //    private static final String URL="E:\\h\\DeliveryOracle\\frontend\\public\\imgs";
-
+    //소니
+//    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
     //상점등록
     @PostMapping("/join")
     public String storeJoin(        @RequestParam("name") String name,
@@ -207,14 +208,14 @@ public class StoreController {
         return storeService.refuse(id);
     }
 
-    //결제 내역 불러오기
-    @GetMapping("/orderinfo")
-    public List<StoreOrderInformationVo> orderinfo(@RequestParam("store_id") int store_id){
+    //주문 내역 불러오기
+    @GetMapping("/orderReceipt")
+    public List<StoreOrderInformationVo> orderReceipt(@RequestParam("store_id") int store_id){
         log.info("결제 내역 조회!" + store_id);
-        return storeService.orderinfo(store_id);
+        return storeService.orderReceipt(store_id);
     }
 
-    //현재 매출 내역 불러오기
+    //매출 내역 불러오기
     @GetMapping("/orderSales_info")
     public List<StoreOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id, @RequestParam("order_approval_status") int order_approval_status){
         log.info("현재 매출 내역 조회하기! " + store_id + ", order_approval_status (주문 승인 상태 값 조회) : " + order_approval_status);
