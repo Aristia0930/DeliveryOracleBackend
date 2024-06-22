@@ -18,13 +18,13 @@ import java.io.IOException;
 public class StoreController {
     @Autowired
     private StoreService storeService;
-    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
+//    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
 //    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
 //    private static final String URL="E:\\h\\DeliveryOracle\\frontend\\public\\imgs";
     //소니
-//    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
+    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
     //상점등록
     @PostMapping("/join")
     public String storeJoin(        @RequestParam("name") String name,
@@ -208,7 +208,7 @@ public class StoreController {
         return storeService.refuse(id);
     }
 
-    //주문 내역 불러오기
+    //업체 주문 내역 불러오기
     @GetMapping("/orderReceipt")
     public List<StoreOrderInformationVo> orderReceipt(@RequestParam("store_id") int store_id){
         log.info("결제 내역 조회!" + store_id);

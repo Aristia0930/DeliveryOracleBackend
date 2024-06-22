@@ -40,18 +40,18 @@ public class AdminController {
 
     }
 
-    //주문 내역 불러오기
-    @GetMapping("/orderinfo")
-    public List<AdminOrderInformationVo> orderinfo(@RequestParam("store_id") int store_id){
-        log.info("결제 내역 조회!" + store_id);
-        return adminService.orderinfo(store_id);
+    //관리자 주문 내역 불러오기
+    @GetMapping("/OrderReceipt")
+    public List<AdminOrderInformationVo> orderReceipt(){
+        log.info("결제 내역 조회!");
+        return adminService.orderReceipt();
     }
 
     //매출 내역 불러오기
     @GetMapping("/orderSales_info")
-    public List<AdminOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id){
-        log.info("현재 매출 내역 조회하기! " + store_id );
-        return adminService.orderSales_info(store_id);
+    public List<AdminOrderInformationVo> orderSales_info(@RequestParam("order_approval_status") int order_approval_status){
+        log.info("현재 매출 내역 조회하기! " + ", order_approval_status (주문 승인 상태 값 조회) : " + order_approval_status);
+        return adminService.orderSales_info(order_approval_status);
     }
 }
 //    실패한코드 이유? (당연하지 RequestMethod.POST 로 요청했으므로 Body로 받아와야 한다.)
