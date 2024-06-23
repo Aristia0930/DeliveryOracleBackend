@@ -101,10 +101,11 @@ public class SearchDao {
                 "       oi.total_price,\n" +
                 "       oi.order_date,\n" +
                 "       sr.store_name,\n" +
-                "       sr.store_image\n" +
+                "       sr.store_image,\n" +
+                "       oi.order_approval_status\n"+
                 "FROM OrderInformation oi\n" +
                 "INNER JOIN StoreRegistration sr ON oi.store_id = sr.store_id\n" +
-                "WHERE oi.customer_id = ? AND   oi.order_approval_status=4\n" +
+                "WHERE oi.customer_id = ? \n" +
                 "ORDER BY oi.order_id DESC;";
         RowMapper<OrderListVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderListVo.class);
         return jdbcTemplate.query(sql, rowMapper, userId);

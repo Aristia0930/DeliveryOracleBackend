@@ -26,6 +26,8 @@ public class OrderListVo {
     private String storeName;
     //이미지
     private String storeImage;
+    //상태
+    private int orderApprovalStatus;
 
 
 
