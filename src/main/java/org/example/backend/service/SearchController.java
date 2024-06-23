@@ -45,26 +45,18 @@ public class SearchController {
     //웹소켓을 위해 음식점 주인의 이메일 을 탐색한다.
     @GetMapping("/email_shop")
     public String email(@RequestParam("id") int id){
-            searchService.email(id);
+        searchService.email(id);
 
-            return  searchService.email(id);
+        return  searchService.email(id);
     }
 
     // 사용자 주문 정보 가져오기
     @GetMapping("/details")
-    public ResponseEntity<List<OrderListVo>> getUserOrders(@RequestParam("userId") int userId) {
+    public ResponseEntity<List<OrderVo>> getUserOrders(@RequestParam("userId") int userId) {
         System.out.println(userId);
-        List<OrderListVo> orders = searchService.getUserOrders(userId);
+        List<OrderVo> orders = searchService.getUserOrders(userId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    //검색창에서 조회하기
-    @GetMapping("/searchList")
-    public List<StoreRegistrationVo> storeList2( @RequestParam("x") BigDecimal x ,@RequestParam("y") BigDecimal y,@RequestParam("searchTerm") String word) {
-        System.out.println("검색조회 실행됨");
-        return searchService.storeList2(x, y,word);
 
-
-    }
-
-    }
+}

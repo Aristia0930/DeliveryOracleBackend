@@ -19,5 +19,4 @@ public class OrderVo {
     private Timestamp orderDate;
     private BigDecimal user_x;
     private BigDecimal user_y;
-
 }

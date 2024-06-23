@@ -35,13 +35,7 @@ public class SearchService {
         return  searchDao.email(id);
     }
 
-    //주문내역조회
-    public List<OrderListVo> getUserOrders(int userId) {
+    public List<OrderVo> getUserOrders(int userId) {
         return searchDao.getUserOrders(userId);
-    }
-
-    //검색창에서 조회하기
-    public List<StoreRegistrationVo> storeList2(BigDecimal x ,BigDecimal y,String word){
-        return searchDao.storeList2(x,y,word);
     }
 }

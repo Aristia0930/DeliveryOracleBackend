@@ -30,6 +30,14 @@ public interface UserService {
 
     public void login_admin(User user, HttpServletRequest request) throws Exception;
 
+    // <라이더 : rider>
+
+    public User select_rider(int email) throws Exception;
+
+    public int insert_rider(User user) throws Exception;
+
+    public void login_rider(User user, HttpServletRequest request) throws Exception;
+
 
 //    //회원 수정
 //    public int update(User user) throws Exception;

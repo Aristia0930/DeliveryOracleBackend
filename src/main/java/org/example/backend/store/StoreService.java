@@ -65,13 +65,13 @@ public class StoreService {
         return storeDao.refuse(id);
     }
 
-    //업체 주문 내역 조회
-    public List<StoreOrderInformationVo> orderReceipt(int store_id){
-        return storeDao.orderReceipt(store_id);
+    //결제 내역 조회
+    public List<StoreOrderInformationVo> orderinfo(int store_id){
+        return storeDao.orderinfo(store_id);
     }
 
-    //매출 내역 조회
-    public List<StoreOrderInformationVo> orderSales_info(int store_id){
-        return storeDao.orderSales_info(store_id);
+    //현재 매출 내역 조회
+    public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
+        return storeDao.orderSales_info(store_id, order_approval_status);
     }
 }
