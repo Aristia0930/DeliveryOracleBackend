@@ -2,7 +2,6 @@ package org.example.backend.store;
 
 import org.example.backend.service.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -37,20 +36,16 @@ public class StoreDao {
     }
 
     //승인요청확인
-    public int approveR(int id) {
-        String sql = "SELECT store_id FROM StoreRegistration WHERE owner_id = ? AND approval_status = 1;";
+    public int approveR(int id){
+        String sql="select store_id from StoreRegistration where owner_id=? and approval_status=1;";
         try {
-            return jdbcTemplate.queryForObject(sql, Integer.class, id);
-        } catch (EmptyResultDataAccessException e) {
-            // 결과가 없을 때 처리
-            return -1;
+            return jdbcTemplate.queryForObject(sql,Integer.class,id);
         } catch (Exception e) {
-            // 다른 예외 처리 로직 (예: 로깅)
+            // 예외 처리 로직 (예: 로깅)
             e.printStackTrace();
             return -1;
         }
     }
-
 
     //메뉴등록
     public int menuRs(StoreInformationVo storeInformationVo){
@@ -179,7 +174,7 @@ public class StoreDao {
         }
     }
     //결제 내역 불러오기
-    public List<StoreOrderInformationVo> orderReceipt(int store_id){
+    public List<StoreOrderInformationVo> orderinfo(int store_id){
         String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y, " +
                 "u.Email AS email, u.Name AS name " +
                 "FROM OrderInformation o " +
@@ -196,16 +191,16 @@ public class StoreDao {
         return order_info;
     }
 
-    //매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
-    public List<StoreOrderInformationVo> orderSales_info(int store_id){
+    //현재 매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
+    public List<StoreOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
         String sql = "SELECT store_id, order_details, total_price, order_date " +
                 "FROM OrderInformation " +
-                "WHERE store_id = ? AND order_approval_status = 4";
+                "WHERE store_id = ? AND order_approval_status = ?";
 
         List<StoreOrderInformationVo> orderSales = new ArrayList<StoreOrderInformationVo>();
         RowMapper<StoreOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreOrderInformationVo.class);
         try {
-            orderSales = jdbcTemplate.query(sql, rowMapper);
+            orderSales = jdbcTemplate.query(sql, rowMapper, store_id, order_approval_status);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

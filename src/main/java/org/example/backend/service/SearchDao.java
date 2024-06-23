@@ -90,43 +90,11 @@ public class SearchDao {
         }
         return email;
     }
-    
-    //주문내역 조회
 
-    public List<OrderListVo> getUserOrders(int userId) {
-        String sql = "SELECT oi.order_id,\n" +
-                "       oi.customer_id,\n" +
-                "       oi.store_id,\n" +
-                "       oi.order_details,\n" +
-                "       oi.total_price,\n" +
-                "       oi.order_date,\n" +
-                "       sr.store_name,\n" +
-                "       sr.store_image\n" +
-                "FROM OrderInformation oi\n" +
-                "INNER JOIN StoreRegistration sr ON oi.store_id = sr.store_id\n" +
-                "WHERE oi.customer_id = ? AND   oi.order_approval_status=4\n" +
-                "ORDER BY oi.order_id DESC;";
-        RowMapper<OrderListVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderListVo.class);
+    public List<OrderVo> getUserOrders(int userId) {
+        String sql = "SELECT * FROM orderinformation WHERE customer_id = ? ORDER BY order_id DESC";
+        RowMapper<OrderVo> rowMapper = BeanPropertyRowMapper.newInstance(OrderVo.class);
         return jdbcTemplate.query(sql, rowMapper, userId);
     }
-
-    //검색창에서 조회하기
-    public List<StoreRegistrationVo> storeList2(BigDecimal x, BigDecimal y, String word) {
-        String sql = "select * from StoreRegistration where approval_status = 1 " +
-                "AND store_name LIKE CONCAT('%', ?, '%') " +
-                "AND store_x BETWEEN ? - 0.08 AND ? + 0.08 " +
-                "AND store_y BETWEEN ? - 0.08 AND ? + 0.08";
-
-        List<StoreRegistrationVo> stores = new ArrayList<>();
-        RowMapper<StoreRegistrationVo> rowMapper = BeanPropertyRowMapper.newInstance(StoreRegistrationVo.class);
-
-        try {
-            stores = jdbcTemplate.query(sql, rowMapper, word, x, x, y, y);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return stores;
-    }
-
 
 }

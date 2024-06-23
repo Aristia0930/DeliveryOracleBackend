@@ -36,17 +36,17 @@ public class AdminDao {
         }
     }
 
-    //관리자 결제 내역 불러오기
-    public List<AdminOrderInformationVo> orderReceipt(){
+    //주문 내역 불러오기
+    public List<AdminOrderInformationVo> orderinfo(int store_id){
         String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y, " +
                 "u.Email AS email, u.Name AS name " +
                 "FROM OrderInformation o " +
                 "JOIN UserInformation u ON o.customer_id = u.user_id " +
-                "WHERE order_approval_status = 4";
+                "WHERE o.store_id = ? AND order_approval_status = 4";
         List<AdminOrderInformationVo> order_info = new ArrayList<AdminOrderInformationVo>();
         RowMapper<AdminOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(AdminOrderInformationVo.class);
         try {
-            order_info = jdbcTemplate.query(sql, rowMapper);
+            order_info = jdbcTemplate.query(sql, rowMapper, store_id);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -54,16 +54,16 @@ public class AdminDao {
         return order_info;
     }
 
-    //현재 매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
-    public List<AdminOrderInformationVo> orderSales_info(int order_approval_status){
-        String sql = "SELECT order_details, total_price, order_date " +
+    //매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
+    public List<AdminOrderInformationVo> orderSales_info(int store_id, int order_approval_status){
+        String sql = "SELECT store_id, order_details, total_price, order_date " +
                 "FROM OrderInformation " +
-                "WHERE store_id = ? AND order_approval_status = 4";
+                "WHERE store_id = ? AND order_approval_status = ?";
 
         List<AdminOrderInformationVo> orderSales = new ArrayList<AdminOrderInformationVo>();
         RowMapper<AdminOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(AdminOrderInformationVo.class);
         try {
-            orderSales = jdbcTemplate.query(sql, rowMapper,order_approval_status);
+            orderSales = jdbcTemplate.query(sql, rowMapper, store_id, order_approval_status);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
