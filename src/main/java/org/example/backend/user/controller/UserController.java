@@ -54,7 +54,7 @@ public class UserController {
         @throws Exception
     */
     @PostMapping("")
-    public ResponseEntity<?> join_user(@RequestBody User user) throws Exception {
+    public ResponseEntity<?> user(@RequestBody User user) throws Exception {
         log.info("[POST] - /users");
         int result = userService.insert(user);
 
@@ -68,8 +68,7 @@ public class UserController {
         }
     }
 
-    // <업체 : store>
-
+    //업체 회원가입
     @PostMapping("/store")
     public ResponseEntity<?> join_store(@RequestBody User user) throws Exception {
         log.info("[POST] - /store");
@@ -101,7 +100,21 @@ public class UserController {
         }
     }
 
+    //라이더 회원가입
+    @PostMapping("/rider")
+    public ResponseEntity<?> join_rider(@RequestBody User user) throws Exception {
+        log.info("[POST] - /rider");
+        int result = userService.insert_rider(user);
 
+        if(result > 0) {
+            log.info("회원가입 성공! - SUCCESS");
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+        else {
+            log.info("회원가입 실패! - FAIL");
+            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        }
+    }
 
     /* 회원 정보 수정
         @param user

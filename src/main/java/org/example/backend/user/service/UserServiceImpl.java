@@ -185,6 +185,55 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+    // <라이더 : Rider>
+
+    @Override
+    public User select_rider(int email) throws Exception {
+        return userMapper.select(email);
+    }
+
+    @Override
+    public int insert_rider(User user) throws Exception {
+        //비번 암호화
+        String password = user.getPassword();
+        String encodedPw = passwordEncoder.encode(password);
+        user.setPassword(encodedPw);
+
+        //업체 (회원) 등록
+        int result = userMapper.insert(user);
+
+        //권한 등록
+        if(result > 0) {
+            UserAuth userAuth = new UserAuth();
+            userAuth.setUserId(String.valueOf(user.getEmail())); //String.valueOf를 쓰면 다양한 데이터 값을 문자열로 변환 할 수 있음.
+            userAuth.setAuth("ROLE_RIDER"); //기본 권한 : 사용자 권한(ROLE_USER)
+            result = userMapper.insertAuth(userAuth);
+        }
+        return result;
+    }
+
+    @Override
+    public void login_rider(User user, HttpServletRequest request) throws Exception {
+        String email = user.getEmail();
+        String password = user.getPassword();
+        log.info("eamil (라이더 id) : " + email);
+        log.info("password : " + password);
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+
+        token.setDetails(new WebAuthenticationDetails(request));
+
+        Authentication authentication = authenticationManager.authenticate(token);
+
+        log.info("인증 여부 : " + authentication.isAuthenticated());
+
+        org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+        log.info("인증된 사용자 ID : " + authUser.getUsername());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+
 //    //회원 정보 수정
 //    @Override
 //    public int update(User user) throws Exception {
