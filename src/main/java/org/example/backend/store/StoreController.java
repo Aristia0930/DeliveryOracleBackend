@@ -22,12 +22,12 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
 //    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
-    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+//    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
 //    private static final String URL="E:\\h\\DeliveryOracle\\frontend\\public\\imgs";
     //소니
-//    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
+    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
     //상점등록
     @PostMapping("/join")
     public String storeJoin(        @RequestParam("name") String name,
@@ -225,7 +225,7 @@ public class StoreController {
         return storeService.orderReceipt(store_id);
     }
 
-    //매출 내역 불러오기
+    //매출 내역 그래프로 불러오기
     @GetMapping("/orderSales_info")
     public List<StoreOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id){
         log.info("현재 매출 내역 조회하기! " + store_id);
