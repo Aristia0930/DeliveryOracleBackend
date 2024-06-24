@@ -38,7 +38,7 @@ public class RiderDao {
                 "    StoreRegistration s ON o.store_id = s.store_id\n" +
                 "JOIN \n" +
                 "    UserInformation u ON s.owner_id = u.user_id\n" +
-                "WHERE  o.order_approval_status = 1 AND s.store_x BETWEEN ? - 0.1 AND ? + 0.1 AND s.store_y BETWEEN ? - 0.1 AND ? + 0.1;";
+                "WHERE  o.order_approval_status = 2 AND s.store_x BETWEEN ? - 0.1 AND ? + 0.1 AND s.store_y BETWEEN ? - 0.1 AND ? + 0.1;";
         List<RiderVo> riderVos=new ArrayList<RiderVo>();
         RowMapper<RiderVo> rowMapper= BeanPropertyRowMapper.newInstance(RiderVo.class);
         try {
@@ -72,7 +72,7 @@ public class RiderDao {
 
 
     public int order( RiderVo riderVo){
-        String sql ="UPDATE orderinformation SET order_approval_status = 2 WHERE order_id = ?";
+        String sql ="UPDATE orderinformation SET order_approval_status = 3 WHERE order_id = ?";
         int rs=-1;
         try {
             jdbcTemplate.update(sql,riderVo.getOrderId());

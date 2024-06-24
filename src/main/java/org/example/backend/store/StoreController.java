@@ -198,6 +198,13 @@ public class StoreController {
         return storeService.order(orderVo.getStoreId());
 
     }
+    //조리하기
+    @GetMapping("/cook")
+    public int cook(@RequestParam("orderId") int id){
+        log.info(":::: 음식점 조리 ::::");
+        return storeService.cook(id);
+    }
+
     //라이더 배정
     @GetMapping("/rider")
     public int rider(@RequestParam("orderId") int id){

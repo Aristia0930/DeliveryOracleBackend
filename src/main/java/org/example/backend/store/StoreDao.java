@@ -129,9 +129,10 @@ public class StoreDao {
 
 
     }
-    //1은 배달기사 배정중
-    //2는 배달중
-    //3은 거절
+    //1 조리중
+    //2은 배달기사 배정중
+    //3는 배달중
+    //5은 거절
     //4 완료
     //주문알람
     public List<OrderVo> order(int id){
@@ -139,7 +140,7 @@ public class StoreDao {
         System.out.println(id);
         String sql = "SELECT * FROM orderinformation " +
                 "WHERE store_id = ? " +
-                "AND order_approval_status NOT IN (3,4) " +
+                "AND order_approval_status NOT IN (4,5) " +
                 "ORDER BY order_id DESC;";
         List<OrderVo> orders=new ArrayList<OrderVo>();
         RowMapper<OrderVo> rowMapper= BeanPropertyRowMapper.newInstance(OrderVo.class);
@@ -151,11 +152,25 @@ public class StoreDao {
         }
 
         return orders;
+
+    }
+
+    //조리중
+    public int cook(int id){
+        String sql ="UPDATE orderinformation SET order_approval_status = 1 WHERE order_id = ?";
+        int rs=-1;
+        try {
+            return jdbcTemplate.update(sql,id);
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
     }
     //라이더 배정
     //라이더 배정은 1 부여 주문 거절은 3부여ㅓ
     public int rider(int id){
-        String sql ="UPDATE orderinformation SET order_approval_status = 1 WHERE order_id = ?";
+        String sql ="UPDATE orderinformation SET order_approval_status = 2 WHERE order_id = ?";
         int rs=-1;
         try {
             return jdbcTemplate.update(sql,id);
@@ -168,7 +183,7 @@ public class StoreDao {
 
     //주문거절
     public int refuse(int id){
-        String sql ="UPDATE orderinformation SET order_approval_status = 3 WHERE order_id = ?";
+        String sql ="UPDATE orderinformation SET order_approval_status = 5 WHERE order_id = ?";
         int rs=-1;
         try {
             return jdbcTemplate.update(sql,id);

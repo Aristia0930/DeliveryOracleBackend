@@ -57,6 +57,10 @@ public class StoreService {
     public List<OrderVo> order(int id){
         return storeDao.order(id);
     }
+    //조리중
+    public int cook(int id){
+        return storeDao.cook(id);
+    }
 
     //라이더배정
     public int rider(int id){
