@@ -213,4 +213,66 @@ public class StoreDao {
         return orderSales;
     }
 
+    //업체 정보 불러오기
+    public StoreRegistrationVo store_info(int id) {
+        String sql = "SELECT * FROM StoreRegistration WHERE owner_id = ? AND approval_status = 0;";
+
+            return jdbcTemplate.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<>(StoreRegistrationVo.class));
+
+    }
+
+    //이미지가 존재하는 업체 내용 수정
+    public int store_edit_img(StoreRegistrationVo storeRegistrationVo){
+        String sql = "UPDATE StoreRegistration SET store_name = ? , store_address = ? ,store_description = ? ,store_image=?,store_x=?,store_y=? WHERE owner_id = ? ";
+
+        int rs=-1;
+        try {
+            return jdbcTemplate.update(sql,storeRegistrationVo.getStore_name(),storeRegistrationVo.getStore_address(),storeRegistrationVo.getStore_description(),storeRegistrationVo.getStore_image(),storeRegistrationVo.getStore_x(),storeRegistrationVo.getStore_y(),storeRegistrationVo.getOwner_id());
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
+    public int store_edit(StoreRegistrationVo storeRegistrationVo){
+        String sql = "UPDATE StoreRegistration SET store_name = ? , store_address = ? ,store_description = ? ,store_x=?,store_y=? WHERE owner_id = ? ";
+
+        int rs=-1;
+        try {
+            return jdbcTemplate.update(sql,storeRegistrationVo.getStore_name(),storeRegistrationVo.getStore_address(),storeRegistrationVo.getStore_description(),storeRegistrationVo.getStore_x(),storeRegistrationVo.getStore_y(),storeRegistrationVo.getOwner_id());
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
+    //업체삭제
+    public int store_delete(int store_id){
+        String sql = "delete from StoreRegistration where store_id=?;";
+
+        int rs=-1;
+        try {
+            jdbcTemplate.update(sql,store_id);
+            return 1;
+
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
+
+
+
+
+
 }
