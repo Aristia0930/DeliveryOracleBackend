@@ -205,7 +205,7 @@ public class StoreDao {
         List<StoreOrderInformationVo> orderSales = new ArrayList<StoreOrderInformationVo>();
         RowMapper<StoreOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(StoreOrderInformationVo.class);
         try {
-            orderSales = jdbcTemplate.query(sql, rowMapper);
+            orderSales = jdbcTemplate.query(sql, rowMapper,store_id);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -215,7 +215,7 @@ public class StoreDao {
 
     //업체 정보 불러오기
     public StoreRegistrationVo store_info(int id) {
-        String sql = "SELECT * FROM StoreRegistration WHERE owner_id = ? AND approval_status = 0;";
+        String sql = "SELECT * FROM StoreRegistration WHERE owner_id = ?";
 
             return jdbcTemplate.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<>(StoreRegistrationVo.class));
 

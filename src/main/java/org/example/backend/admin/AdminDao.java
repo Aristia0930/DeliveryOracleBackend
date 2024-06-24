@@ -55,10 +55,10 @@ public class AdminDao {
     }
 
     //현재 매출 내역 조회 (현재 매출 내역을 확인할 표에서 수행될 기능)
-    public List<AdminOrderInformationVo> orderSales_info(int order_approval_status){
+    public List<AdminOrderInformationVo> ManagerRevenue(int order_approval_status){
         String sql = "SELECT order_details, total_price, order_date " +
                 "FROM OrderInformation " +
-                "WHERE store_id = ? AND order_approval_status = 4";
+                "WHERE order_approval_status = ?";
 
         List<AdminOrderInformationVo> orderSales = new ArrayList<AdminOrderInformationVo>();
         RowMapper<AdminOrderInformationVo> rowMapper= BeanPropertyRowMapper.newInstance(AdminOrderInformationVo.class);
