@@ -1,6 +1,7 @@
-package org.example.backend.service;
+package org.example.backend.service.search;
 
-import lombok.Getter;
+import org.example.backend.service.OrderListVo;
+import org.example.backend.service.OrderVo;
 import org.example.backend.store.StoreInformationVo;
 import org.example.backend.store.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,12 @@
-package org.example.backend.service;
+package org.example.backend.service.search;
 
+import org.example.backend.service.OrderListVo;
+import org.example.backend.service.OrderVo;
+import org.example.backend.service.search.SearchDao;
 import org.example.backend.store.StoreInformationVo;
 import org.example.backend.store.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.List;

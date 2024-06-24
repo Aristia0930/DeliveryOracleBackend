@@ -48,8 +48,8 @@ public class CommentsController {
      //댓글 등록
     @PostMapping("")
     public ResponseEntity<String> insert(@RequestBody CommentsVo commentsVo) throws Exception {
-        System.out.println(commentsVo.getAuthor_name());
-        System.out.println(commentsVo.getAuthor_id());
+//        System.out.println(commentsVo.getAuthor_name());
+//        System.out.println(commentsVo.getAuthor_id());
         // 데이터 요청
         int result = commentsService.insert(commentsVo);
         if(result > 0) {
