@@ -215,7 +215,7 @@ public class StoreDao {
 
     //업체 정보 불러오기
     public StoreRegistrationVo store_info(int id) {
-        String sql = "SELECT * FROM StoreRegistration WHERE owner_id = ? AND approval_status = 0;";
+        String sql = "SELECT * FROM StoreRegistration WHERE owner_id = ? ;";
 
             return jdbcTemplate.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<>(StoreRegistrationVo.class));
 
