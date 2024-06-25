@@ -46,9 +46,14 @@ public class SearchController {
     //웹소켓을 위해 음식점 주인의 이메일 을 탐색한다.
     @GetMapping("/email_shop")
     public String email(@RequestParam("id") int id){
-            searchService.email(id);
 
             return  searchService.email(id);
+    }
+    //이메일을 검색하여 현재 그 유저가 로그인 중인지 확인하는 절차
+    @GetMapping("/emailTrue")
+    public String emailTrue(@RequestParam("id") int id){
+        System.out.println(searchService.emailTrue(id));
+        return  searchService.emailTrue(id);
     }
 
     // 사용자 주문 정보 가져오기
