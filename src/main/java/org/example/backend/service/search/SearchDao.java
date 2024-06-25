@@ -92,7 +92,22 @@ public class SearchDao {
         }
         return email;
     }
-    
+
+    public String emailTrue(int id){
+
+        String sql="select Email from userinformation where user_id=?";
+        String email=null;
+
+        try{
+            email= jdbcTemplate.queryForObject(sql,String.class,id);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return email;
+    }
     //주문내역 조회
 
     public List<OrderListVo> getUserOrders(int userId) {
