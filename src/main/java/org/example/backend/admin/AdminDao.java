@@ -2,6 +2,8 @@ package org.example.backend.admin;
 
 import org.example.backend.admin.dto.AdminApproveVo;
 import org.example.backend.admin.dto.AdminOrderInformationVo;
+import org.example.backend.admin.dto.ReportsUserDetailVo;
+import org.example.backend.admin.dto.ReportsUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -71,19 +73,56 @@ public class AdminDao {
         return orderSales;
     }
 
-//    메뉴수정
-//    public int menuedit(StoreInformationVo storeInformationVo){
-//        String sql = "UPDATE StoreInformation SET menu_price = ? , menu_image = ? WHERE store_id = ? AND menu_name = ?";
-//
-//        int rs=-1;
-//        try {
-//            return jdbcTemplate.update(sql,storeInformationVo.getMenuPrice(),storeInformationVo.getMenuImage(),storeInformationVo.getStoreId(),storeInformationVo.getMenuName());
-//        } catch (Exception e) {
-//            // 예외 처리 로직 (예: 로깅)
-//            e.printStackTrace();
-//            return -1;
-//        }
-//
-//    }
+    //유저 신고 내역 조회
+
+
+    public List<ReportsUserVo> userReport(){
+        String sql = "SELECT \n" +
+                "    comment_author_id,\n" +
+                "    COUNT(*) AS count_of_comments\n" +
+                "FROM Reports\n" +
+                "GROUP BY comment_author_id\n" +
+                "HAVING COUNT(*) >= 2; ";
+
+        List<ReportsUserVo> userReports = new ArrayList<ReportsUserVo>();
+        RowMapper<ReportsUserVo> rowMapper= BeanPropertyRowMapper.newInstance(ReportsUserVo.class);
+        try {
+            userReports = jdbcTemplate.query(sql, rowMapper);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return userReports;
+    }
+
+    public List<ReportsUserDetailVo> userDetail(int authorId){
+        String sql = "SELECT \n" +
+                "    R.comment_id,\n" +
+                "    R.comment_author_id,\n" +
+                "    R.report_text,\n" +
+                "    R.reporter_id,\n" +
+                "    C.content,\n" +
+                "    UA.Email AS comment_author_email,\n" +
+                "    UR.Email AS reporter_email\n" +
+                "FROM Reports R\n" +
+                "JOIN UserInformation UA ON R.comment_author_id = UA.user_id\n" +
+                "JOIN UserInformation UR ON R.reporter_id = UR.user_id\n" +
+                "JOIN comments C ON R.comment_id = C.comment_id\n" +
+                "WHERE R.comment_author_id = ?;";
+
+        List<ReportsUserDetailVo> userDetails = new ArrayList<ReportsUserDetailVo>();
+        RowMapper<ReportsUserDetailVo> rowMapper= BeanPropertyRowMapper.newInstance(ReportsUserDetailVo.class);
+        try {
+            userDetails = jdbcTemplate.query(sql, rowMapper,authorId);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return userDetails;
+    }
+
+
+
+
 
 }

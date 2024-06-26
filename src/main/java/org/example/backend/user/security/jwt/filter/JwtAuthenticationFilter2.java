@@ -1,13 +1,13 @@
 package org.example.backend.user.security.jwt.filter;
 
-import org.example.backend.user.dto.CustomUser;
-import org.example.backend.user.security.jwt.constants.JwtConstants;
-import org.example.backend.user.security.jwt.provider.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.example.backend.user.dto.CustomUser;
+import org.example.backend.user.security.jwt.constants.JwtConstants;
+import org.example.backend.user.security.jwt.provider.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 // JwtAuthenticationFilter는 스프링 시큐리티와 연결을 위해 UsernamePasswordAuthenticationFilter를 상속받아서 구현 해야 한다.
 @Slf4j
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationFilter2 extends UsernamePasswordAuthenticationFilter {
 
     //해당 방식으로 필터에서 의존성 주입이 불가능 하다고 한다. 그래서 아래에 생성자를 만들어 사용하는 방법으로 처리한다.
     //@Autowired
@@ -44,12 +44,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final JwtTokenProvider jwtTokenProvider;
 
     // authenticationManager, jwtTokenProvider를 받아올 생성자
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    public JwtAuthenticationFilter2(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
 
         // 필터 URL 경로 설정 : /login
-        setFilterProcessesUrl(JwtConstants.AUTH_LOGIN_URL); // 실질적인 /login 경로를 정의
+        setFilterProcessesUrl(JwtConstants.AUTH_LOGIN_URL2); // 실질적인 /login 경로를 정의
     }
 
     /* attemptAuthentication : 인증을 시도하는 필터 메소드
@@ -110,13 +110,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // JWT 토큰 생성 요청
         String jwt = jwtTokenProvider.createToken(userNo, userId, roles);
         // 특정 권한을 체크
-//        boolean hasRequiredRole = roles.contains("ROLE_REQUIRED");
-//
-//        if (!hasRequiredRole) {
-//            log.info("인증 실패 : 권한이 없습니다!");
-//            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // FORBIDDEN (권한 없음)
-//            return;
-//        }
+        boolean hasRequiredRole = roles.contains("ROLE_REQUIRED");
+
+        if (!hasRequiredRole) {
+            log.info("인증 실패 : 권한이 없습니다!");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // FORBIDDEN (권한 없음)
+            return;
+        }
 
         // 응답 헤더 설정 : { Authorization : Bearer + {jwt} }
         response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);

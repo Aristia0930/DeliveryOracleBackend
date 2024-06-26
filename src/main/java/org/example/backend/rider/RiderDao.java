@@ -1,10 +1,8 @@
 package org.example.backend.rider;
 
 
-import org.example.backend.admin.AdminOrderInformationVo;
-import org.example.backend.service.OrderVo;
-import org.example.backend.store.StoreInformationVo;
-import org.example.backend.store.StoreOrderInformationVo;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

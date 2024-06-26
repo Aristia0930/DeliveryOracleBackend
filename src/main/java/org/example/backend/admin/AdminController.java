@@ -3,6 +3,8 @@ package org.example.backend.admin;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.admin.dto.AdminApproveVo;
 import org.example.backend.admin.dto.AdminOrderInformationVo;
+import org.example.backend.admin.dto.ReportsUserDetailVo;
+import org.example.backend.admin.dto.ReportsUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,11 +53,17 @@ public class AdminController {
         log.info("현재 매출 내역 조회하기! " + ", order_approval_status (주문 승인 상태 값 조회) : " + order_approval_status);
         return adminService.ManagerRevenue(order_approval_status);
     }
+
+    //업체쪽에서 유저 신고한 내용확인하기
+    @GetMapping("/Reports")
+    public List<ReportsUserVo> userReport(){
+        return adminService.userReport();
+    }
+
+    //유저 신고 내용 상세 조회
+    @GetMapping("ReportsDetail")
+    public List<ReportsUserDetailVo> userDetail(@RequestParam("aid") int authorId){
+        return adminService.userDetail(authorId);
+    }
 }
-//    실패한코드 이유? (당연하지 RequestMethod.POST 로 요청했으므로 Body로 받아와야 한다.)
-//    @RequestMapping(value = "/approve", method = RequestMethod.POST)
-//    public void setAdminApproval(@RequestParam("owner_id") int owner_id){
-//        System.out.println("[AdminController] setAdminApproval()");
-//
-//        adminService.setAdminApproval(owner_id);
-//    }
+
