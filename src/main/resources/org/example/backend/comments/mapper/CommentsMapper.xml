@@ -8,8 +8,13 @@
 
     <!-- 댓글 목록 -->
     <select id="list" resultType="org.example.backend.comments.dto.CommentsVo">
-        SELECT * FROM COMMENTS
-        WHERE store_id = #{store_id}
+        SELECT *
+        FROM Comments
+        WHERE store_id = #{store_id} AND visibility_status IN(1,2)
+        ORDER BY
+        COALESCE(reply_id, comment_id),
+        CASE WHEN reply_id IS NULL THEN comment_id ELSE reply_id END,
+        comment_id;
     </select>
 
     <!-- 댓글 조회 -->
@@ -22,9 +27,13 @@
 
     <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO COMMENTS( store_id, author_id, author_name, content, rating)
-        VALUES ( #{storeId}, #{authorId}, #{authorName}, #{content}, #{rating} )
+        INSERT INTO COMMENTS( store_id, author_id, author_name, content, rating,depth)
+        VALUES ( #{storeId}, #{authorId}, #{authorName}, #{content}, #{rating},1 )
     </insert>
+
+    <update id="orderup">
+        UPDATE orderinformation SET order_approval_status = 6 WHERE order_id = #{id}
+    </update>
 
     <!-- 댓글 수정 -->
     <update id="update">

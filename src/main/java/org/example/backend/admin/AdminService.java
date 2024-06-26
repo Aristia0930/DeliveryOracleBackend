@@ -1,6 +1,7 @@
 package org.example.backend.admin;
 
-import org.example.backend.store.StoreOrderInformationVo;
+import org.example.backend.admin.dto.AdminApproveVo;
+import org.example.backend.admin.dto.AdminOrderInformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -16,6 +16,9 @@ public interface CommentsMapper { //연결할 메퍼 인터페이스
     //댓글 등록
     public int insert(CommentsVo commentsVo) throws Exception;
 
+    //댓글등록할때 리뷰를 한번만 쓰게하기
+    public int orderup(int id) throws Exception;
+
     //댓글 수정
     public int update(CommentsVo commentsVo) throws Exception;
 
