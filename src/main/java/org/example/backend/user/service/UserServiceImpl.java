@@ -5,6 +5,7 @@ import org.example.backend.user.dto.User;
 import org.example.backend.user.dto.UserAuth;
 import org.example.backend.user.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.example.backend.user.mapper.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +24,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder; //스프링시큐리티에 비밀번호 암호화 기능을 가져와서 자동주입 시킨다.
 
     @Autowired
-    private UserMapper userMapper;
+    private UserRepository userMapper;
+    //private UserMapper userMapper;
 
     @Autowired
     private AuthenticationManager authenticationManager;

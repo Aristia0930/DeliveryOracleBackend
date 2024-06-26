@@ -2,8 +2,8 @@ package org.example.backend.service.search;
 
 import org.example.backend.service.OrderListVo;
 import org.example.backend.service.OrderVo;
-import org.example.backend.store.StoreInformationVo;
-import org.example.backend.store.StoreRegistrationVo;
+import org.example.backend.store.dto.StoreInformationVo;
+import org.example.backend.store.dto.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

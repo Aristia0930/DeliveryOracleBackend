@@ -1,13 +1,11 @@
 package org.example.backend.admin;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.backend.store.StoreOrderInformationVo;
+import org.example.backend.admin.dto.AdminApproveVo;
+import org.example.backend.admin.dto.AdminOrderInformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

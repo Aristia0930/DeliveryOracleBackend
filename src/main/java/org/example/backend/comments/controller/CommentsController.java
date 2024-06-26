@@ -47,15 +47,18 @@ public class CommentsController {
 
      //댓글 등록
     @PostMapping("")
-    public ResponseEntity<String> insert(@RequestBody CommentsVo commentsVo) throws Exception {
+    public ResponseEntity<String> insert(@RequestBody CommentsVo commentsVo ,@RequestParam("orderid") int id) throws Exception {
 //        System.out.println(commentsVo.getAuthor_name());
 //        System.out.println(commentsVo.getAuthor_id());
         // 데이터 요청
-        int result = commentsService.insert(commentsVo);
+        int result = commentsService.insert(commentsVo,id);
         if(result > 0) {
             //데이터 처리 성공
             return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED); //CREATED : 201번 상태코드가 들어있음
         }
         return new ResponseEntity<>("FAIL", HttpStatus.OK); //OK : 200번 상태코드가 들어있음
     }
+
+
+
 }

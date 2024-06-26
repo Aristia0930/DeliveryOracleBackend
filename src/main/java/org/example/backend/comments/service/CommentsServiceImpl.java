@@ -5,6 +5,7 @@ import org.example.backend.comments.dto.CommentsVo;
 import org.example.backend.comments.mapper.CommentsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,10 +33,15 @@ public class CommentsServiceImpl implements CommentsService {
         return commentsVo;
     }
     */
-
+    @Transactional
     @Override
-    public int insert(CommentsVo commentsVo) throws Exception {
+    public int insert(CommentsVo commentsVo,int id) throws Exception {
         int result = commentsMapper.insert(commentsVo);
+        int rs=commentsMapper.orderup(id);
+        // 강제로 예외 발생시키기
+//        if (true) {
+//            throw new RuntimeException("강제로 발생시킨 예외로 인해 트랜잭션 롤백됩니다.");
+//        }
         return result;
     }
     @Override

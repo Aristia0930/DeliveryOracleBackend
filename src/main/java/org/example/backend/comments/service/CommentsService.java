@@ -13,7 +13,7 @@ public interface CommentsService {
     //public CommentsVo select(int store_id) throws Exception;
 
     //댓글 등록
-    public int insert(CommentsVo commentsVo) throws Exception;
+    public int insert(CommentsVo commentsVo,int id) throws Exception;
 
     //댓글 수정
     public int update(CommentsVo commentsVo) throws Exception;
