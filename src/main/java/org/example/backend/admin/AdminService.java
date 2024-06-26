@@ -2,6 +2,8 @@ package org.example.backend.admin;
 
 import org.example.backend.admin.dto.AdminApproveVo;
 import org.example.backend.admin.dto.AdminOrderInformationVo;
+import org.example.backend.admin.dto.ReportsUserDetailVo;
+import org.example.backend.admin.dto.ReportsUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,14 @@ public class AdminService {
     //매출 내역 조회
     public List<AdminOrderInformationVo> ManagerRevenue(int order_approval_status){
         return adminDao.ManagerRevenue(order_approval_status);
+    }
+
+    //유저 신고내역 조회
+    public List<ReportsUserVo> userReport(){
+        return adminDao.userReport();
+    }
+
+    public List<ReportsUserDetailVo> userDetail(int authorId){
+        return adminDao.userDetail(authorId);
     }
 }

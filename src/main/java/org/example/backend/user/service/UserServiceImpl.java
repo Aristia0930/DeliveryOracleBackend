@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
     // 로그인
     @Override
     public void login(User user, HttpServletRequest request) throws Exception {
+        System.out.println("login 실행");
         String email = user.getEmail();
         String password = user.getPassword();
         log.info("eamil (user의 실제 id) : " + email);
