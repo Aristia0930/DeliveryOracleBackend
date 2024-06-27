@@ -336,4 +336,6 @@ public class StoreController {
         }
     }
 
+    //현재 블락되어있는지 아닌지 확인해한다.
+
 }

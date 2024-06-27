@@ -1,5 +1,6 @@
 package org.example.backend.service.search;
 
+import org.example.backend.comments.dto.CommentsVo;
 import org.example.backend.service.OrderListVo;
 import org.example.backend.service.OrderVo;
 import org.example.backend.sock.SessionRegistry;
@@ -7,6 +8,7 @@ import org.example.backend.store.dto.StoreInformationVo;
 import org.example.backend.store.dto.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -59,5 +61,10 @@ public class SearchService {
     //검색창에서 조회하기
     public List<StoreRegistrationVo> storeList2(BigDecimal x ,BigDecimal y,String word){
         return searchDao.storeList2(x,y,word);
+    }
+
+    //사용자 리뷰 목록 불러오기
+    public List<CommentsVo> review(int id){
+        return searchDao.review(id);
     }
 }

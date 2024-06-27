@@ -143,7 +143,7 @@ public class StoreDao {
     
     public List<StoreOrderInformationVo> order(int id){
 
-        String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y, " +
+        String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y,o.order_approval_status ," +
                 "u.Email AS email, u.Name AS name " +
                 "FROM OrderInformation o " +
                 "JOIN UserInformation u ON o.customer_id = u.user_id " +

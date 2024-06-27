@@ -33,10 +33,13 @@ public class CommentsServiceImpl implements CommentsService {
         return commentsVo;
     }
     */
+    //댓글 등록하기
     @Transactional
     @Override
     public int insert(CommentsVo commentsVo,int id) throws Exception {
+        //댓글 테이블에 사입
         int result = commentsMapper.insert(commentsVo);
+        //주문 테이블 상태 6으로 바꿈 
         int rs=commentsMapper.orderup(id);
         // 강제로 예외 발생시키기
 //        if (true) {

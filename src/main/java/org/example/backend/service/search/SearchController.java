@@ -1,5 +1,6 @@
 package org.example.backend.service.search;
 
+import org.example.backend.comments.dto.CommentsVo;
 import org.example.backend.service.OrderListVo;
 import org.example.backend.service.OrderVo;
 import org.example.backend.store.dto.StoreInformationVo;
@@ -72,5 +73,14 @@ public class SearchController {
 
 
     }
+
+    //사용자 리뷰 목록 불러오기
+    @GetMapping("review")
+    public List<CommentsVo> review(@RequestParam("id") int id){
+        return searchService.review(id);
+    }
+
+
+
 
     }

@@ -78,11 +78,21 @@ public class AdminDao {
 
     public List<ReportsUserVo> userReport(){
         String sql = "SELECT \n" +
-                "    comment_author_id,\n" +
+                "    r.comment_author_id,\n" +
+                "    u.Email,\n" +
                 "    COUNT(*) AS count_of_comments\n" +
-                "FROM Reports\n" +
-                "GROUP BY comment_author_id\n" +
-                "HAVING COUNT(*) >= 2; ";
+                "FROM \n" +
+                "    Reports r\n" +
+                "JOIN \n" +
+                "    UserInformation u ON r.comment_author_id = u.user_id\n" +
+                "JOIN \n" +
+                "    userinfo_auth ua ON u.Email = ua.user_id\n" +
+                "WHERE \n" +
+                "    ua.auth = 'ROLE_USER'\n" +
+                "GROUP BY \n" +
+                "    r.comment_author_id, u.Email\n" +
+                "HAVING \n" +
+                "    COUNT(*) >= 2;\n";
 
         List<ReportsUserVo> userReports = new ArrayList<ReportsUserVo>();
         RowMapper<ReportsUserVo> rowMapper= BeanPropertyRowMapper.newInstance(ReportsUserVo.class);
@@ -108,7 +118,8 @@ public class AdminDao {
                 "JOIN UserInformation UA ON R.comment_author_id = UA.user_id\n" +
                 "JOIN UserInformation UR ON R.reporter_id = UR.user_id\n" +
                 "JOIN comments C ON R.comment_id = C.comment_id\n" +
-                "WHERE R.comment_author_id = ?;";
+                "JOIN userinfo_auth UA_AUTH ON UA.Email = UA_AUTH.user_id\n" +
+                "WHERE R.comment_author_id = ?\n;";
 
         List<ReportsUserDetailVo> userDetails = new ArrayList<ReportsUserDetailVo>();
         RowMapper<ReportsUserDetailVo> rowMapper= BeanPropertyRowMapper.newInstance(ReportsUserDetailVo.class);
@@ -120,6 +131,25 @@ public class AdminDao {
         }
         return userDetails;
     }
+
+    //유저 블락하기
+    public int block(int id){
+
+        String sql = "UPDATE userinfo_auth ua\n" +
+                "JOIN UserInformation ui ON ua.user_id = ui.Email\n" +
+                "SET ua.auth = 'USER_BLOCK'\n" +
+                "WHERE ui.user_id = ?;";
+
+        try {
+            jdbcTemplate.update(sql,id);
+            return 1;
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
 
 
 

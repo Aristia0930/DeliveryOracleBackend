@@ -8,4 +8,5 @@ import lombok.Setter;
 public class ReportsUserVo {
     int commentAuthorId;
     int countOfComments;
+    String email;
 }

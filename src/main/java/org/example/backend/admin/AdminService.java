@@ -6,6 +6,7 @@ import org.example.backend.admin.dto.ReportsUserDetailVo;
 import org.example.backend.admin.dto.ReportsUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,4 +43,15 @@ public class AdminService {
     public List<ReportsUserDetailVo> userDetail(int authorId){
         return adminDao.userDetail(authorId);
     }
+
+    //유저 블락하가기
+    public int block(int id){
+        //받은 아이디로 이메일 검색 검색후 유저권한 변경해야한다.
+        //1 이면 블락 성공함
+        return adminDao.block(id);
+
+    }
+
 }
+
+
