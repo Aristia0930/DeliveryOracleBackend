@@ -10,6 +10,7 @@ import org.example.backend.store.except.StoreServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.Transient;
 import java.util.List;
@@ -126,8 +127,7 @@ public class StoreService {
     }
 
     //댓글신고하기
-
-    @Transient
+    @Transactional
     public int report(ReportsVo reportsVo){
         //댓글신고테이블에 기입
         int data1=storeDao.report(reportsVo);
