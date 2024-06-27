@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
 
     // 회원 조회
     @Override
-    public User select(int email) throws Exception {
-        return userMapper.select(email);
+    public User select(int user_id) throws Exception {
+        return userMapper.select(user_id);
     }
 
     // 회원 가입 (등록)
@@ -234,7 +234,6 @@ public class UserServiceImpl implements UserService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
-
 
 //    //회원 정보 수정
 //    @Override

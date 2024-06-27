@@ -1,6 +1,5 @@
 package org.example.backend.rider;
 
-import org.example.backend.admin.AdminOrderInformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +18,8 @@ public class RiderController {
 
         return riderService.orderlist(x,y);
 
-
     }
+
     //배달 콜 받기
     @PostMapping("/call")
     public int call(@RequestBody RiderVo riderVo){
@@ -34,7 +33,6 @@ public class RiderController {
     public List<RiderVo> orderCall(@RequestParam("id") int id){
 
         return riderService.orderCall(id);
-
 
     }
 
@@ -58,5 +56,4 @@ public class RiderController {
 //        log.info("현재 배달 내역 조회하기! " + ", order_approval_status (주문 승인 상태 값 조회) : " + deliveryStatus);
         return riderService.Revenue(riderId);
     }
-
 }
