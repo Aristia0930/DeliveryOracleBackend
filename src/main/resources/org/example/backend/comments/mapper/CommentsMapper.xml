@@ -5,7 +5,6 @@
 
 <mapper namespace="org.example.backend.comments.mapper.CommentsMapper">
 
-
     <!-- 댓글 목록 -->
     <select id="list" resultType="org.example.backend.comments.dto.CommentsVo">
         SELECT *
@@ -27,8 +26,14 @@
 
     <!-- 댓글 등록 -->
     <insert id="insert">
-        INSERT INTO COMMENTS( store_id, author_id, author_name, content, rating,depth)
-        VALUES ( #{storeId}, #{authorId}, #{authorName}, #{content}, #{rating},1 )
+        INSERT INTO COMMENTS( store_id, author_id, author_name, content, rating, depth)
+        VALUES ( #{storeId}, #{authorId}, #{authorName}, #{content}, #{rating}, 1 )
+    </insert>
+
+    <!-- 대댓글 등록 -->
+    <insert id="insert_reply">
+        INSERT INTO COMMENTS( store_id, author_id, author_name, content, reply_id, depth )
+        VALUES( #{storeId}, #{authorId}, #{authorName}, #{content}, #{replyId}, 2 )
     </insert>
 
     <update id="orderup">
