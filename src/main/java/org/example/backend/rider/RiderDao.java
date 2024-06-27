@@ -1,10 +1,5 @@
 package org.example.backend.rider;
 
-
-import org.example.backend.admin.AdminOrderInformationVo;
-import org.example.backend.service.OrderVo;
-import org.example.backend.store.StoreInformationVo;
-import org.example.backend.store.StoreOrderInformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +17,6 @@ public class RiderDao {
 
     //배달전체 목록 불러오기
     public List<RiderVo> orderlist(BigDecimal x, BigDecimal y){
-
 
         String sql = "SELECT \n" +
                 "    o.order_id,\n" +
@@ -120,8 +114,6 @@ public class RiderDao {
 
         return rs;
     }
-
-
 
     public int orderfinish( RiderVo riderVo){
         String sql ="UPDATE orderinformation SET order_approval_status = 4 WHERE order_id = ?";
