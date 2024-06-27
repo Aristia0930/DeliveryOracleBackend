@@ -295,13 +295,24 @@ public class StoreDao {
     //댓글 목록 불러오기
     public List<CommentsVo> commentList(int id){
 
-        String sql = "select comment_id,store_id,author_id,author_name,content,rating,visibility_status,depth \n" +
-                "FROM Comments\n" +
-                "        WHERE store_id = ? AND visibility_status IN (1,2)\n" +
+        String sql = "SELECT \n" +
+                "    comment_id,\n" +
+                "    store_id,\n" +
+                "    author_id,\n" +
+                "    author_name,\n" +
+                "    content,\n" +
+                "    rating,\n" +
+                "    visibility_status,\n" +
+                "    depth\n" +
+                "FROM \n" +
+                "    Comments\n" +
+                "WHERE \n" +
+                "    store_id = ? \n" +
+                "    AND visibility_status IN (1, 2)\n" +
                 "ORDER BY \n" +
-                "    depth,\n" +
+                "    COALESCE(reply_id, comment_id) DESC,\n" +
                 "    CASE WHEN depth = 1 THEN creation_date ELSE reply_id END DESC,\n" +
-                "    comment_id;";
+                "    comment_id DESC;\n";
         List<CommentsVo> commentLists = new ArrayList<CommentsVo>();
         RowMapper<CommentsVo> rowMapper= BeanPropertyRowMapper.newInstance(CommentsVo.class);
         try {
