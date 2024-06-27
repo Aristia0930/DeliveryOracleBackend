@@ -21,7 +21,6 @@ public class RiderDao {
     //배달전체 목록 불러오기
     public List<RiderVo> orderlist(BigDecimal x, BigDecimal y){
 
-
         String sql = "SELECT \n" +
                 "    o.order_id,\n" +
                 "    o.store_id,\n" +
@@ -118,8 +117,6 @@ public class RiderDao {
 
         return rs;
     }
-
-
 
     public int orderfinish( RiderVo riderVo){
         String sql ="UPDATE orderinformation SET order_approval_status = 4 WHERE order_id = ?";
