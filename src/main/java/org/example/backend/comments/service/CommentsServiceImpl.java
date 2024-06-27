@@ -47,6 +47,16 @@ public class CommentsServiceImpl implements CommentsService {
 //        }
         return result;
     }
+
+    //대댓글 등록
+    @Transactional
+    @Override
+    public int insert_reply(CommentsVo commentsVo) throws Exception {
+        int result = commentsMapper.insert_reply(commentsVo);
+
+        return result;
+    }
+
     @Override
     public int update(CommentsVo commentsVo) throws Exception {
         int result = commentsMapper.update(commentsVo);

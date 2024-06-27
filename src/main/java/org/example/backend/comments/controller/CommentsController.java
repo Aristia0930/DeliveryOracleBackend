@@ -33,7 +33,7 @@ public class CommentsController {
         @throws Exception
      */
 
-
+    //댓글 목록 조회
     @GetMapping("/list")
     public List<CommentsVo> list(@RequestParam("store_id") int store_id) throws Exception {
         return commentsService.list(store_id);
@@ -45,7 +45,7 @@ public class CommentsController {
         @throws Exception
      */
 
-     //댓글 등록
+     //기존 댓글 등록
     @PostMapping("")
     public ResponseEntity<String> insert(@RequestBody CommentsVo commentsVo ,@RequestParam("orderid") int id) throws Exception {
 //        System.out.println(commentsVo.getAuthor_name());
@@ -59,6 +59,17 @@ public class CommentsController {
         return new ResponseEntity<>("FAIL", HttpStatus.OK); //OK : 200번 상태코드가 들어있음
     }
 
+    //대댓글 등록
+    @PostMapping("/reply")
+    public ResponseEntity<String> insert_reply(@RequestBody CommentsVo commentsVo) throws Exception {
+        //대댓글 등록은 depth 값을 2로 설정해두었기 때문에 2로 지정한다.
+        commentsVo.setDepth(2);
 
+        int result = commentsService.insert_reply(commentsVo);
 
+        if(result > 0) {
+            return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+        }
+            return new ResponseEntity<>("FAIL", HttpStatus.OK);
+    }
 }
