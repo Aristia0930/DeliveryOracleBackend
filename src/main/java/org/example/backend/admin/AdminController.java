@@ -62,7 +62,7 @@ public class AdminController {
 
     //유저 신고 내용 상세 조회
     @GetMapping("ReportsDetail")
-    public List<ReportsUserDetailVo> userDetail(@RequestParam("aid") int authorId){
+    public List<ReportsUserDetailVo> userDetail(@RequestParam("id") int authorId){
         return adminService.userDetail(authorId);
     }
 }
