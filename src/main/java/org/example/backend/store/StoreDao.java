@@ -140,7 +140,7 @@ public class StoreDao {
     //4 완료
     //6은 리뷰쓰기 완료
     //주문알람
-    
+
     public List<StoreOrderInformationVo> order(int id){
 
         String sql = "SELECT o.order_id, o.customer_id, o.store_id, o.order_details, o.total_price, o.user_x, o.user_y,o.order_approval_status ," +
@@ -234,6 +234,7 @@ public class StoreDao {
         }
         return orderSales;
     }
+
 
     //업체 정보 불러오기
     public StoreRegistrationVo store_info(int id) {
