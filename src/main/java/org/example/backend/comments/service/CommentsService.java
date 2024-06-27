@@ -9,11 +9,14 @@ public interface CommentsService {
     //댓글 목록
     public List<CommentsVo> list(int store_id) throws Exception;
 
-    //댓글 조회
-    //public CommentsVo select(int store_id) throws Exception;
-
     //댓글 등록
     public int insert(CommentsVo commentsVo,int id) throws Exception;
+
+    //대댓글 등록
+    public int insert_reply(CommentsVo commentsVo) throws Exception;
+
+    //댓글 조회
+    //public CommentsVo select(int store_id) throws Exception;
 
     //댓글 수정
     public int update(CommentsVo commentsVo) throws Exception;
