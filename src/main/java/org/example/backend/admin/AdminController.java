@@ -5,10 +5,14 @@ import org.example.backend.admin.dto.AdminApproveVo;
 import org.example.backend.admin.dto.AdminOrderInformationVo;
 import org.example.backend.admin.dto.ReportsUserDetailVo;
 import org.example.backend.admin.dto.ReportsUserVo;
+import org.example.backend.store.dto.ReportsVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -65,5 +69,20 @@ public class AdminController {
     public List<ReportsUserDetailVo> userDetail(@RequestParam("id") int authorId){
         return adminService.userDetail(authorId);
     }
+
+    //유저 블락 먹이기
+    @PostMapping("block")
+    public ResponseEntity<?> block (@RequestBody Map<String, Integer> id){
+        //아이디값을 받아와서 그 아이디 값하고 같은 이메일의 유저 권한을 변경한다.
+        int rs=adminService.block(id.get("id"));
+        if (rs==1){
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        }
+//
+    }
+
 }
 

@@ -1,5 +1,6 @@
 package org.example.backend.service.search;
 
+import org.example.backend.comments.dto.CommentsVo;
 import org.example.backend.service.OrderListVo;
 import org.example.backend.service.OrderVo;
 import org.example.backend.store.dto.StoreInformationVo;
@@ -144,6 +145,38 @@ public class SearchDao {
             e.printStackTrace();
         }
         return stores;
+    }
+
+    //사용자 리뷰 목록 불러오기
+    public List<CommentsVo> review(int id){
+
+        String sql = "SELECT \n" +
+                "    comment_id,\n" +
+                "    store_id,\n" +
+                "    author_id,\n" +
+                "    author_name,\n" +
+                "    content,\n" +
+                "    rating,\n" +
+                "    visibility_status,\n" +
+                "creation_date,\n"+
+                "    depth\n" +
+                "FROM \n" +
+                "    Comments\n" +
+                "WHERE \n" +
+                "    author_id = ? \n" +
+                "    AND visibility_status IN (1, 2)\n" +
+                "ORDER BY \n" +
+                "    comment_id DESC;\n";
+        List<CommentsVo> commentLists = new ArrayList<CommentsVo>();
+        RowMapper<CommentsVo> rowMapper= BeanPropertyRowMapper.newInstance(CommentsVo.class);
+        try {
+            commentLists = jdbcTemplate.query(sql, rowMapper, id);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return commentLists;
+
     }
 
 
