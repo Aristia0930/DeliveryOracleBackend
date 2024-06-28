@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 
-//댓글
 @Getter
 @Setter
 public class CommentsVo {
