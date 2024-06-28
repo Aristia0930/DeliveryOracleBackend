@@ -16,12 +16,11 @@
         comment_id;
     </select>
 
-    <!-- 댓글 조회 -->
-    <select id="select" resultType="org.example.backend.comments.dto.CommentsVo">
-        SELECT *
+    <!-- 댓글 조회 (단건) -->
+    <select id="selectById" resultType="org.example.backend.comments.dto.CommentsVo">
+        select *
         FROM COMMENTS
-        WHERE store_id = #{store_id}
-
+        WHERE comment_id = #{comment_id}
     </select>
 
     <!-- 댓글 등록 -->
@@ -43,17 +42,38 @@
     <!-- 댓글 수정 -->
     <update id="update">
         UPDATE COMMENTS
-            SET author_name = #{author_name}
-               ,content = #{content}
-               ,modification_date = #{modification_date}
-        WHERE
+            SET content = #{content},
+                rating = #{rating}
+        WHERE comment_id = #{commentId}
     </update>
 
-    <!-- 댓글 삭제 -->
-    <delete id="delete">
-        DELETE
-        FROM COMMENTS
+    <!-- 댓글 삭제시 가시성 변경 -->
+    <update id="updateCommentVisibility">
+        UPDATE COMMENTS
+        SET visibility_status = 0
         WHERE comment_id = #{comment_id}
-    </delete>
+    </update>
+
+    <!-- 대댓글 등록 -->
+    <insert id="insertReply">
+        INSERT INTO COMMENTS( store_id, author_id, author_name, content, reply_id, depth,rating )
+        VALUES( #{storeId}, #{authorId}, #{authorName}, #{content}, #{replyId}, 2 ,0)
+    </insert>
+
+    <!-- 대댓글 수정 -->
+    <update id="updateReply">
+        UPDATE COMMENTS
+            SET content = #{content},
+                rating = ${rating}
+        WHERE comment_id = ${commentId} AND depth = 2
+    </update>
+
+    <!-- 대댓글 삭제시 가시성 변경하기 -->
+    <update id="updateReplyVisibility">
+        UPDATE COMMENTS
+        SET visibility_status = 0
+        WHERE comment_id = #{commentId} AND depth = 2
+    </update>
+
 
 </mapper>
