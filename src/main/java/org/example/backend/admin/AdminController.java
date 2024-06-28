@@ -1,10 +1,8 @@
 package org.example.backend.admin;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.backend.admin.dto.AdminApproveVo;
-import org.example.backend.admin.dto.AdminOrderInformationVo;
-import org.example.backend.admin.dto.ReportsUserDetailVo;
-import org.example.backend.admin.dto.ReportsUserVo;
+import org.example.backend.admin.dto.*;
+import org.example.backend.service.StoreReportVo;
 import org.example.backend.store.dto.ReportsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,6 +81,34 @@ public class AdminController {
         }
 //
     }
+
+    //유저쪽에서 업체 신고한 내용확인하기
+    @GetMapping("/StoreReports")
+    public List<ReportStoreVo> storeReport(){
+        return adminService.storeReport();
+    }
+
+    //유저쪽에서 업체 신고한 내용 상세조회
+    @GetMapping("StoreReportsDetail")
+    public List<ReportStoreDetailVo> storeDetail(@RequestParam("storeId") int storeId){
+        return adminService.storeDetail(storeId);
+    }
+
+    //업체 정지시키기 가시성 2 로 지정하기
+    @PostMapping("Storeblock")
+    public ResponseEntity<?> Storeblockblock (@RequestBody Map<String, Integer> id){
+        //아이디값을 받아와서 그 아이디 값하고 같은 이메일의 유저 권한을 변경한다.
+        int rs=adminService.Storeblockblock(id.get("id"));
+        if (rs==1){
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        }
+//
+    }
+
+
 
 }
 

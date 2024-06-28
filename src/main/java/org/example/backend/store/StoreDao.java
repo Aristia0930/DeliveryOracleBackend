@@ -42,17 +42,31 @@ public class StoreDao {
 
     //승인요청확인
     public int approveR(int id) {
-        String sql = "SELECT store_id FROM StoreRegistration WHERE owner_id = ? AND approval_status = 1;";
+        String sql1 = "SELECT store_id FROM StoreRegistration WHERE owner_id = ? AND approval_status = 1;";
+        String sql2 = "SELECT store_id FROM StoreRegistration WHERE owner_id = ? AND approval_status = 2;";
+
         try {
-            return jdbcTemplate.queryForObject(sql, Integer.class, id);
-        } catch (EmptyResultDataAccessException e) {
-            // 결과가 없을 때 처리
-            return -1;
+            return jdbcTemplate.queryForObject(sql1, Integer.class, id);
+        } catch (EmptyResultDataAccessException e1) {
+            // 결과가 없을 때 두 번째 쿼리를 시도
+            try {
+                jdbcTemplate.queryForObject(sql2, Integer.class, id);
+                return -2;
+            } catch (EmptyResultDataAccessException e2) {
+                // 결과가 없을 때 처리
+                return -1;
+            } catch (Exception e2) {
+                // 다른 예외 처리 로직 (예: 로깅)
+                e2.printStackTrace();
+                return -1;
+            }
         } catch (Exception e) {
-            // 다른 예외 처리 로직 (예: 로깅)
+            // 첫 번째 쿼리에서 발생한 다른 예외 처리 로직 (예: 로깅)
             e.printStackTrace();
             return -1;
         }
+
+
     }
 
 
@@ -308,12 +322,12 @@ public class StoreDao {
                 "FROM \n" +
                 "    Comments\n" +
                 "WHERE \n" +
-                "    store_id = ? \n" +
+                "    store_id = ?\n" +
                 "    AND visibility_status IN (1, 2)\n" +
                 "ORDER BY \n" +
                 "    COALESCE(reply_id, comment_id) DESC,\n" +
-                "    CASE WHEN depth = 1 THEN creation_date ELSE reply_id END DESC,\n" +
-                "    comment_id DESC;\n";
+                "    CASE WHEN depth = 1 THEN creation_date ELSE comment_id END ,\n" +
+                "    comment_id DESC;";
         List<CommentsVo> commentLists = new ArrayList<CommentsVo>();
         RowMapper<CommentsVo> rowMapper= BeanPropertyRowMapper.newInstance(CommentsVo.class);
         try {
