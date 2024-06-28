@@ -26,11 +26,11 @@ import java.io.IOException;
 public class StoreController {
     @Autowired
     private StoreService storeService;
-//    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
+    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
    // private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
-    private static final String URL="E:\\h\\DeliveryOracle\\FE\\src\\imgs\\";
+//    private static final String URL="E:\\h\\DeliveryOracle\\FE\\src\\imgs\\";
     //소니
 //    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
     //상점등록
@@ -91,10 +91,14 @@ public class StoreController {
         log.info(":::: 업체 승인 확인 요청 ::::");
 
         int rs=storeService.count(id);
+
         if(rs>0){
             return rs;
         }
-        else {
+        else if(rs==-2) {
+            return -2;
+        }
+        else{
             return -1;
         }
     }

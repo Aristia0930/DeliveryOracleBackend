@@ -1,9 +1,7 @@
 package org.example.backend.admin;
 
-import org.example.backend.admin.dto.AdminApproveVo;
-import org.example.backend.admin.dto.AdminOrderInformationVo;
-import org.example.backend.admin.dto.ReportsUserDetailVo;
-import org.example.backend.admin.dto.ReportsUserVo;
+import org.example.backend.admin.dto.*;
+import org.example.backend.service.StoreReportVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -149,6 +147,83 @@ public class AdminDao {
             return -1;
         }
     }
+
+    //유저쪽에서 업체 신고한 조회
+    public List<ReportStoreVo> storeReport(){
+        String sql ="SELECT \n" +
+                "    r.store_id,\n" +
+                "    u.store_name,\n" +
+                "    COUNT(*) AS count\n" +
+                "FROM \n" +
+                "    storereports r\n" +
+                "JOIN \n" +
+                "    storeregistration u ON r.store_id = u.store_id\n" +
+                "WHERE \n" +
+                "    u.approval_status = 1\n" +
+                "GROUP BY \n" +
+                "    r.store_id, u.store_name\n" +
+                "HAVING \n" +
+                "    COUNT(*) >= 2;";
+
+        List<ReportStoreVo> userReports = new ArrayList<ReportStoreVo>();
+        RowMapper<ReportStoreVo> rowMapper= BeanPropertyRowMapper.newInstance(ReportStoreVo.class);
+        try {
+            userReports = jdbcTemplate.query(sql, rowMapper);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return userReports;
+    }
+
+    public List<ReportStoreDetailVo> storeDetail(int storeId){
+        String sql = "SELECT \n" +
+                "    SR.report_id,\n" +
+                "    SR.order_id,\n" +
+                "    SR.store_id,\n" +
+                "    SREG.store_name,\n" +
+                "    SR.report_status,\n" +
+                "    SR.report_text,\n" +
+                "    SR.reporter_id,\n" +
+                "    UI.Email AS reporter_email,\n" +
+                "    SR.report_date\n" +
+                "FROM \n" +
+                "    StoreReports SR\n" +
+                "JOIN \n" +
+                "    StoreRegistration SREG ON SR.store_id = SREG.store_id\n" +
+                "JOIN \n" +
+                "    UserInformation UI ON SR.reporter_id = UI.user_id\n" +
+                "WHERE \n" +
+                "    SR.store_id = ?;";
+
+        List<ReportStoreDetailVo> userDetails = new ArrayList<ReportStoreDetailVo>();
+        RowMapper<ReportStoreDetailVo> rowMapper= BeanPropertyRowMapper.newInstance(ReportStoreDetailVo.class);
+        try {
+            userDetails = jdbcTemplate.query(sql, rowMapper,storeId);
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return userDetails;
+    }
+
+    //스토어 블락하기
+    public int Storeblockblock(int id){
+
+        String sql = "    UPDATE storeregistration set approval_status=2\n" +
+                "\tWHERE store_id = ? ;\n";
+
+        try {
+            jdbcTemplate.update(sql,id);
+            return 1;
+        } catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    //업체 신고 리포터 1로 변경
 
 
 
