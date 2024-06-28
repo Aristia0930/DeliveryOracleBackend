@@ -20,8 +20,14 @@ public class UserEditDao {
         return jdbcTemplate.queryForObject(sql, new Object[]{userId}, userRowMapper);
     }
 
+    // 사용자 이름을 업데이트하는 메서드
+    public int updateName(int userId, String nickname) {
+        String sql = "UPDATE UserInformation SET name = ? WHERE user_id = ?";
+        return jdbcTemplate.update(sql, nickname, userId);
+    }
+
     // 사용자 비밀번호를 업데이트하는 메서드
-    public int update(User user) {
+    public int updatePass(User user) {
         String sql = "UPDATE UserInformation SET password = ?, modification_date = CURRENT_TIMESTAMP WHERE user_id = ?";
         return jdbcTemplate.update(sql, user.getPassword(), user.getUser_id());
     }
