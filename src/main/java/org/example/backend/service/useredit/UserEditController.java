@@ -16,7 +16,24 @@ public class UserEditController {
     @Autowired
     private UserEditService userEditService;
 
+    @GetMapping("/change-nickname")
+    public String changeNickname(@RequestParam("userId") int userId,
+                                 @RequestParam("nickname") String nickname) {
+        try {
+            boolean isNameChanged = userEditService.changeName(userId, nickname);
+            if (isNameChanged) {
+                return "이름이 변경 되었습니다.";
+            } else {
+                return "이름 변경에 실패했습니다.";
+            }
+        } catch (Exception e) {
+            logger.error("이름 변경 중 오류 발생", e);
+            return "이름 변경 중 오류가 발생했습니다.";
+        }
+    }
+
     // 비밀번호 변경 요청을 처리하는 엔드포인트
+
     @PostMapping("/change-password")
     public User changePassword(@RequestParam("userId") int userId,
                                @RequestParam("oldPassword") String oldPassword,
@@ -32,9 +49,6 @@ public class UserEditController {
         }
     }
 }
-
-
-
 
 //package org.example.backend.service.useredit;
 //
@@ -65,4 +79,3 @@ public class UserEditController {
 //        }
 //    }
 //}
-
