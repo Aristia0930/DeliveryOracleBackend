@@ -73,7 +73,6 @@ public class SearchDao {
 
         }
 
-
         return rs;
     }
 
@@ -178,6 +177,5 @@ public class SearchDao {
         return commentLists;
 
     }
-
 
 }

@@ -18,6 +18,20 @@ public class UserEditService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    public boolean changeName(int userId, String name) throws Exception {
+        User user = userEditDao.select(userId);
+
+        // Check if the user exists
+        if (user != null) {
+            // Update user name
+            userEditDao.updateName(userId, name);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // 사용자 비밀번호를 변경하는 메서드
     public User changePassword(int userId, String oldPassword, String newPassword) throws Exception {
         User user = userEditDao.select(userId);
@@ -34,7 +48,7 @@ public class UserEditService {
             user.setPassword(encodedNewPassword);
 
             // 사용자 정보를 업데이트
-            userEditDao.update(user);
+            userEditDao.updatePass(user);
             return user; // 업데이트된 사용자 객체 반환
         } else {
             throw new IllegalArgumentException("기존 비밀번호가 일치하지 않습니다."); // 기존 비밀번호가 일치하지 않음
