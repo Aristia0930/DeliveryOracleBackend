@@ -139,6 +139,12 @@ public class StoreService {
 
 
     }
+    //업체가 존재하는 확인
+    public int exist(int id){
+
+        return storeDao.exist(id);
+
+    }
 
 
 }

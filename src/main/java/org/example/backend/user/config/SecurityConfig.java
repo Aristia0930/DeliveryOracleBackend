@@ -1,9 +1,7 @@
 package org.example.backend.user.config;
 
-import org.example.backend.user.security.jwt.filter.JwtAuthenticationFilter2;
-import org.example.backend.user.security.jwt.filter.JwtRequestFilter;
+import org.example.backend.user.security.jwt.filter.*;
 import org.example.backend.user.security.custom.CustomUserDetailService;
-import org.example.backend.user.security.jwt.filter.JwtAuthenticationFilter;
 import org.example.backend.user.security.jwt.provider.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +59,8 @@ public class SecurityConfig { //Spring Security 설정을 담당하는 SecurityC
 
         http.addFilterAt(new JwtAuthenticationFilter(authenticationManager, jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         http.addFilterAfter(new JwtAuthenticationFilter2(authenticationManager, jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(new JwtAuthenticationFilter3(authenticationManager, jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(new JwtAuthenticationFilter4(authenticationManager, jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(new JwtRequestFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
 
