@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 // JwtAuthenticationFilter는 스프링 시큐리티와 연결을 위해 UsernamePasswordAuthenticationFilter를 상속받아서 구현 해야 한다.
 @Slf4j
-public class JwtAuthenticationFilter2 extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationFilter3 extends UsernamePasswordAuthenticationFilter {
 
     //해당 방식으로 필터에서 의존성 주입이 불가능 하다고 한다. 그래서 아래에 생성자를 만들어 사용하는 방법으로 처리한다.
     //@Autowired
@@ -44,12 +44,12 @@ public class JwtAuthenticationFilter2 extends UsernamePasswordAuthenticationFilt
     private final JwtTokenProvider jwtTokenProvider;
 
     // authenticationManager, jwtTokenProvider를 받아올 생성자
-    public JwtAuthenticationFilter2(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    public JwtAuthenticationFilter3(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
 
         // 필터 URL 경로 설정 : /login
-        setFilterProcessesUrl(JwtConstants.AUTH_LOGIN_URL2); // 실질적인 /login 경로를 정의
+        setFilterProcessesUrl(JwtConstants.AUTH_LOGIN_URL3); // 실질적인 /login 경로를 정의
     }
 
     /* attemptAuthentication : 인증을 시도하는 필터 메소드
@@ -110,7 +110,7 @@ public class JwtAuthenticationFilter2 extends UsernamePasswordAuthenticationFilt
         // JWT 토큰 생성 요청
         String jwt = jwtTokenProvider.createToken(userNo, userId, roles);
         // 특정 권한을 체크
-        boolean hasRequiredRole = roles.contains("ROLE_STORE");
+        boolean hasRequiredRole = roles.contains("ROLE_ADMIN");
 
         if (!hasRequiredRole) {
             jwt="권한존재하지 않음";

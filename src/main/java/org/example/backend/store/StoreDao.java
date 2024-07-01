@@ -372,6 +372,27 @@ public class StoreDao {
 
     }
 
+    //업체가 존재하는 아닌지 확인
+    public int exist(int id){
+        String sql = "select store_id from storeregistration where owner_id=? ;";
+
+        int rs=-1;
+        try {
+            jdbcTemplate.queryForObject(sql,Integer.class,id);
+            return 1;
+
+        } catch (EmptyResultDataAccessException e){
+            return 2;
+        }
+        catch (Exception e) {
+            // 예외 처리 로직 (예: 로깅)
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+
 
 
 

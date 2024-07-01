@@ -26,8 +26,8 @@ import java.io.IOException;
 public class StoreController {
     @Autowired
     private StoreService storeService;
-    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
-   // private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+//    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
+    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
 //    private static final String URL="E:\\h\\DeliveryOracle\\FE\\src\\imgs\\";
@@ -340,6 +340,22 @@ public class StoreController {
         }
     }
 
-    //현재 블락되어있는지 아닌지 확인해한다.
+
+    //업체 등록 했는지 안했는지 확인하기
+    @GetMapping("exist")
+    public ResponseEntity<?> exist (@RequestParam("id") int id){
+        int rs=storeService.exist(id);
+        if (rs==1){
+            //200
+            return new ResponseEntity<>("exist", HttpStatus.OK);
+        }
+        else if(rs==2){
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+        else {
+            //400
+            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
