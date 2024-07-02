@@ -5,11 +5,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-
 @Getter
 @Setter
-public class OrderVo {
+public class PayAccountVo {
     private int orderId;
     private int customerId;
     private int storeId;
@@ -19,6 +17,6 @@ public class OrderVo {
     private Timestamp orderDate;
     private BigDecimal user_x;
     private BigDecimal user_y;
-
-
+    private  int id;
+    private  int price;
 }
