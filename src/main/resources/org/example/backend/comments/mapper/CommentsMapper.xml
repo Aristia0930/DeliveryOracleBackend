@@ -8,8 +8,19 @@
     <!-- 댓글 목록 -->
     <select id="list" resultType="org.example.backend.comments.dto.CommentsVo">
         SELECT *
-        FROM Comments
-        WHERE store_id = #{store_id} AND visibility_status IN(1,2)
+        FROM comments
+        WHERE store_id = #{store_id}
+        AND (
+        visibility_status IN (1, 2)
+        OR
+        comment_id IN (
+        SELECT reply_id
+        FROM comments
+        WHERE store_id = #{store_id}
+        AND visibility_status IN (1, 2)
+        AND reply_id IS NOT NULL
+        )
+        )
         ORDER BY
         COALESCE(reply_id, comment_id),
         CASE WHEN reply_id IS NULL THEN comment_id ELSE reply_id END,

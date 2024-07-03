@@ -83,4 +83,19 @@ public class AccountController {
     }
 
 
+    //등급 확인
+    @PostMapping("/rank")
+    public String rank(@RequestBody PayAccountVo payAccountVo){
+        String name=accountService.rank(payAccountVo);
+        if (name!=""){
+            return name;
+        }
+        else{
+            return "오류";
+        }
+
+
+    }
+
+
 }

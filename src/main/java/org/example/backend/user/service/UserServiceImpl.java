@@ -7,6 +7,7 @@ import org.example.backend.user.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.user.mapper.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -103,21 +104,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insert_store(User user) throws Exception {
-        //비번 암호화
-        String password = user.getPassword();
-        String encodedPw = passwordEncoder.encode(password);
-        user.setPassword(encodedPw);
+        try {
+            // 비번 암호화
+            String password = user.getPassword();
+            String encodedPw = passwordEncoder.encode(password);
+            user.setPassword(encodedPw);
 
-        int result = userMapper.insert(user);
+            int result = userMapper.insert(user);
 
-        if(result > 0) {
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUserId(String.valueOf(user.getEmail()));
-            userAuth.setAuth("ROLE_STORE");
-            result = userMapper.insertAuth(userAuth);
+            if (result > 0) {
+                UserAuth userAuth = new UserAuth();
+                userAuth.setUserId(String.valueOf(user.getEmail()));
+                userAuth.setAuth("ROLE_STORE");
+                result = userMapper.insertAuth(userAuth);
+            }
+            return result;
+
+        } catch (DuplicateKeyException e){
+            return -7;//이메일 중복이다
+
+        }catch (Exception e) {
+            // 일반적인 예외 처리
+            System.err.println(e);
+            // 필요한 경우 로그 기록이나 다른 처리
+            throw e; // 필요에 따라 예외를 다시 던질 수도 있음
         }
-        return result;
     }
+
 
     @Override
     public void login_store(User user, HttpServletRequest request) throws Exception {

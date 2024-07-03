@@ -83,4 +83,31 @@ public class AccountDao {
 
     }
 
+    //계좌 등급확인하기
+    public String rank(int accountId){
+        String sql="SELECT"+
+                "  r.Rating\n" +
+                "FROM  \n" +
+                "  accountstatus a\n" +
+                "INNER JOIN (\n" +
+                "  SELECT account_id, SUM(amount) AS total_amount\n" +
+                "  FROM accountstatus\n" +
+                "  WHERE type = '결제' and account_id=?\n" +
+                "  GROUP BY account_id\n" +
+                ") AS sub_a ON a.account_id = sub_a.account_id \n" +
+                "JOIN rankpoint r ON sub_a.total_amount >= -r.score\n" +
+                "GROUP BY  \n" +
+                "  a.account_id, r.Rating;";
+
+        String rs="";
+        try{
+            rs=jdbcTemplate.queryForObject(sql,String.class,accountId);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return rs;
+    }
+
 }

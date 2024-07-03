@@ -70,9 +70,8 @@ public class CommentsController {
     }
 
     //댓글 수정
-    @PutMapping("/{comment_id}")
-    public ResponseEntity<String> update(@PathVariable("comment_id") int commentId, @RequestBody CommentsVo commentsVo) {
-        commentsVo.setCommentId(commentId); //경로 변수로 받은 comment_id를 설정한다.
+    @PutMapping("/Edit")
+    public ResponseEntity<String> update(@RequestBody CommentsVo commentsVo) {
 
         try {
             int result = commentsService.update(commentsVo);
@@ -89,8 +88,8 @@ public class CommentsController {
     }
 
     //댓글 삭제시 가시성 상태 변경 : "존재하지 않는 댓글입니다"를 표시해줄놈
-    @PutMapping("/ucv/{comment_id}")
-    public ResponseEntity<String> updateCommentVisibility(@PathVariable("comment_id") int commentId) {
+    @DeleteMapping("/ucv/{commentId}")
+    public ResponseEntity<String> updateCommentVisibility(@PathVariable("commentId") int commentId) {
         try {
             int result = commentsService.updateCommentVisibility(commentId);
             log.info("댓글 삭제 (가시성 상태 변경) result 값 확인 : " + result);
@@ -119,9 +118,8 @@ public class CommentsController {
     }
 
     //대댓글 수정
-    @PutMapping("/reply/{comment_id}")
-    public ResponseEntity<String> updateReply(@PathVariable("comment_id") int commentId, @RequestBody CommentsVo commentsVo) {
-        commentsVo.setCommentId(commentId); //경로 변수로 받은 comment_id를 설정한다.
+    @PutMapping("/reply")
+    public ResponseEntity<String> updateReply(@RequestBody CommentsVo commentsVo) {
 
         try {
             int result = commentsService.updateReply(commentsVo);
@@ -138,7 +136,7 @@ public class CommentsController {
     }
 
     //댓글 삭제시 가시성 상태 변경 : "존재하지 않는 댓글입니다"를 표시해줄놈
-    @PutMapping("/replyUrv/{comment_id}")
+    @DeleteMapping("/replyUrv/{comment_id}")
     public ResponseEntity<String> updateReplyVisibility(@PathVariable("comment_id") int commentId) {
         try {
             int result = commentsService.updateReplyVisibility(commentId);
