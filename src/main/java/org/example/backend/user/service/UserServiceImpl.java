@@ -48,22 +48,33 @@ public class UserServiceImpl implements UserService {
     // 회원 가입 (등록)
     @Override
     public int insert(User user) throws Exception {
-        //비번 암호화
-        String password = user.getPassword(); //Users dto에서 넘어온 패스워드를 꺼내야한다.
-        String encodedPw = passwordEncoder.encode(password); //암호화된 pw
-        user.setPassword(encodedPw);
+        try {
+            // 비번 암호화
+            String password = user.getPassword();
+            String encodedPw = passwordEncoder.encode(password);
+            user.setPassword(encodedPw);
 
-        //회원 등록
-        int result = userMapper.insert(user);
+            int result = userMapper.insert(user);
 
-        //권한 등록
-        if(result > 0) {
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUserId(String.valueOf(user.getEmail())); //String.valueOf를 쓰면 다양한 데이터 값을 문자열로 변환 할 수 있음.
-            userAuth.setAuth("ROLE_USER"); //기본 권한 : 사용자 권한(ROLE_USER)
-            result = userMapper.insertAuth(userAuth);
+            if (result > 0) {
+                UserAuth userAuth = new UserAuth();
+                userAuth.setUserId(String.valueOf(user.getEmail()));
+                userAuth.setAuth("ROLE_USER");
+                result = userMapper.insertAuth(userAuth);
+            }
+            return result;
+
+        } catch (DuplicateKeyException e){
+            return -7;//이메일 중복이다
+
+        }catch (Exception e) {
+            // 일반적인 예외 처리
+            System.err.println(e);
+            // 필요한 경우 로그 기록이나 다른 처리
+            throw e; // 필요에 따라 예외를 다시 던질 수도 있음
         }
-        return result;
+
+
     }
 
     // 로그인
@@ -247,6 +258,25 @@ public class UserServiceImpl implements UserService {
         log.info("인증된 사용자 ID : " + authUser.getUsername());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    @Override
+    public String checkEmail(String email){
+        int rs=0;
+        try{
+           rs=  userMapper.checkEmail(email);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println(rs);
+        if(rs>=1){
+            return "false";
+        }
+        else{
+            return "available";
+        }
+
     }
 
 //    //회원 정보 수정

@@ -38,6 +38,8 @@ public interface UserService {
 
     public void login_rider(User user, HttpServletRequest request) throws Exception;
 
+    public String checkEmail(String email) ;
+
 
 //    //회원 수정
 //    public int update(User user) throws Exception;
