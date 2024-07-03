@@ -78,6 +78,9 @@ public class UserController {
             log.info("회원가입 성공! - SUCCESS");
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }
+        else if(result==-7){
+            return new ResponseEntity<>("emailFAIL", HttpStatus.OK);
+        }
         else {
             log.info("회원가입 실패! - FAIL");
             return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);

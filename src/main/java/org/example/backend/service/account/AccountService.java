@@ -91,5 +91,19 @@ public class AccountService {
 
     }
 
+    //계좌 등급확인하기
+    public String rank( PayAccountVo payAccountVo){
+        //내계좌 번호 부터 확인
+        int id=payAccountVo.getId();
+        System.out.println(id);
+        //유저 계좌 번호 확인
+        int accountNum=accountDao.accountId(id);
+        String rankName=accountDao.rank(accountNum);
+        return rankName;
+
+
+
+    }
+
 
 }

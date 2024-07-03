@@ -318,20 +318,33 @@ public class StoreDao {
                 "    content,\n" +
                 "    rating,\n" +
                 "    visibility_status,\n" +
-                "    depth\n" +
+                "    depth,\n" +
+                "    creation_date\n" +
                 "FROM \n" +
                 "    Comments\n" +
                 "WHERE \n" +
                 "    store_id = ?\n" +
-                "    AND visibility_status IN (1, 2)\n" +
+                "    AND (\n" +
+                "        visibility_status IN (1, 2)\n" +
+                "        OR (\n" +
+                "            depth = 1 AND comment_id IN (\n" +
+                "                SELECT DISTINCT reply_id \n" +
+                "                FROM Comments \n" +
+                "                WHERE visibility_status IN (1, 2) AND store_id = ?\n" +
+                "            )\n" +
+                "        )\n" +
+                "    )\n" +
                 "ORDER BY \n" +
                 "    COALESCE(reply_id, comment_id) DESC,\n" +
-                "    CASE WHEN depth = 1 THEN creation_date ELSE comment_id END ,\n" +
+                "    CASE \n" +
+                "        WHEN depth = 1 THEN creation_date \n" +
+                "        ELSE (SELECT creation_date FROM Comments WHERE comment_id = Comments.reply_id) \n" +
+                "    END DESC,\n" +
                 "    comment_id DESC;";
         List<CommentsVo> commentLists = new ArrayList<CommentsVo>();
         RowMapper<CommentsVo> rowMapper= BeanPropertyRowMapper.newInstance(CommentsVo.class);
         try {
-            commentLists = jdbcTemplate.query(sql, rowMapper, id);
+            commentLists = jdbcTemplate.query(sql, rowMapper, id,id);
         }catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

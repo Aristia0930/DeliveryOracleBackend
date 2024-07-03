@@ -26,4 +26,14 @@ public class ReportService {
 
     }
 
+    public int check(StoreReportVo storeReportVo){
+        //그 주문번호로 신고한 적 이 있는지 확인
+        int check=reportDao.reportCheck(storeReportVo);
+        System.out.println(check);
+        //신고한적없다면 신고가능
+        //10 이미 존재할때
+        return check;
+
+    }
+
 }

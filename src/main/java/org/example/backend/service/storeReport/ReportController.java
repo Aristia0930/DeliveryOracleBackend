@@ -37,4 +37,9 @@ public class ReportController {
 
 
     }
+
+    @PostMapping("/check")
+    public int check(@RequestBody StoreReportVo storeReportVo){
+        return reportService.check(storeReportVo);
+    }
 }
