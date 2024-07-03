@@ -17,6 +17,8 @@ public class UserRepository {
     private JdbcTemplate jdbcTemplate;
 
     private final RowMapper<User> userRowMapper = new BeanPropertyRowMapper<>(User.class);
+
+    private final RowMapper<Integer> emailRowMapper = new BeanPropertyRowMapper<>(Integer.class);
     private final RowMapper<UserAuth> userAuthRowMapper = new BeanPropertyRowMapper<>(UserAuth.class);
 
     // 회원 등록
@@ -45,6 +47,11 @@ public class UserRepository {
     public int insertAuth(UserAuth userAuth) throws Exception {
         String sql = "INSERT INTO UserInfo_Auth (user_id, auth) VALUES (?, ?)";
         return jdbcTemplate.update(sql, userAuth.getUserId(), userAuth.getAuth());
+    }
+
+    public int checkEmail(String email) {
+        String sql = "SELECT user_id FROM UserInformation WHERE Email = ?";
+        return jdbcTemplate.queryForObject(sql,Integer.class,email);
     }
 
 //    // 회원 수정
