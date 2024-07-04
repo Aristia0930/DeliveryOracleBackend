@@ -146,6 +146,22 @@ public class SearchDao {
         return stores;
     }
 
+    //ai 조회
+    public List<StoreRegistrationVo> storeList3(BigDecimal x, BigDecimal y,String word) {
+        String sql ="select * from storeregistration s\n" +
+                "join storeinformation sf on sf.store_id =s.store_id\n" +
+                "where sf.visibility_status = 1 and sf.menu_name LIKE CONCAT('%', ?, '%') AND store_x BETWEEN ? - 0.08 AND ? + 0.08 AND store_y BETWEEN ? - 0.08 AND ? + 0.08;";
+        List<StoreRegistrationVo> stores = new ArrayList<>();
+        RowMapper<StoreRegistrationVo> rowMapper = BeanPropertyRowMapper.newInstance(StoreRegistrationVo.class);
+
+        try {
+            return jdbcTemplate.query(sql,rowMapper,word,x,x,y,y);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return stores;
+        }
+    }
+
     //사용자 리뷰 목록 불러오기
     public List<CommentsVo> review(int id){
 
