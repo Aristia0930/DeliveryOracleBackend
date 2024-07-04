@@ -1,6 +1,7 @@
 package org.example.backend.service.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -85,25 +86,31 @@ public class AccountDao {
 
     //계좌 등급확인하기
     public String rank(int accountId){
-        String sql="SELECT"+
+        String sql="  SELECT\n" +
                 "  r.Rating\n" +
-                "FROM  \n" +
+                "FROM\n" +
                 "  accountstatus a\n" +
                 "INNER JOIN (\n" +
-                "  SELECT account_id, SUM(amount) AS total_amount\n" +
+                "  SELECT account_id, SUM(-amount) AS total_amount\n" +
                 "  FROM accountstatus\n" +
-                "  WHERE type = '결제' and account_id=?\n" +
+                "  WHERE type = '결제' AND account_id = ?\n" +
                 "  GROUP BY account_id\n" +
-                ") AS sub_a ON a.account_id = sub_a.account_id \n" +
-                "JOIN rankpoint r ON sub_a.total_amount >= -r.score\n" +
-                "GROUP BY  \n" +
-                "  a.account_id, r.Rating;";
+                ") AS sub_a ON a.account_id = sub_a.account_id\n" +
+                "JOIN rankpoint r ON sub_a.total_amount >= r.score\n" +
+                "GROUP BY\n" +
+                "  a.account_id, r.Rating\n" +
+                "ORDER BY\n" +
+                "  r.score DESC\n" +
+                "LIMIT 1;";
 
         String rs="";
         try{
             rs=jdbcTemplate.queryForObject(sql,String.class,accountId);
 
-        }catch (Exception e){
+        }catch (EmptyResultDataAccessException e){
+            rs="Bronze";
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
 
