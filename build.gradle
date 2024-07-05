@@ -49,6 +49,9 @@ dependencies {
 	implementation 'org.webjars:stomp-websocket:2.3.4'
 	implementation 'org.springframework:spring-messaging'
 	implementation 'org.springframework.security:spring-security-messaging'
+
+	//api
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.2.0'
 }
 
 tasks.named('test') {

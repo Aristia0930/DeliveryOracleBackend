@@ -74,6 +74,10 @@ public class AdminService {
 
     }
 
+    public TodayInfoVo today(){
+        return adminDao.today();
+    }
+
 
 }
 

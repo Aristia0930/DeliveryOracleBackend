@@ -4,6 +4,7 @@ import org.example.backend.user.dto.CustomUser;
 import org.example.backend.user.dto.User;
 import org.example.backend.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.example.backend.user.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class UserController {
     //서비스 요청을 해야한다.
     @Autowired
     private UserService userService;
+
 
     /* 사용자 정보 조회
        @param customer
@@ -120,6 +122,9 @@ public class UserController {
             log.info("회원가입 성공! - SUCCESS");
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }
+        else if(result==-7){
+            return new ResponseEntity<>("emailFAIL", HttpStatus.OK);
+        }
         else {
             log.info("회원가입 실패! - FAIL");
             return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
@@ -134,6 +139,8 @@ public class UserController {
         return userService.checkEmail(email);
 
     }
+
+
 
 
 

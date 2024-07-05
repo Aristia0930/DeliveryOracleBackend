@@ -9,6 +9,7 @@ import org.example.backend.user.dto.CustomUser;
 import org.example.backend.user.security.jwt.constants.JwtConstants;
 import org.example.backend.user.security.jwt.provider.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -70,11 +71,14 @@ public class JwtAuthenticationFilter4 extends UsernamePasswordAuthenticationFilt
         Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
 
         System.out.println("로그인2");
-
+        try {
         //사용자 인증 (로그인)
         authentication = authenticationManager.authenticate(authentication);
         //authenticate 메서드가 실행되면 UserDetailsService, PasswordEncoder, Bcrypt 설정이 각각 타게 된다.
-
+        } catch (InternalAuthenticationServiceException e){
+            response.setStatus(402);
+            return null;
+        }
         log.info("인증 여부 : " + authentication.isAuthenticated());
         System.out.println("로그인3");
 
@@ -94,35 +98,38 @@ public class JwtAuthenticationFilter4 extends UsernamePasswordAuthenticationFilt
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         //토큰 발급을 하는 로직 작성
         log.info("인증 성공!");
+        try {
+            //authentication : 인증된 정보
+            //getPrincipal : 인증된 사용자의 정보
+            CustomUser user = (CustomUser) authentication.getPrincipal(); //인증된 사용자의 정보를 호출 한다.
+            int userNo = user.getUser().getUser_id();
+            String userId = user.getUser().getEmail();
 
-        //authentication : 인증된 정보
-        //getPrincipal : 인증된 사용자의 정보
-        CustomUser user = (CustomUser) authentication.getPrincipal(); //인증된 사용자의 정보를 호출 한다.
-        int userNo = user.getUser().getUser_id();
-        String userId = user.getUser().getEmail();
+            //권한을 확인할 수 있는 로직
+            List<String> roles = user.getUser().getAuthList().stream()
+                    .map((auth) -> auth.getAuth())
+                    .collect(Collectors.toList());
+            System.out.println("권한 확인");
+            System.out.println(roles);
+            // JWT 토큰 생성 요청
+            String jwt = jwtTokenProvider.createToken(userNo, userId, roles);
+            // 특정 권한을 체크
+            boolean hasRequiredRole = roles.contains("ROLE_RIDER");
 
-        //권한을 확인할 수 있는 로직
-        List<String> roles = user.getUser().getAuthList().stream()
-                                                        .map((auth) -> auth.getAuth())
-                                                        .collect(Collectors.toList());
-        System.out.println("권한 확인");
-        System.out.println(roles);
-        // JWT 토큰 생성 요청
-        String jwt = jwtTokenProvider.createToken(userNo, userId, roles);
-        // 특정 권한을 체크
-        boolean hasRequiredRole = roles.contains("ROLE_RIDER");
+            if (!hasRequiredRole) {
+                jwt = "권한존재하지 않음";
+                log.info("인증 실패 : 권한이 없습니다!");
+                response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
+                response.setStatus(207); // FORBIDDEN (권한 없음)
 
-        if (!hasRequiredRole) {
-            jwt="권한존재하지 않음";
-            log.info("인증 실패 : 권한이 없습니다!");
+                return;
+            }
             response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
-            response.setStatus(207); // FORBIDDEN (권한 없음)
-
-            return;
+            response.setStatus(200);
+        } catch (ClassCastException e) {
+            // 응답 헤더 설정 : { Authorization : Bearer + {jwt} }
+            response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX);
+            response.setStatus(407);
         }
-
-        // 응답 헤더 설정 : { Authorization : Bearer + {jwt} }
-        response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
-        response.setStatus(200);
     }
 }

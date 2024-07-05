@@ -17,6 +17,15 @@ public class AdminDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private RowMapper<TodayInfoVo> todayMapper(){
+        return ((rs, rowNum) -> {
+            TodayInfoVo info = new TodayInfoVo();
+            info.setOrderCount(rs.getInt("order_count"));
+            info.setVisitorCount(rs.getInt("visitor_count"));
+            info.setTotalPriceSum(rs.getInt("total_price_sum"));
+            return info;
+        });};
+
     // 모든 상점 승인 정보 가져오기
     public List<AdminApproveVo> postAllApprovals() {
         String sql = "SELECT owner_id, store_name, modification_date, approval_status FROM StoreRegistration";
@@ -224,6 +233,32 @@ public class AdminDao {
     }
 
     //업체 신고 리포터 1로 변경
+
+
+
+    //오늘자 메인 메뉴정보 확인
+    public TodayInfoVo today(){
+        String sql="SELECT \n" +
+                "    (SELECT COUNT(*) \n" +
+                "     FROM visitors \n" +
+                "     WHERE visit_date = CURDATE()) AS visitor_count,\n" +
+                "    (SELECT COUNT(*) \n" +
+                "     FROM orderinformation \n" +
+                "     WHERE DATE(order_date) = CURDATE()) AS order_count,\n" +
+                "    (SELECT SUM(total_price) \n" +
+                "     FROM orderinformation \n" +
+                "     WHERE DATE(order_date) = CURDATE()) AS total_price_sum;";
+        try{
+            return jdbcTemplate.queryForObject(sql,todayMapper());
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+
 
 
 

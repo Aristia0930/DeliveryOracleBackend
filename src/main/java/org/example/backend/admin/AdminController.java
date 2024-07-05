@@ -109,6 +109,20 @@ public class AdminController {
     }
 
 
+    //메인화면정보를 받아온다
+    @GetMapping("Today")
+    public TodayInfoVo today (){
+
+        return adminService.today();
+
+
+
+
+    }
+
+
+
+
 
 }
 

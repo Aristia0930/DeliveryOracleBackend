@@ -26,8 +26,8 @@ import java.io.IOException;
 public class StoreController {
     @Autowired
     private StoreService storeService;
-//    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
-    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
+//    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
 //    private static final String URL="E:\\h\\DeliveryOracle\\FE\\src\\imgs\\";
@@ -151,8 +151,7 @@ public class StoreController {
 
     }
     //메뉴 수정하기
-    //put으로 수정
-    @PostMapping("menuedit")
+    @PutMapping("menuedit")
 
     public int menuedit(@RequestParam("name") String name,
                       @RequestParam("price") int price,
@@ -194,7 +193,7 @@ public class StoreController {
 
     //메뉴 삭제하기
     //del로 수정
-    @GetMapping("/menuedel")
+    @DeleteMapping("/menuedel")
     public int menudel(@RequestParam("id") int id,@RequestParam("name") String name){
         log.info(":::: 메뉴삭제하기 ::::");
        return storeService.menudel(id,name);
@@ -243,7 +242,7 @@ public class StoreController {
     }
 
     //업체 수정전 내용 받아오기
-    //put
+
     @PostMapping("/store_edit_info")
     //받아올 데이터는 주인 아이디값
     public StoreRegistrationVo store_info(@RequestBody Map<String, Integer> data){
@@ -256,7 +255,7 @@ public class StoreController {
     }
     //업체수정
     //put
-    @PostMapping("/store_edit")
+    @PutMapping("/store_edit")
     public ResponseEntity<?> store_edit(        @RequestParam("name") String name,
                                                 @RequestParam("address") String address,
                                                 @RequestParam("text") String text,
@@ -312,7 +311,7 @@ public class StoreController {
 
     //업체 삭제
     //del
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> store_delete(@RequestBody Map<String, Integer> data){
         int store_id = data.get("store_id");
         int rs=storeService.store_delete(store_id);
