@@ -1,6 +1,8 @@
 package org.example.backend.sock;
 
 import org.example.backend.user.security.jwt.provider.JwtTokenProvider;
+import org.example.backend.user.service.VisitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Component
 public class WebSocketEventListener {
+    @Autowired
+    private VisitService visitService;
 
     private final SessionRegistry sessionRegistry;
 
@@ -35,6 +39,7 @@ public class WebSocketEventListener {
             Authentication authentication = jwtTokenProvider.getAuthentication(authorizationHeaders.get(0));
             String username = authentication.getName();
             System.out.println("접속된 사용자명 : " + username);
+            visitService.insertVister(username);
             // Remove "Bearer " prefix
             sessionRegistry.registerSession(sessionId, username);
         }
