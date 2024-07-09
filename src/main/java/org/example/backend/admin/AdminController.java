@@ -33,11 +33,11 @@ public class AdminController {
     // 이 경우, owner_id가 URL의 쿼리 스트링으로 전달되어 Spring Boot의 @RequestParam으로 받을 수 있습니다.
 
     @GetMapping("/approve")
-    public String setAdminApproval(@RequestParam("owner_id") int owner_id) {
-        System.out.println("[AdminController] setAdminApproval() owner_id: " + owner_id);
+    public String setAdminApproval(@RequestParam("store_id") int store_id) {
+        System.out.println("[AdminController] setAdminApproval() store_id: " + store_id);
 
         String nextPage = "redirect:http://localhost:3000/ManagerApprove";
-        adminService.setAdminApproval(owner_id);
+        adminService.setAdminApproval(store_id);
         return nextPage;
 
     }
