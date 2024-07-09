@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 @Setter
 public class AdminApproveVo {
     private int owner_id;
+    private int store_id;
     private String store_name;
     private Timestamp modification_date;
     private int approval_status;

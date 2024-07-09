@@ -17,10 +17,10 @@ public class AdminService {
         return adminDao.postAllApprovals();
     }
 
-    public void setAdminApproval(int owner_id) {
+    public void setAdminApproval(int store_id) {
         System.out.println("[AdminMemberService] setAdminApproval()");
 
-        int result = adminDao.adminApprovalupdate(owner_id);
+        int result = adminDao.adminApprovalupdate(store_id);
     }
 
     //관리자 주문 내역 조회
