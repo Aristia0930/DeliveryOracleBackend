@@ -117,7 +117,7 @@ public class JwtAuthenticationFilter2 extends UsernamePasswordAuthenticationFilt
             boolean hasRequiredRole = roles.contains("ROLE_STORE");
 
             if (!hasRequiredRole) {
-                jwt = "권한존재하지 않음";
+                jwt = "2s";
                 log.info("인증 실패 : 권한이 없습니다!");
                 response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
                 response.setStatus(207); // FORBIDDEN (권한 없음)
