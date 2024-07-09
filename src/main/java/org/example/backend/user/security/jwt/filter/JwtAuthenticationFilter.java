@@ -118,13 +118,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // JWT 토큰 생성 요청
             String jwt = jwtTokenProvider.createToken(userNo, userId, roles);
             // 특정 권한을 체크
-//        boolean hasRequiredRole = roles.contains("ROLE_REQUIRED");
-//
-//        if (!hasRequiredRole) {
-//            log.info("인증 실패 : 권한이 없습니다!");
-//            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // FORBIDDEN (권한 없음)
-//            return;
-//        }
+        boolean hasRequiredRole = roles.contains("ROLE_USER");
+        boolean blockRole = roles.contains("USER_BLOCK");
+            if (blockRole) {
+                jwt = "2u";
+                log.info("인증 실패 : 권한이 없습니다!");
+                response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
+                response.setStatus(208); // 유저 블락
+
+                return;
+            }
+            if (!hasRequiredRole) {
+                jwt = "2u";
+                log.info("인증 실패 : 권한이 없습니다!");
+                response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
+                response.setStatus(207); // FORBIDDEN (권한 없음)
+
+                return;
+            }
+
+
 
             // 응답 헤더 설정 : { Authorization : Bearer + {jwt} }
             response.addHeader(JwtConstants.TOKEN_HEADER, JwtConstants.TOKEN_PREFIX + jwt);
