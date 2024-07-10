@@ -39,6 +39,32 @@ public class JwtTokenProvider {
      * 👩‍💼➡🔐 토큰 생성
      */
     public String createToken(int userNo, String userId, List<String> roles) {
+//        System.out.println("이건 뭐죠 "+ userNo); 유저아이디네
+        System.out.println("실행권한");
+        for(String i:roles){
+            System.out.println(i);
+        }
+
+        // JWT 토큰 생성
+        String jwt = Jwts.builder()
+                .signWith( getShaKey(), Jwts.SIG.HS512 )      // 서명에 사용할 키와 알고리즘 설정
+                // .setHeaderParam("typ", SecurityConstants.TOKEN_TYPE)        // deprecated (version: before 1.0)
+                .header()                                                      // update (version : after 1.0)
+                .add("typ", JwtConstants.TOKEN_TYPE)                   // 헤더 설정 (JWT)
+                .and()
+                .expiration(new Date(System.currentTimeMillis() + 864000000))  // 토큰 만료 시간 설정 (10일)
+                .claim("uno", "" + userNo)                                // 클레임 설정: 사용자 번호
+                .claim("uid", userId)                                     // 클레임 설정: 사용자 아이디
+                .claim("rol", roles)                                      // 클레임 설정: 권한
+                .compact();
+
+        log.info("jwt : " + jwt);
+
+        return jwt;
+    }
+
+    public String createToken2(int userNo, String userId, String roles) {
+//        System.out.println("이건 뭐죠 "+ userNo); 유저아이디네
 
         // JWT 토큰 생성
         String jwt = Jwts.builder()
