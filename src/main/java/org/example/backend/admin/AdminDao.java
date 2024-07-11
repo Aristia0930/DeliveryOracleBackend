@@ -236,7 +236,6 @@ public class AdminDao {
     //업체 신고 리포터 1로 변경
 
 
-
     //오늘자 메인 메뉴정보 확인
     public TodayInfoVo today(){
         String sql="SELECT \n" +
@@ -245,10 +244,10 @@ public class AdminDao {
                 "     WHERE visit_date = CURDATE()) AS visitor_count,\n" +
                 "    (SELECT COUNT(*) \n" +
                 "     FROM orderinformation \n" +
-                "     WHERE DATE(order_date) = CURDATE()) AS order_count,\n" +
+                "     WHERE order_approval_status IN (4, 6) AND DATE(order_date) = CURDATE()) AS order_count,\n" +
                 "    (SELECT SUM(total_price) \n" +
                 "     FROM orderinformation \n" +
-                "     WHERE DATE(order_date) = CURDATE()) AS total_price_sum;";
+                "     WHERE order_approval_status IN (4, 6) AND DATE(order_date) = CURDATE()) AS total_price_sum;";
         try{
             return jdbcTemplate.queryForObject(sql,todayMapper());
         }catch (Exception e){
