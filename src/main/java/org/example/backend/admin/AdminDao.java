@@ -34,7 +34,7 @@ public class AdminDao {
 
     public int adminApprovalupdate(int store_id){
 
-        String sql = "UPDATE StoreRegistration SET approval_status = 1 WHERE owner_id = ?";
+        String sql = "UPDATE StoreRegistration SET approval_status = 1 WHERE store_id = ?";
 
         try {
             return jdbcTemplate.update(sql, store_id);

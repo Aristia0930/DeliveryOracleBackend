@@ -355,6 +355,7 @@ public class StoreDao {
 
     //댓글 신고하기
     public int report(ReportsVo reportsVo){
+        System.out.println(reportsVo.getCommentId());
         String sql ="INSERT INTO Reports (comment_id,comment_author_id,reporter_id,report_text) " +
                 "VALUES (?,?,?,?)";
         int rs=-1;
