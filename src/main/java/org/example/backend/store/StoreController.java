@@ -223,7 +223,7 @@ public class StoreController {
     //주문 거절
     @GetMapping("/refuse")
     public int refuse(@RequestParam("orderId") int id){
-        log.info(":::: 음식점에서 라이더 배정 ::::");
+        log.info(":::: 음식점에서 거절함 ::::");
         return storeService.refuse(id);
     }
 
