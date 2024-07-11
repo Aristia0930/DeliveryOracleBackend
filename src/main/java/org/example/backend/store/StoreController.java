@@ -27,12 +27,12 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
 //    private static final String URL="C:\\Users\\KOSTA\\Desktop\\finalfr\\public\\imgs\\";
-//    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
+    private static final String URL="C:\\Users\\kjk98\\OneDrive\\바탕 화면\\koster\\frontend\\public\\imgs\\";
 
     //내꺼
 //    private static final String URL="E:\\h\\DeliveryOracle\\FE\\src\\imgs\\";
     //소니
-    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
+//    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
     //상점등록
     @PostMapping("/join")
     public String storeJoin(        @RequestParam("name") String name,
@@ -223,7 +223,7 @@ public class StoreController {
     //주문 거절
     @GetMapping("/refuse")
     public int refuse(@RequestParam("orderId") int id){
-        log.info(":::: 음식점에서 거절함 ::::");
+        log.info(":::: 음식점에서 라이더 배정 ::::");
         return storeService.refuse(id);
     }
 

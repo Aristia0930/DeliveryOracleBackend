@@ -37,6 +37,7 @@ public class AdminDao {
         String sql = "UPDATE StoreRegistration SET approval_status = 1 WHERE store_id = ?";
 
         try {
+
             return jdbcTemplate.update(sql, store_id);
         } catch (Exception e) {
             // 예외 처리 로직 (예: 로깅)
@@ -233,7 +234,6 @@ public class AdminDao {
     }
 
     //업체 신고 리포터 1로 변경
-
 
 
     //오늘자 메인 메뉴정보 확인
