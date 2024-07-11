@@ -34,7 +34,7 @@ public class GeminiService {
     @Value("${GEMINI_URL}")
     private String apiUrl;
 
-    @Value("")
+    @Value("${GEMINI_API}")
     private String geminiApiKey;
 
     public Map<String,List<StoreRegistrationVo>> getContents(String prompt, BigDecimal x, BigDecimal y) {
@@ -121,7 +121,7 @@ public class GeminiService {
 
     }
 
-    @Value()
+    @Value("${WEATHER_API}")
     private String apiKey;
 
     //날씨
