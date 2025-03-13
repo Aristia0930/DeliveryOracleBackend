@@ -21,7 +21,7 @@ import java.util.List;
 public class StoreService {
 
     @Autowired
-    private StoreDao storeDao;
+    private StoreMapper storeDao;
 
     @Autowired
     private AccountDao accountDao;
@@ -111,14 +111,14 @@ public class StoreService {
 
     //매출 내역 조회
     public List<StoreOrderInformationVo> orderSales_info(int store_id){
-        return storeDao.orderSales_info(store_id);
+        return storeDao.orderSalesInfo(store_id);
     }
 
     //업체 수정전 내용 받아오기
     public StoreRegistrationVo store_info(int id) {
         //GlobalExceptionHandler 오류 발생시 여기로 넘어가서 내가 원하는 오류값을 나타낼수 있음
         try {
-            return storeDao.store_info(id);
+            return storeDao.storeInfo(id);
         } catch (EmptyResultDataAccessException e) {
             //내가 지정한 오류다 이름이다.
             throw new StoreNotFoundException("Store not found for owner ID: " + id);
@@ -132,18 +132,18 @@ public class StoreService {
 
         if(storeRegistrationVo.getStore_image()!=null){
             //이미지가 존재할경우
-            return storeDao.store_edit_img(storeRegistrationVo);
+            return storeDao.storeEditImg(storeRegistrationVo);
 
         }else{
             //이미지가 존재하지 않을 경우
-            return storeDao.store_edit(storeRegistrationVo);
+            return storeDao.storeEdit(storeRegistrationVo);
         }
 
     }
 
     //업체 삭제 승인
     public int store_delete(int id){
-        return storeDao.store_delete(id);
+        return storeDao.storeDelete(id);
 
     }
 

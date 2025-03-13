@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportService {
     @Autowired
-    private ReportDao reportDao;
+    private ReportMapper reportDao;
 
 
     //업체신고 서비스

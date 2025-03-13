@@ -22,12 +22,6 @@ public class SearchDao {
     private JdbcTemplate jdbcTemplate;
     
     //음식점 조회 카테고리형식
-//    SELECT *
-//    FROM StoreRegistration
-//    WHERE store_ca = ?
-//    AND approval_status = 1
-//    AND store_x BETWEEN ? - 0.05 AND ? + 0.05
-//    AND store_y BETWEEN ? - 0.05 AND ? + 0.05;
     public List<StoreRegistrationVo> storeList(String num , BigDecimal x , BigDecimal y){
         String sql="select * from StoreRegistration where store_ca=? AND approval_status=1 AND store_x BETWEEN ? - 0.08 AND ? + 0.08 AND store_y BETWEEN ? - 0.08 AND ? + 0.08";
 

@@ -13,7 +13,7 @@ public class UserEditService {
     private static final Logger logger = LoggerFactory.getLogger(UserEditService.class);
 
     @Autowired
-    private UserEditDao userEditDao;
+    private UserEditMapper userEditDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,7 +48,7 @@ public class UserEditService {
             user.setPassword(encodedNewPassword);
 
             // 사용자 정보를 업데이트
-            userEditDao.updatePass(user);
+            userEditDao.updatePass(user.getUser_id(),user.getPassword());
             return user; // 업데이트된 사용자 객체 반환
         } else {
             throw new IllegalArgumentException("기존 비밀번호가 일치하지 않습니다."); // 기존 비밀번호가 일치하지 않음

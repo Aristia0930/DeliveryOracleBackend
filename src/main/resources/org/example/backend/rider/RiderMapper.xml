@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.backend.rider.RiderMapper">
+
+    <!-- 배달 전체 목록 불러오기 -->
+    <select id="orderlist" parameterType="map" resultType="org.example.backend.rider.RiderVo">
+        SELECT
+            o.order_id,
+            o.store_id,
+            s.store_name,
+            u.Email AS store_owner_email,
+            o.user_x,
+            o.user_y,
+            s.store_x,
+            s.store_y
+        FROM OrderInformation o
+                 JOIN StoreRegistration s ON o.store_id = s.store_id
+                 JOIN UserInformation u ON s.owner_id = u.user_id
+        WHERE o.order_approval_status = 2
+          AND s.store_x BETWEEN #{x} - 0.1 AND #{x} + 0.1
+          AND s.store_y BETWEEN #{y} - 0.1 AND #{y} + 0.1;
+    </select>
+
+    <!-- 콜 받은 거 라이더 DB에 등록 -->
+    <insert id="call" parameterType="org.example.backend.rider.RiderVo">
+        INSERT INTO RiderDelivery (order_id, store_id, store_name, store_owner_email, rider_id, distance_to_store,
+                                   distance_to_user, delivery_price, store_x, store_y, user_x, user_y)
+        VALUES (#{orderId}, #{storeId}, #{storeName}, #{storeOwnerEmail}, #{riderId}, #{distanceToStore},
+                #{distanceToUser}, #{deliveryPrice}, #{store_x}, #{store_y}, #{user_x}, #{user_y});
+    </insert>
+
+    <!-- 주문 상태 업데이트 (배달 시작) -->
+    <update id="order" parameterType="int">
+        UPDATE orderinformation
+        SET order_approval_status = 3
+        WHERE order_id = #{orderId};
+    </update>
+
+    <!-- 콜 수락한 목록 조회 -->
+    <select id="orderCall" parameterType="int" resultType="org.example.backend.rider.RiderVo">
+        SELECT *
+        FROM RiderDelivery
+        WHERE rider_id = #{id}
+          AND delivery_status = 0;
+    </select>
+
+    <!-- 배달 완료 처리 -->
+    <update id="finish" parameterType="int">
+        UPDATE RiderDelivery
+        SET delivery_status = 1
+        WHERE delivery_id = #{deliveryId};
+    </update>
+
+    <!-- 주문 상태 업데이트 (배달 완료) -->
+    <update id="orderfinish" parameterType="int">
+        UPDATE orderinformation
+        SET order_approval_status = 4
+        WHERE order_id = #{orderId};
+    </update>
+
+    <!-- 라이더의 배달 완료된 목록 조회 -->
+    <select id="riderReceipt" parameterType="int" resultType="org.example.backend.rider.RiderVo">
+        SELECT *
+        FROM RiderDelivery
+        WHERE rider_id = #{riderId}
+          AND delivery_status = 1;
+    </select>
+
+    <!-- 라이더의 수익 조회 -->
+    <select id="riderRevenue" parameterType="int" resultType="org.example.backend.rider.RiderVo">
+        SELECT rider_id, delivery_price, delivery_id, order_date
+        FROM RiderDelivery
+        WHERE rider_id = #{riderId}
+          AND delivery_status = 1;
+    </select>
+
+</mapper>
