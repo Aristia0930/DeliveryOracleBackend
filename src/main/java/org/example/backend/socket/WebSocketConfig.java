@@ -1,4 +1,4 @@
-package org.example.backend.sock;
+package org.example.backend.socket;
 
 import org.example.backend.user.security.jwt.provider.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;

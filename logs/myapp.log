@@ -1,0 +1,93 @@
+2024-07-12 15:27:03.371 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-12 15:27:03.371 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-07-12 15:27:03.373 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2024-07-12 15:27:03.386 [http-nio-8080-exec-1] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/search/CaList' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-07-12 15:27:03.407 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.411 [http-nio-8080-exec-1] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/search/CaList' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-07-12 15:27:03.441 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-07-12 15:27:03.578 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5126dc4e
+2024-07-12 15:27:03.579 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-07-12 15:27:03.665 [http-nio-8080-exec-3] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.670 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MjE2MjgwMjcsInVubyI6IjI1IiwidWlkIjoidTYiLCJyb2wiOlsiUk9MRV9VU0VSIl19.fYjFSoSsUFbi21J2_iwWuKdqbZhTtBTPAgFvKkC1vvc6VYZXdCeYqNFYBXGIK--7cuG7lIyt_KE6ItES5UJkUg
+2024-07-12 15:27:03.682 [http-nio-8080-exec-5] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.693 [http-nio-8080-exec-6] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.699 [http-nio-8080-exec-7] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.706 [http-nio-8080-exec-8] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.712 [http-nio-8080-exec-10] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.719 [http-nio-8080-exec-9] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:03.763 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - parsedToken : header={typ=JWT, alg=HS512},payload={exp=1721628027, uno=25, uid=u6, rol=[ROLE_USER]},signature=fYjFSoSsUFbi21J2_iwWuKdqbZhTtBTPAgFvKkC1vvc6VYZXdCeYqNFYBXGIK--7cuG7lIyt_KE6ItES5UJkUg
+2024-07-12 15:27:03.764 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userNo : 25
+2024-07-12 15:27:03.764 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userId : u6
+2024-07-12 15:27:03.764 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - roles : [ROLE_USER]
+2024-07-12 15:27:03.784 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - ### 토큰 만료 기간 ###
+2024-07-12 15:27:03.785 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - -> Mon Jul 22 15:00:27 KST 2024
+2024-07-12 15:27:03.786 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - 유효한 JWT 토큰 입니다
+2024-07-12 15:27:03.788 [http-nio-8080-exec-4] INFO  o.e.backend.test.TestController - :::: jwt토큰으로부터 값 꺼내오기 ::::
+2024-07-12 15:27:03.789 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - parsedToken : header={typ=JWT, alg=HS512},payload={exp=1721628027, uno=25, uid=u6, rol=[ROLE_USER]},signature=fYjFSoSsUFbi21J2_iwWuKdqbZhTtBTPAgFvKkC1vvc6VYZXdCeYqNFYBXGIK--7cuG7lIyt_KE6ItES5UJkUg
+2024-07-12 15:27:03.789 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userNo : 25
+2024-07-12 15:27:03.789 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userId : u6
+2024-07-12 15:27:03.789 [http-nio-8080-exec-4] INFO  o.e.b.u.s.j.p.JwtTokenProvider - roles : [ROLE_USER]
+2024-07-12 15:27:04.372 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MjE2MjgwMjcsInVubyI6IjI1IiwidWlkIjoidTYiLCJyb2wiOlsiUk9MRV9VU0VSIl19.fYjFSoSsUFbi21J2_iwWuKdqbZhTtBTPAgFvKkC1vvc6VYZXdCeYqNFYBXGIK--7cuG7lIyt_KE6ItES5UJkUg
+2024-07-12 15:27:04.372 [http-nio-8080-exec-2] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - authorization : null
+2024-07-12 15:27:04.372 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - parsedToken : header={typ=JWT, alg=HS512},payload={exp=1721628027, uno=25, uid=u6, rol=[ROLE_USER]},signature=fYjFSoSsUFbi21J2_iwWuKdqbZhTtBTPAgFvKkC1vvc6VYZXdCeYqNFYBXGIK--7cuG7lIyt_KE6ItES5UJkUg
+2024-07-12 15:27:04.372 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userNo : 25
+2024-07-12 15:27:04.372 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userId : u6
+2024-07-12 15:27:04.372 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - roles : [ROLE_USER]
+2024-07-12 15:27:04.375 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - ### 토큰 만료 기간 ###
+2024-07-12 15:27:04.375 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - -> Mon Jul 22 15:00:27 KST 2024
+2024-07-12 15:27:04.375 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.filter.JwtRequestFilter - 유효한 JWT 토큰 입니다
+2024-07-12 15:27:04.376 [http-nio-8080-exec-1] INFO  o.e.backend.test.TestController - :::: jwt토큰으로부터 값 꺼내오기 ::::
+2024-07-12 15:27:04.376 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - parsedToken : header={typ=JWT, alg=HS512},payload={exp=1721628027, uno=25, uid=u6, rol=[ROLE_USER]},signature=fYjFSoSsUFbi21J2_iwWuKdqbZhTtBTPAgFvKkC1vvc6VYZXdCeYqNFYBXGIK--7cuG7lIyt_KE6ItES5UJkUg
+2024-07-12 15:27:04.376 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userNo : 25
+2024-07-12 15:27:04.376 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - userId : u6
+2024-07-12 15:27:04.376 [http-nio-8080-exec-1] INFO  o.e.b.u.s.j.p.JwtTokenProvider - roles : [ROLE_USER]
+2024-07-12 15:27:05.029 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiController - 1번
+2024-07-12 15:27:08.514 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 냉면
+2024-07-12 15:27:08.516 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 찜닭
+2024-07-12 15:27:08.517 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 오리훈제
+2024-07-12 15:27:23.531 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiController - 2번
+2024-07-12 15:27:26.942 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 냉면
+2024-07-12 15:27:26.947 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 짜장면
+2024-07-12 15:27:26.951 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 찜닭
+2024-07-12 15:27:41.966 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiController - 3번
+2024-07-12 15:27:44.406 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 냉면
+2024-07-12 15:27:44.408 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 짜장면
+2024-07-12 15:27:44.409 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 찜닭
+2024-07-12 15:27:59.413 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiController - 4번
+2024-07-12 15:28:02.406 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 냉면
+2024-07-12 15:28:02.407 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 찜닭
+2024-07-12 15:28:02.409 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 볶음밥
+2024-07-12 15:28:17.425 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiController - 5번
+2024-07-12 15:28:22.245 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 메뉴이름
+2024-07-12 15:28:22.247 [http-nio-8080-exec-2] INFO  o.e.backend.gemini.GeminiService - 천이유
+2024-07-12 15:28:22.255 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.StringIndexOutOfBoundsException: begin 3, end -1, length 0]
+2024-07-12 15:31:20.150 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2024-07-12 15:31:20.151 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3a2ae148]]
+2024-07-12 15:31:20.151 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2024-07-12 15:31:20.188 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-07-12 15:31:20.195 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-07-12 15:32:14.930 [restartedMain] INFO  o.example.backend.BackendApplication - Starting BackendApplication using Java 17.0.10 with PID 25092 (C:\Users\kjk98\OneDrive\바탕 화면\코스타백엔드\backend\build\classes\java\main started by kjk98 in C:\Users\kjk98\OneDrive\바탕 화면\코스타백엔드\backend)
+2024-07-12 15:32:14.931 [restartedMain] INFO  o.example.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2024-07-12 15:32:14.962 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-12 15:32:14.962 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-12 15:32:15.722 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-12 15:32:15.724 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-12 15:32:15.752 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2024-07-12 15:32:16.280 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-07-12 15:32:16.286 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-07-12 15:32:16.288 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-07-12 15:32:16.288 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-07-12 15:32:16.337 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-07-12 15:32:16.338 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1375 ms
+2024-07-12 15:32:17.045 [restartedMain] INFO  o.e.b.user.config.SecurityConfig - 시큐리티 설정...
+2024-07-12 15:32:17.192 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3b4d3621, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fa03209, org.springframework.security.web.context.SecurityContextHolderFilter@263ceaef, org.springframework.security.web.header.HeaderWriterFilter@210494df, org.springframework.web.filter.CorsFilter@24d9c750, org.springframework.security.web.authentication.logout.LogoutFilter@3ee20f03, org.example.backend.user.security.jwt.filter.JwtRequestFilter@7841c8a4, org.example.backend.user.security.jwt.filter.JwtAuthenticationFilter@2a6f15b3, org.example.backend.user.security.jwt.filter.JwtAuthenticationFilter2@54a15a8d, org.example.backend.user.security.jwt.filter.JwtAuthenticationFilter3@3e28e40e, org.example.backend.user.security.jwt.filter.JwtAuthenticationFilter4@48da1f87, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4498642e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b7a922b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1a4a59a2, org.springframework.security.web.access.ExceptionTranslationFilter@3fc79abd, org.springframework.security.web.access.intercept.AuthorizationFilter@37be62fb]
+2024-07-12 15:32:17.681 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-07-12 15:32:17.704 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-07-12 15:32:17.723 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-07-12 15:32:17.725 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2024-07-12 15:32:17.726 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3e073141]]
+2024-07-12 15:32:17.726 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2024-07-12 15:32:17.732 [restartedMain] INFO  o.example.backend.BackendApplication - Started BackendApplication in 3.043 seconds (process running for 3.676)
+2024-07-12 15:32:36.075 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2024-07-12 15:32:36.075 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3e073141]]
+2024-07-12 15:32:36.075 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.

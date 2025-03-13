@@ -1,5 +1,8 @@
 package org.example.backend.store;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.comments.dto.CommentsVo;
 import org.example.backend.service.OrderVo;
@@ -23,6 +26,7 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping("/store")
+@Tag(name = "업체 페이지", description = "업체 페이지")
 public class StoreController {
     @Autowired
     private StoreService storeService;
@@ -35,6 +39,7 @@ public class StoreController {
 //    private static final String URL="C:\\GitSource\\front_com\\public\\imgs\\";
     //상점등록
     @PostMapping("/join")
+    @Operation(summary = "업체 등록 요청", description = "업체 등록 요청 api")
     public String storeJoin(        @RequestParam("name") String name,
                                     @RequestParam("address") String address,
                                     @RequestParam("text") String text,
@@ -87,6 +92,7 @@ public class StoreController {
 
     //등록 승인 되었는지 확인 요청
     @GetMapping("/menuRs")
+    @Operation(summary = "업체 승인  확인 요청", description = "업체 승인 확인 요청 api")
     public int approvR(@RequestParam("id") int id){
         log.info(":::: 업체 승인 확인 요청 ::::");
 
@@ -105,6 +111,7 @@ public class StoreController {
 
     //메뉴 등록하기
     @PostMapping("menuRs")
+    @Operation(summary = "메뉴 등록 요청", description = "메뉴 등록 요청 api")
     public int menuRs(@RequestParam("name") String name,
                       @RequestParam("price") int price,
                       @RequestParam("img") MultipartFile img,
@@ -145,6 +152,7 @@ public class StoreController {
 
     //메뉴 목록 불러오기
     @GetMapping("/menulist")
+    @Operation(summary = "메뉴 조회 요청", description = "메뉴 조회 요청 api")
     public List<StoreInformationVo> menuList(@RequestParam("shopid") int id){
         log.info(":::: 메뉴불러오기 ::::");
         return storeService.menuList(id);
@@ -152,6 +160,7 @@ public class StoreController {
     }
     //메뉴 수정하기
     @PutMapping("menuedit")
+    @Operation(summary = "메뉴 수정 요청", description = "메뉴 수정 요청 api")
 
     public int menuedit(@RequestParam("name") String name,
                       @RequestParam("price") int price,
@@ -194,6 +203,7 @@ public class StoreController {
     //메뉴 삭제하기
     //del로 수정
     @DeleteMapping("/menuedel")
+    @Operation(summary = "메뉴 삭제 요청", description = "메뉴 삭제 요청 api")
     public int menudel(@RequestParam("id") int id,@RequestParam("name") String name){
         log.info(":::: 메뉴삭제하기 ::::");
        return storeService.menudel(id,name);
@@ -202,6 +212,7 @@ public class StoreController {
     //주문 받기
     //상점아이디를 받아온다
     @PostMapping("/order")
+    @Operation(summary = "주문 목록 조회 요청", description = "주문 목록 조회 요청 api")
     public List<StoreOrderInformationVo> order(@RequestBody OrderVo orderVo){
         log.info(":::: 주문알람 리스트 반환 ::::");
         return storeService.order(orderVo.getStoreId());
@@ -209,6 +220,7 @@ public class StoreController {
     }
     //조리하기
     @GetMapping("/cook")
+    @Operation(summary = "주문 상태 조리 하기 변경 요청", description = "주문 상태 조리 하기 변경 요청 api")
     public int cook(@RequestParam("orderId") int id){
         log.info(":::: 음식점 조리 ::::");
         return storeService.cook(id);
@@ -216,19 +228,22 @@ public class StoreController {
 
     //라이더 배정
     @GetMapping("/rider")
+    @Operation(summary = "주문 상태 라이더 변경 요청", description = "주문 상태 라이더 변경 요청 api")
     public int rider(@RequestParam("orderId") int id){
         log.info(":::: 음식점에서 라이더 배정 ::::");
         return storeService.rider(id);
     }
     //주문 거절
     @GetMapping("/refuse")
+    @Operation(summary = "주문 상태 거절 요청", description = "주문 상태 거절 요청 api")
     public int refuse(@RequestParam("orderId") int id){
-        log.info(":::: 음식점에서 라이더 배정 ::::");
+        log.info(":::: 음식점 주문거절 ::::");
         return storeService.refuse(id);
     }
 
     //업체 주문 내역 불러오기
     @GetMapping("/orderReceipt")
+    @Operation(summary = "주문 완료 목록 조회 요청", description = "주문 완료 목록 조회 api")
     public List<StoreOrderInformationVo> orderReceipt(@RequestParam("store_id") int store_id){
         log.info("결제 내역 조회!" + store_id);
         return storeService.orderReceipt(store_id);
@@ -236,6 +251,7 @@ public class StoreController {
 
     //매출 내역 그래프로 불러오기
     @GetMapping("/orderSales_info")
+    @Operation(summary = "주문 완료 매출 그래프 요청", description = "매출 그래프에 필요한 정보 요청 api => 주문날짜 ,주문 금액 ")
     public List<StoreOrderInformationVo> orderSales_info(@RequestParam("store_id") int store_id){
         log.info("현재 매출 내역 조회하기! " + store_id);
         return storeService.orderSales_info(store_id);
@@ -244,6 +260,7 @@ public class StoreController {
     //업체 수정전 내용 받아오기
 
     @PostMapping("/store_edit_info")
+    @Operation(summary = "업체 정보 조회 요청", description = "업체 정보 조회 요청 api")
     //받아올 데이터는 주인 아이디값
     public StoreRegistrationVo store_info(@RequestBody Map<String, Integer> data){
         log.info("업체 정보 불러오기" );
@@ -256,6 +273,7 @@ public class StoreController {
     //업체수정
     //put
     @PutMapping("/store_edit")
+    @Operation(summary = "업체 수정 요청", description = "업체 수정 요청 api")
     public ResponseEntity<?> store_edit(        @RequestParam("name") String name,
                                                 @RequestParam("address") String address,
                                                 @RequestParam("text") String text,
@@ -312,7 +330,10 @@ public class StoreController {
     //업체 삭제
     //del
     @DeleteMapping("/delete")
-    public ResponseEntity<?> store_delete(@RequestBody Map<String, Integer> data){
+    @Operation(summary = "업체 삭제 요청", description = "업체 삭제 요청 api")
+    public ResponseEntity<?> store_delete(
+            @Parameter(name = "data",description = "업체 아이디", example = "1") @RequestBody Map<String, Integer> data
+    ) {
         int store_id = data.get("store_id");
         int rs=storeService.store_delete(store_id);
         if (rs==1){
@@ -325,6 +346,7 @@ public class StoreController {
 
     //댓글 목록보기
     @GetMapping("commentList")
+    @Operation(summary = "업체 달린 댓글 목록 조회 요청", description = "업체 달린 댓글 목록 조회 요청 api")
     public List<CommentsVo> commentList(@RequestParam("storeid") int id){
         log.info("업체 댓글 불러오기" );
         return  storeService.commentList(id);
@@ -333,6 +355,7 @@ public class StoreController {
     //댓글 신고하기
     //받는 값 댓글 아이디 , 댓글 작성자 아이디,신고자 아이디, 신고내용
     @PostMapping("report")
+    @Operation(summary = "댓글 신고 요청", description = "댓글 신고  요청 api")
     public ResponseEntity<?> report (@RequestBody ReportsVo reportsVo){
         int rs=storeService.report(reportsVo);
         if (rs==1){
@@ -346,6 +369,7 @@ public class StoreController {
 
     //업체 등록 했는지 안했는지 확인하기
     @GetMapping("exist")
+    @Operation(summary = "업체 존재 확인 요청", description = "업체 존재 확인 요청 api")
     public ResponseEntity<?> exist (@RequestParam("id") int id){
         int rs=storeService.exist(id);
         if (rs==1){

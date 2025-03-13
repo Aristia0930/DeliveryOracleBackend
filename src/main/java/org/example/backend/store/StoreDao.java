@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,19 @@ import java.util.List;
 public class StoreDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private RowMapper<StoreOrderInformationVo> storeOrderInformationVoRowMapper() {
+        return new RowMapper<StoreOrderInformationVo>() {
+            @Override
+            public StoreOrderInformationVo mapRow(ResultSet rs, int rowNum) throws SQLException {
+                StoreOrderInformationVo orderInfo = new StoreOrderInformationVo();
+                orderInfo.setCustomer_id(rs.getInt("customer_id"));
+                orderInfo.setTotal_price(rs.getInt("total_price"));
+
+                return orderInfo;
+            }
+        };
+    }
 
 
     //상점등록
@@ -404,10 +419,25 @@ public class StoreDao {
         }
 
 
+
+
+
     }
 
 
 
+
+    //주문내역에서 유저의 id와 가격 반환
+    public StoreOrderInformationVo orderUserId(int id) {
+        String sql = "select * from orderinformation where order_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, storeOrderInformationVoRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            // 결과가 없을 때의 처리
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
 
 
 

@@ -1,5 +1,7 @@
 package org.example.backend.user.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.backend.user.dto.CustomUser;
 import org.example.backend.user.dto.User;
 import org.example.backend.user.service.UserService;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/user")
+@Tag(name = "유저 등록 / 로그인 api", description = "유저 등록/로그인API")
 public class UserController {
 
     //서비스 요청을 해야한다.
@@ -37,6 +40,7 @@ public class UserController {
     */
     @Secured("ROLE_USER") // USER 권한 설정
     @GetMapping("/info")
+    @Operation(summary = "유저 정보 요청", description = "유저 정보 요청 api=> 유저이름,이메일,권한")
     public ResponseEntity<?> userInfo(@AuthenticationPrincipal CustomUser customUser) {
         log.info(":::: customUser ::::");
         log.info("customUser : " + customUser);
@@ -58,6 +62,7 @@ public class UserController {
         @throws Exception
     */
     @PostMapping("")
+    @Operation(summary = "사용자(소비자)회원가입 요청", description = "사용자 회원가입 api")
     public ResponseEntity<?> user(@RequestBody User user) throws Exception {
         log.info("[POST] - /users");
         int result = userService.insert(user);
@@ -76,6 +81,7 @@ public class UserController {
 
     //업체 회원가입
     @PostMapping("/store")
+    @Operation(summary = "업체 회원가입 요청", description = "업체 회원가입 api")
     public ResponseEntity<?> join_store(@RequestBody User user) throws Exception {
         log.info("[POST] - /store");
         int result = userService.insert_store(user);
@@ -95,6 +101,7 @@ public class UserController {
 
     //관리자 회원가입
     @PostMapping("/admin")
+    @Operation(summary = "관리자 회원가입 요청", description = "관리자 회원가입 api")
     public ResponseEntity<?> join_admin(@RequestBody User user) throws Exception {
         log.info("[POST] - /admin");
         int result = userService.insert_admin(user);
@@ -114,6 +121,7 @@ public class UserController {
 
     //라이더 회원가입
     @PostMapping("/rider")
+    @Operation(summary = "라이더 회원가입 요청", description = "라이더 회원가입 api")
     public ResponseEntity<?> join_rider(@RequestBody User user) throws Exception {
         log.info("[POST] - /rider");
         int result = userService.insert_rider(user);
@@ -133,6 +141,7 @@ public class UserController {
 
     //유저 이메일 확인
     @PostMapping("/checkEmail")
+    @Operation(summary = "유저 이메일 정보 요청", description = "유저 이메일 정보 요청 api")
     public String checkEmail(@RequestBody Map<String,String> emailInfo){
         String email=emailInfo.get("email");
         System.out.println(email);

@@ -1,6 +1,7 @@
 package org.example.backend.store;
 
 import org.example.backend.comments.dto.CommentsVo;
+import org.example.backend.service.account.AccountDao;
 import org.example.backend.store.dto.ReportsVo;
 import org.example.backend.store.dto.StoreInformationVo;
 import org.example.backend.store.dto.StoreOrderInformationVo;
@@ -8,6 +9,7 @@ import org.example.backend.store.dto.StoreRegistrationVo;
 import org.example.backend.store.except.StoreNotFoundException;
 import org.example.backend.store.except.StoreServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,9 @@ public class StoreService {
 
     @Autowired
     private StoreDao storeDao;
+
+    @Autowired
+    private AccountDao accountDao;
 
     //상점등록 서비스
     public  int storeInsert(StoreRegistrationVo storeRegistrationVo){
@@ -74,8 +79,29 @@ public class StoreService {
     }
 
     //주문거절
-    public int refuse(int id){
-        return storeDao.refuse(id);
+    @Transactional
+    public int refuse(int id) {
+        try {
+            StoreOrderInformationVo storeOrderInformationVo = storeDao.orderUserId(id);
+            int useId = storeOrderInformationVo.getCustomer_id();
+            int price = storeOrderInformationVo.getTotal_price();
+
+            int accountNum = accountDao.accountId(useId);
+            if (accountNum==-1){
+                throw new RuntimeException();
+            }
+
+            int rs = accountDao.deposit(accountNum, price);
+
+            storeDao.refuse(id);
+
+            return 1; // Success indicator
+        } catch (Exception e) {
+            // Handle exceptions here
+            return -1; // Or handle failure in another appropriate way
+        }
+
+
     }
 
     //업체 주문 내역 조회

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.backend.admin.mapper.AdminMapper">
+
+    <!-- 모든 상점 승인 정보 가져오기 -->
+    <select id="postAllApprovals" resultType="org.example.backend.admin.dto.AdminApproveVo">
+        SELECT store_id, owner_id, store_name, modification_date, approval_status
+        FROM StoreRegistration
+    </select>
+
+    <!-- 관리자 승인 업데이트 -->
+    <update id="adminApprovalUpdate">
+        UPDATE StoreRegistration SET approval_status = 1 WHERE store_id = #{storeId}
+    </update>
+
+    <!-- 관리자 결제 내역 불러오기 -->
+    <select id="orderReceipt" resultType="org.example.backend.admin.dto.AdminOrderInformationVo">
+        SELECT
+            o.order_id, o.customer_id, o.store_id, o.order_details,
+            o.total_price, o.user_x, o.user_y,
+            u.Email AS email, u.Name AS name
+        FROM OrderInformation o
+                 JOIN UserInformation u ON o.customer_id = u.user_id
+        WHERE order_approval_status IN (4, 6)
+    </select>
+
+    <!-- 현재 매출 내역 조회 -->
+    <select id="managerRevenue" resultType="org.example.backend.admin.dto.AdminOrderInformationVo">
+        SELECT order_details, total_price, order_date
+        FROM OrderInformation
+        WHERE order_approval_status IN (4, 6)
+    </select>
+
+    <!-- 유저 신고 내역 조회 -->
+    <select id="userReport" resultType="org.example.backend.admin.dto.ReportsUserVo">
+        SELECT
+            r.comment_author_id,
+            u.Email,
+            COUNT(*) AS count_of_comments
+        FROM Reports r
+                 JOIN UserInformation u ON r.comment_author_id = u.user_id
+                 JOIN userinfo_auth ua ON u.Email = ua.user_id
+        WHERE ua.auth = 'ROLE_USER'
+        GROUP BY r.comment_author_id, u.Email
+        HAVING COUNT(*) >= 2
+    </select>
+
+    <!-- 유저 신고 상세 조회 -->
+    <select id="userDetail" parameterType="int" resultType="org.example.backend.admin.dto.ReportsUserDetailVo">
+        SELECT
+            R.comment_id, R.comment_author_id, R.report_text,
+            R.reporter_id, C.content,
+            UA.Email AS comment_author_email,
+            UR.Email AS reporter_email
+        FROM Reports R
+                 JOIN UserInformation UA ON R.comment_author_id = UA.user_id
+                 JOIN UserInformation UR ON R.reporter_id = UR.user_id
+                 JOIN comments C ON R.comment_id = C.comment_id
+                 JOIN userinfo_auth UA_AUTH ON UA.Email = UA_AUTH.user_id
+        WHERE R.comment_author_id = #{authorId}
+    </select>
+
+    <!-- 유저 차단 -->
+    <update id="blockUser">
+        UPDATE userinfo_auth ua
+            JOIN UserInformation ui ON ua.user_id = ui.Email
+            SET ua.auth = 'USER_BLOCK'
+        WHERE ui.user_id = #{id}
+    </update>
+
+    <!-- 유저가 신고한 업체 조회 -->
+    <select id="storeReport" resultType="org.example.backend.admin.dto.ReportStoreVo">
+        SELECT
+            r.store_id,
+            u.store_name,
+            COUNT(*) AS count
+        FROM storereports r
+            JOIN storeregistration u ON r.store_id = u.store_id
+        WHERE u.approval_status = 1
+        GROUP BY r.store_id, u.store_name
+        HAVING COUNT(*) >= 2
+    </select>
+
+    <!-- 업체 신고 상세 조회 -->
+    <select id="storeDetail" parameterType="int" resultType="org.example.backend.admin.dto.ReportStoreDetailVo">
+        SELECT
+            SR.report_id, SR.order_id, SR.store_id,
+            SREG.store_name, SR.report_status, SR.report_text,
+            SR.reporter_id, UI.Email AS reporter_email, SR.report_date
+        FROM StoreReports SR
+                 JOIN StoreRegistration SREG ON SR.store_id = SREG.store_id
+                 JOIN UserInformation UI ON SR.reporter_id = UI.user_id
+        WHERE SR.store_id = #{storeId}
+    </select>
+
+    <!-- 업체 차단 -->
+    <update id="storeBlock">
+        UPDATE storeregistration
+        SET approval_status = 2
+        WHERE store_id = #{id}
+    </update>
+
+    <!-- 오늘자 메인 메뉴 정보 -->
+    <select id="today" resultType="org.example.backend.admin.dto.TodayInfoVo">
+        SELECT
+                (SELECT COUNT(*) FROM visitors WHERE visit_date = CURDATE()) AS visitor_count,
+                (SELECT COUNT(*) FROM orderinformation WHERE order_approval_status IN (4, 6) AND DATE(order_date) = CURDATE()) AS order_count,
+            (SELECT SUM(total_price) FROM orderinformation WHERE order_approval_status IN (4, 6) AND DATE(order_date) = CURDATE()) AS total_price_sum
+    </select>
+
+</mapper>

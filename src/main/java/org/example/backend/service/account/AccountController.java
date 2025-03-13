@@ -1,5 +1,7 @@
 package org.example.backend.service.account;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.service.OrderException;
 import org.example.backend.service.PayAccountVo;
@@ -12,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 @RestController
 @RequestMapping("/account")
+@Tag(name = "계좌정보 api", description = "계좌정보 API")
 public class AccountController {
 
     @Autowired
@@ -19,6 +22,7 @@ public class AccountController {
 
     //계좌잔액확인
     @GetMapping("/amount")
+    @Operation(summary = "계좌 잔액 확인 api", description = "계좌 잔액 확인 api")
     public int amount(@RequestParam("id") int id){
         return accountService.amount(id);
     }
@@ -26,6 +30,7 @@ public class AccountController {
 
     //계좌 금액추가 하고 현재 금액 반환하기
     @PostMapping("/deposit")
+    @Operation(summary = "계좌에 포인트 입금요청", description = "계좌에 포인트 입금 api")
     public int deposit(@RequestBody Map<String, Integer> info){
         int id=info.get("id");
         int price=info.get("price");
@@ -58,6 +63,7 @@ public class AccountController {
 //    }
 
     @PostMapping("/pay")
+    @Operation(summary = "결제 요청", description = "주문시 결제 요청 api")
     public ResponseEntity<?> pay(@RequestBody PayAccountVo payAccountVo){
         int id=payAccountVo.getId();
         System.out.println(id);
@@ -85,6 +91,7 @@ public class AccountController {
 
     //등급 확인
     @PostMapping("/rank")
+    @Operation(summary = "회원등급 반환요청", description = "회원등급 반환요청 api")
     public String rank(@RequestBody PayAccountVo payAccountVo){
         String name=accountService.rank(payAccountVo);
         if (name!=""){

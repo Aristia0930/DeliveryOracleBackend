@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.backend.service.search.SearchDao;
 import org.example.backend.store.dto.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GeminiService {
@@ -46,7 +47,7 @@ public class GeminiService {
         ChatResponse response = restTemplate.postForObject(requestUrl, request, ChatResponse.class);
 
         String message = response.getCandidates().get(0).getContent().getParts().get(0).getText().toString();
-        System.out.println(message);
+
 
         String [] splitArray = message.split("\n");
         Map<String, List<StoreRegistrationVo>> menuList = new HashMap<>(); // 초기화
@@ -55,6 +56,8 @@ public class GeminiService {
 
             int index = splitArray[i].indexOf(":");
             String menuName = splitArray[i].substring(3, index);
+
+            log.info(menuName);
             String menuNames = splitArray[i].substring(3);
 //            List<StoreRegistrationVo> stores=new ArrayList<>();
 
@@ -76,7 +79,7 @@ public class GeminiService {
 
             if (!uniqueStores.isEmpty()) {
                 menuList.put(menuNames, uniqueStores);
-                System.out.println(uniqueStores);
+//                System.out.println(uniqueStores);
             }
         }
 
@@ -98,7 +101,7 @@ public class GeminiService {
             for (Map<String, Object> menuItem : orderList) {
                 String menuName = (String) menuItem.get("menuName");
                 menuNames.add(menuName);
-                names+=menuName+" ";
+                names+=menuName+" ,";
             }
         }
         return names;

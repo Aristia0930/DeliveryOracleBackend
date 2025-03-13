@@ -1,4 +1,4 @@
-package org.example.backend.sock;
+package org.example.backend.socket;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
