@@ -18,7 +18,7 @@ import java.util.Set;
 public class SearchService {
 
     @Autowired
-    private SearchDao searchDao;
+    private SearchMapper searchDao;
 
     @Autowired
     private  SessionRegistry sessionRegistry;

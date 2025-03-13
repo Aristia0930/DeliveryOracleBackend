@@ -26,12 +26,12 @@ public class GeminiService {
     private RestTemplate restTemplate;
 
     @Autowired
-    private  GeminiDao geminiDao;
+    private  GeminiMapper geminiDao;
 
     @Autowired
     private SearchDao searchDao;
 
-    //    @Value("https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent")
+
     @Value("${GEMINI_URL}")
     private String apiUrl;
 
@@ -59,12 +59,12 @@ public class GeminiService {
 
             log.info(menuName);
             String menuNames = splitArray[i].substring(3);
-//            List<StoreRegistrationVo> stores=new ArrayList<>();
+
 
             //테이블에 들어가서 그 메뉴 이름있는 가게 목록 보두 불러와야함.
             //이메뉴를 가지고 있는 모든 식당을 조회한다. 스토어 id 를 꺼내오기
 
-//            stores=searchDao.storeList3(x,y,menuName);
+
             // Set을 사용하여 중복 제거
             List<StoreRegistrationVo> allStores = searchDao.storeList3(x, y, menuName);
             List<StoreRegistrationVo> uniqueStores = new ArrayList<>();
@@ -79,7 +79,7 @@ public class GeminiService {
 
             if (!uniqueStores.isEmpty()) {
                 menuList.put(menuNames, uniqueStores);
-//                System.out.println(uniqueStores);
+
             }
         }
 

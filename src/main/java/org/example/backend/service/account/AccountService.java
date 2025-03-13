@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountService {
 
     @Autowired
-    private AccountDao accountDao;
+    private AccountMapper accountDao;
 
     @Autowired
     private SearchService searchService;
@@ -38,24 +38,7 @@ public class AccountService {
 
     }
 
-    //결제하기
-//    @Transactional
-//    public int pay(int id,int price){
-//        //유저 계좌 번호 확인
-//        int accountNum=accountDao.accountId(id);
-//        log.info(":::: 내계좌 넘버 ::::"+accountNum);
-//        //현재 잔액
-//        int amount=accountDao.amount(id);
-//        if (amount + price<0){
-//            throw new IllegalStateException("Insufficient balance");
-//
-//
-//        }else {
-//            return accountDao.withdraw(accountNum, price);
-//        }
-//
-//
-//    }
+
 
     @Transactional
     public int pay(PayAccountVo payAccountVo){

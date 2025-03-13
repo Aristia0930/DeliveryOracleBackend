@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.backend.service.useredit.UserEditMapper">
+
+    <!-- 사용자 정보 조회 -->
+    <select id="select" parameterType="int" resultType="org.example.backend.user.dto.User">
+        SELECT * FROM UserInformation WHERE user_id = #{userId}
+    </select>
+
+    <!-- 사용자 이름 업데이트 -->
+    <update id="updateName" parameterType="map">
+        UPDATE UserInformation
+        SET name = #{nickname}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 사용자 비밀번호 업데이트 -->
+    <update id="updatePass" parameterType="map">
+        UPDATE UserInformation
+        SET password = #{password}, modification_date = CURRENT_TIMESTAMP
+        WHERE user_id = #{userId}
+    </update>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.example.backend.kakao.KakaoMapper">
+    <select id="check" parameterType="string" resultType="int">
+        SELECT user_id
+        FROM userinformation
+        WHERE Email = #{email};
+    </select>
+
+    <select id="info" parameterType="string" resultType="org.example.backend.kakao.dto.KakaUserVO">
+        SELECT r.user_id, a.auth
+        FROM userinformation r
+                 JOIN userinfo_auth a ON a.user_id = r.Email
+        WHERE r.Email = #{email};
+    </select>
+
+</mapper>

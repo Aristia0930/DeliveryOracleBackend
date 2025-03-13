@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class RiderService {
     @Autowired
-    private RiderDao riderDao;
+    private RiderMapper riderDao;
 
 
     //배달전체 목록 불러오기
@@ -77,7 +77,7 @@ public class RiderService {
         //라이더 db에 주문 내역 넣기
         int callrs=riderDao.call(riderVo);
         //주문 db 상태 수정 배달 2로 수정하기
-        int order= riderDao.order(riderVo);
+        int order= riderDao.order(riderVo.getOrderId());
         if (callrs==1  && order==1)
             return 1;
         else
@@ -96,9 +96,9 @@ public class RiderService {
     public int finish( RiderVo riderVo){
 
         //라이더 db에 상태 1로 수정
-        int callrs=riderDao.finish(riderVo);
+        int callrs=riderDao.finish(riderVo.getDeliveryId());
         //주문 db 상태 수정 배달 완료 4로 수정하기
-        int order= riderDao.orderfinish(riderVo);
+        int order= riderDao.orderfinish(riderVo.getOrderId());
         if (callrs==1  && order==1)
             return 1;
         else
