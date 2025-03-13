@@ -3,6 +3,7 @@ package org.example.backend.test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.store.dto.StoreOrderInformationVo;
@@ -35,7 +36,10 @@ public class TestController {
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+
     @GetMapping("/api/userinfo")
+    @Operation(summary = "유저 정보 요청", description = "유저 정보 요청 api=> 유저이름,이메일,권한")
     public User getUserInfo(@RequestHeader("Authorization") String authHeader) {
         log.info(":::: jwt토큰으로부터 값 꺼내오기 ::::");
         Authentication authentication = jwtTokenProvider.getAuthentication(authHeader);

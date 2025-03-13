@@ -3,7 +3,7 @@ package org.example.backend.service.search;
 import org.example.backend.comments.dto.CommentsVo;
 import org.example.backend.service.OrderListVo;
 import org.example.backend.service.OrderVo;
-import org.example.backend.sock.SessionRegistry;
+import org.example.backend.socket.SessionRegistry;
 import org.example.backend.store.dto.StoreInformationVo;
 import org.example.backend.store.dto.StoreRegistrationVo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package org.example.backend.sock;
+package org.example.backend.socket;
 
 import org.springframework.stereotype.Component;
 
