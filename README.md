@@ -11,7 +11,7 @@
 2024.06.10 ~ 2024.07.18  
 팀원 총 3명 (Frontend 1명, Backend 1명, FullStack 1명)
 
-**사용한 기술 스택**  
+## 기술 스택  
 - Frontend: React  
 - Backend: Spring Boot  
 - Database: MySQL  
